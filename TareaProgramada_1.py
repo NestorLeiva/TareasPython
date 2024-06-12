@@ -83,34 +83,59 @@ def TexBoxNumero_MenorPotencia(ventana, x,y):
     Texto.place(x=x, y=y)
 #Fin textBoxNumeroMenorPotencia
 
+def BotonProcesar(ventana, x , y):
+    boton = tk.Button(ventana, text="Procesar",font=("", 12))
+    #accion == command = 
+    boton.place(x=x,y=y)
+#Boton Calcular Operaciones
+
+def BotonTerminar(ventana, x , y):
+    boton = tk.Button(ventana, text="Terminar",font=("", 12))
+    #accion == command = 
+    boton.place(x=x,y=y)
+#terminar la ejecucion del programa
+
+def BotonLimpiar(ventana, x , y):
+    boton = tk.Button(ventana, text="Limpiar",font=("", 12))
+    #accion == command = 
+    boton.place(x=x,y=y)
+#Boton Limpiar TextBox
+
 
 """ -------------------------- Funcion Main -------------------------- """
 
 ventana.title("Primera Tarea Programada") 
 # Titulo de la ventana
-ventana.geometry("700x600")
+ventana.geometry("700x500")
 # tamano de la ventana
 
+""" *** Llamada de Funciones *** """
 labelTitulo(ventana, 200, 20)
 
-labelNumeros(ventana, 20, 70)
-TexBoxNumero_1(ventana,350,70)
-TexBoxNumero_2(ventana,450,70)
-TexBoxNumero_3(ventana,550,70)
+labelNumeros(ventana, 100, 120)
+TexBoxNumero_1(ventana,350,120)
+TexBoxNumero_2(ventana,450,120)
+TexBoxNumero_3(ventana,550,120)
 
-labelNumeroMayor(ventana, 20 , 200)
+BotonProcesar(ventana,350, 150 )
+BotonLimpiar(ventana, 450, 150 )
+
+labelNumeroMayor(ventana, 210 , 200)
 TexBoxNumero_Mayor(ventana, 350 , 200)
 
-labelNumeroMenor(ventana, 20, 270)
+labelNumeroMenor(ventana, 210, 270)
 TexBoxNumero_Menor(ventana, 350 , 270)
 
-labelNumeroMayorMultiplicado(ventana, 20, 350)
+labelNumeroMayorMultiplicado(ventana, 30, 350)
 TexBoxNumero_MayorMultiplicado(ventana, 450 , 350)
 TexBoxNumero_MayorPotencia(ventana, 350 , 350)
 
-labelNumeroMenorMultiplicado(ventana, 20, 400)
+labelNumeroMenorMultiplicado(ventana, 30, 400)
 TexBoxNumero_MenorMultiplicado(ventana,350 , 400)
 TexBoxNumero_MenorPotencia(ventana, 450, 400)
+
+BotonTerminar(ventana, 375,450 )
+
 
 ventana.mainloop()
 
