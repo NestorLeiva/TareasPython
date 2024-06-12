@@ -5,6 +5,7 @@ ventana = tk.Tk()
 # objeto tipo ventana de la clase Tkinter
 
 """ -------------------------- Funciones -------------------------- """
+# Creacion de las funciones con los parametros de 'Ventana' & los Ejes 'X', 'Y'
 def labelTitulo(ventana, x , y):
     label = tk.Label(ventana, text="Entrada de Numeros a Evaluar", font=("",15)).place(x=x, y=y)
     # se realiza el posisionamiento del label por medio de las coordenadas
@@ -67,20 +68,17 @@ def TexBoxNumero_MenorPotencia(ventana, x,y):
 #Fin textBoxNumeroMenorPotencia
 
 def BotonProcesar(ventana, x , y):
-    boton = tk.Button(ventana, text="Procesar",font=("", 12))
+    boton = tk.Button(ventana, text="Procesar",font=("", 12)).place(x=x,y=y)
     #accion == command = 
-    boton.place(x=x,y=y)
 #Boton Calcular Operaciones
 
 def BotonTerminar(ventana, x , y):
-    boton = tk.Button(ventana, text="Terminar",font=("", 12), command=exit )
-    boton.place(x=x,y=y)
+    boton = tk.Button(ventana, text="Terminar",font=("", 12), command=exit).place(x=x,y=y)
 #terminar la ejecucion del programa
 
 def BotonLimpiar(ventana, x , y):
-    boton = tk.Button(ventana, text="Limpiar",font=("", 12))
+    boton = tk.Button(ventana, text="Limpiar",font=("", 12)).place(x=x,y=y)
     #accion == command = 
-    boton.place(x=x,y=y)
 #Boton Limpiar TextBox
 
 """ -------------------------- Funcion Main -------------------------- """
@@ -89,7 +87,7 @@ ventana.title("Primera Tarea Programada")   # Titulo de la ventana
 ventana.geometry("700x500") # tamano de la ventana
 
 # Llamado de las funciones con los parametros de 'Ventana' & los Ejes 'X', 'Y'
-labelTitulo(ventana, 200, 20)
+labelTitulo(ventana, 220, 50)
 
 labelNumeros(ventana, 100, 120)
 TexBoxNumero_1(ventana,350,120)
