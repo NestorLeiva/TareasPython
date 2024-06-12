@@ -90,8 +90,7 @@ def BotonProcesar(ventana, x , y):
 #Boton Calcular Operaciones
 
 def BotonTerminar(ventana, x , y):
-    boton = tk.Button(ventana, text="Terminar",font=("", 12))
-    #accion == command = 
+    boton = tk.Button(ventana, text="Terminar",font=("", 12), command=exit )
     boton.place(x=x,y=y)
 #terminar la ejecucion del programa
 
