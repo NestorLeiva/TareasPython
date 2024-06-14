@@ -1,118 +1,76 @@
+#from tkinter import * = otra forma de llamar a la libreria Tkinter
 import tkinter as tk
 #importacion de la clase Tkinter
 
 ventana = tk.Tk() 
 # objeto tipo ventana de la clase Tkinter
 
-""" -------------------------- Funciones -------------------------- """
-# Creacion de las funciones con los parametros de 'Ventana' & los Ejes 'X', 'Y'
-def labelTitulo(ventana, x , y):
-    label = tk.Label(ventana, text="Entrada de Numeros a Evaluar", font=("",15)).place(x=x, y=y)
-    # se realiza el posisionamiento del label por medio de las coordenadas
-#Fin label_Titulo
-
-def labelNumeros(ventana, x,y):
-    label = tk.Label(ventana,text="Ingrese los 3 numeros a Evaluar", font=("",12)).place(x=x, y=y)
-#Fin label_Numeros
-
-def labelNumeroMayor(ventana, x,y):
-    label = tk.Label(ventana, text="Numero Mayor", font=("",12)).place(x=x,y=y)
-#Fin label_NumerosMayor
-
-def labelNumeroMenor(ventana, x,y):
-    label = tk.Label(ventana, text="Numero Menor", font=("",12)).place(x=x,y=y)
-#Fin label_NumerosMenor
-
-def labelNumeroMayorMultiplicado(ventana, x,y):
-    label = tk.Label(ventana, text="Numero Mayor multiplicado & en Potencia", font=("",12)).place(x=x,y=y)
-#Fin label_NumerosMayor&Potencia
-
-def labelNumeroMenorMultiplicado(ventana, x,y):
-    label = tk.Label(ventana, text="Numero Menor multiplicado & en Potencia", font=("",12)).place(x=x,y=y)
-#Fin label_NumerosMayor&Potencia
-
-def TexBoxNumero_1(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center").place(x=x, y=y)
-#Fin textBoxNumero1
-
-def TexBoxNumero_2(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center").place(x=x, y=y)
-#Fin textBoxNumero2
-
-def TexBoxNumero_3(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center").place(x=x, y=y)
-#Fin textBoxNumero3
-
-def TexBoxNumero_Mayor(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMayor
-
-def TexBoxNumero_Menor(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMenor
-
-def TexBoxNumero_MayorMultiplicado(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMayorMultiplicado
-
-def TexBoxNumero_MayorPotencia(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMayorPotencia
-
-def TexBoxNumero_MenorMultiplicado(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMenorMultiplicado
-
-def TexBoxNumero_MenorPotencia(ventana, x,y):
-    Texto = tk.Entry(ventana, width=10, justify="center", state="readonly").place(x=x, y=y)
-#Fin textBoxNumeroMenorPotencia
-
-def BotonProcesar(ventana, x , y):
-    boton = tk.Button(ventana, text="Procesar",font=("", 12)).place(x=x,y=y)
-    #accion == command = 
-#Boton Calcular Operaciones
-
-def BotonTerminar(ventana, x , y):
-    boton = tk.Button(ventana, text="Terminar",font=("", 12), command=exit).place(x=x,y=y)
-#terminar la ejecucion del programa
-
-def BotonLimpiar(ventana, x , y):
-    boton = tk.Button(ventana, text="Limpiar",font=("", 12)).place(x=x,y=y)
-    #accion == command = 
-#Boton Limpiar TextBox
-
-""" -------------------------- Funcion Main -------------------------- """
-
-ventana.title("Primera Tarea Programada")   # Titulo de la ventana
+ventana.title("Prueba")   # Titulo de la ventana
 ventana.geometry("700x500") # tamano de la ventana
+#------------------------------------ Funciones -----------------------------------------#
+def Operaciones():
+    print("HolaMundoEstoEsUnaPrueba")
+# fin Funcion Operaciones
 
-# Llamado de las funciones con los parametros de 'Ventana' & los Ejes 'X', 'Y'
-labelTitulo(ventana, 220, 50)
+def LimparTextBox(*TextoWidget):
+    for texto in TextoWidget:
+        texto.delete(0,"end")
+        """ * en el parametro permite una cantidad variable de arguementos
+        (0, 'end') borra el contenido de cada Widget desde el primer caracter '0' hasta el ultimo 'end'  """
 
-labelNumeros(ventana, 100, 120)
-TexBoxNumero_1(ventana,350,120)
-TexBoxNumero_2(ventana,450,120)
-TexBoxNumero_3(ventana,550,120)
+def CrearTextBox():
+    txtNumero1 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero1.place(x=350, y=120)
+    txtNumero2 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero2.place(x=450, y=120)
+    txtNumero3 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero3.place(x=550, y=120)
+    txtNumeroMayor = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMayor.place(x=350, y=200)
+    txtNumeroMenor = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMenor.place(x=350, y=270)
+    txtNumeroMayorMultiplicado = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMayorMultiplicado.place(x=450, y=350)
+    txtNumeroMayorPotencia = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMayorPotencia.place(x=350, y=350)
+    txtNumeroMenorMultiplicado = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMenorMultiplicado.place(x=350, y=400)
+    txtNumeroMenorPotencia = tk.Entry(ventana, width=10, justify="center")
+    txtNumeroMenorPotencia.place(x=450, y=400)
 
-BotonProcesar(ventana,350, 150 )
-BotonLimpiar(ventana, 450, 150 )
+    return txtNumero1, txtNumero2, txtNumero3, txtNumeroMayor, txtNumeroMenor, txtNumeroMayorMultiplicado, txtNumeroMenorMultiplicado, txtNumeroMayorPotencia, txtNumeroMenorPotencia
+    # se realiza el retorno de cada label
+# fin fincion para crear textBox
 
-labelNumeroMayor(ventana, 210 , 200)
-TexBoxNumero_Mayor(ventana, 350 , 200)
+def CrearLabel(): 
+    lblNumeroMayor = tk.Label(ventana, text="Numero Mayor", font=("",12)).place(x=210,y=200)
+    lblNumeroMenor = tk.Label(ventana, text="Numero Menor", font=("",12)).place(x=210,y=270)
+    lblNumeroMayorMultiplicado = tk.Label(ventana, text="Numero Mayor multiplicado & en Potencia", font=("",12)).place(x=30,y=350)
+    lblNumeroMenorMultiplicado = tk.Label(ventana, text="Numero Menor multiplicado & en Potencia", font=("",12)).place(x=30,y=400) 
+    lblTitulo = tk.Label(ventana, text="Entrada de Numeros a Evaluar", font=("",15)).place(x=220, y=50)
+    lblInstruccion = tk.Label(ventana,text="Ingrese los 3 numeros a Evaluar", font=("",12)).place(x=100, y=120)   
 
-labelNumeroMenor(ventana, 210, 270)
-TexBoxNumero_Menor(ventana, 350 , 270)
+    return lblNumeroMayor, lblNumeroMenor, lblNumeroMayorMultiplicado, lblNumeroMenorMultiplicado, lblTitulo, lblInstruccion 
+    # se realiza el retorno de cada label
+# fin fincion para crear Label
+#------------------------------------ Fin Funciones -----------------------------------------#
 
-labelNumeroMayorMultiplicado(ventana, 30, 350)
-TexBoxNumero_MayorMultiplicado(ventana, 450 , 350)
-TexBoxNumero_MayorPotencia(ventana, 350 , 350)
+#------------------------------------  Inicio Widget -----------------------------------------#
 
-labelNumeroMenorMultiplicado(ventana, 30, 400)
-TexBoxNumero_MenorMultiplicado(ventana,350 , 400)
-TexBoxNumero_MenorPotencia(ventana, 450, 400)
+txtNumero1, txtNumero2, txtNumero3, txtNumeroMayor, txtNumeroMenor, txtNumeroMayorMultiplicado, txtNumeroMenorMultiplicado, txtNumeroMayorPotencia, txtNumeroMenorPotencia = CrearTextBox()
+lblNumeroMayor, lblNumeroMenor, lblNumeroMayorMultiplicado, lblNumeroMenorMultiplicado, lblTitulo, lblInstruccion = CrearLabel()
+# se crean las variables para cada Label y TextBox y estas son asignadas a las funciones respectivas
+#-----------------------------------------------------------------------------#
+btnProcesar = tk.Button(ventana, text="Procesar",font=("", 12),command=Operaciones).place(x=350,y=150)
 
-BotonTerminar(ventana, 375,450)
+btnLimpiar = btnProcesar = tk.Button(ventana, text="Limpiar",font=("", 12),command=lambda: LimparTextBox(
+    txtNumero1, txtNumero2, txtNumero3, txtNumero3, txtNumeroMayor, txtNumeroMenor,
+    txtNumeroMayorMultiplicado, txtNumeroMenorMultiplicado, txtNumeroMayorPotencia, txtNumeroMenorPotencia)).place(x=450,y=150)
+""" lambda = forma corta de declaracion de funciones pequenas y anonimas. Esta se comporta como una funcion normal. """
+btnTerminar = tk.Button(ventana, text="Terminar",font=("", 12), command=exit).place(x=375,y=450)
+#------------------------------------ Fin Widget -----------------------------------------#
+
+
+
 
 ventana.mainloop()
-
-""" -------------------------- Fin Funcion Main -------------------------- """
