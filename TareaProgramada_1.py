@@ -20,12 +20,16 @@ def Operaciones():
 
         if not (1 <= numero1 <= 10) or not (1 <= numero2 <= 10) or not (1 <= numero3 <= 10):
             messagebox.showwarning("Tarea Programada # 1", "Los numeros Ingresados deben estar entre 1 y 10")
+            LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3) 
+            # Invoco a la funcion con los parametro para limpiar los TextBox
             return
         
         if NumRepetidos:
             mensaje = "Numero Repetido es: ", NumRepetidos.pop()
             """El método pop()  borra y retorna el último elemento de una lista. Si no se especifica ningún índice """
             messagebox.showwarning(f"Tarea Programada # 1", mensaje)
+            LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3)
+            # Invoco a la funcion con los parametro para limpiar los TextBox
             return
                 
         #-- encontrar numero mayor --
@@ -69,6 +73,8 @@ def Operaciones():
 
     except ValueError:
         messagebox.showerror("Tarea Programada # 1", "Ingrese Valores Validos")
+        LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3)
+        # Invoco a la funcion con los parametro para limpiar los TextBox
 # fin Funcion Operaciones
 
 def LimpiarTextBox(*TextoWidget):
@@ -76,13 +82,13 @@ def LimpiarTextBox(*TextoWidget):
     """ * en el parametro permite una cantidad variable de arguementos (0, 'end') borra el contenido de cada Widget desde el primer caracter '0' hasta el ultimo 'end'  """
 
 def CrearTextBox():
-    txtNumero1 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero1 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero1.place(x=350, y=120)
  #----------------------------------------------------------#
-    txtNumero2 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero2 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero2.place(x=450, y=120)
  #----------------------------------------------------------#
-    txtNumero3 = tk.Entry(ventana, width=10, justify="center")
+    txtNumero3 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero3.place(x=550, y=120)
 #----------------------------------------------------------#
 
@@ -98,30 +104,25 @@ def CrearLabel():
     lblNumeroMenor = tk.Label(ventana, text="Numero Menor", font=("",12)).place(x=210,y=270)
     lblNumeroMayorMultiplicado = tk.Label(ventana, text="Numero Mayor multiplicado & en Potencia", font=("",12)).place(x=30,y=350)
     lblNumeroMenorMultiplicado = tk.Label(ventana, text="Numero Menor multiplicado & en Potencia", font=("",12)).place(x=30,y=400) 
-
-    lblResNumeroMayor = tk.Label(ventana, text='---', justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMayor = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMayor.place(x=350, y=200)
-
-
-    lblResNumeroMenor = tk.Label(ventana, text='---', justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMenor = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMenor.place(x=350, y=270)
-
-
-    lblResNumeroMayorMultiplicado = tk.Label(ventana, text='---' , justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMayorMultiplicado = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMayorMultiplicado.place(x=350, y=350)
-
-
-    lblResNumeroMenorMultiplicado = tk.Label(ventana, text='---', justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMenorMultiplicado = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMenorMultiplicado.place(x=350, y=400)
-
-
-    lblResNumeroMayorPotencia = tk.Label(ventana, text='---', justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMayorPotencia = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMayorPotencia.place(x=450, y=350)
-
-
-    lblResNumeroMenorPotencia = tk.Label(ventana, text='---', justify="center")
+#----------------------------------------------------------#
+    lblResNumeroMenorPotencia = tk.Label(ventana, text='---', width=10, justify="center", bd=1, relief="solid")
     lblResNumeroMenorPotencia.place(x=450, y=400)
-
+#----------------------------------------------------------#
     return (lblNumeroMayor, lblNumeroMenor, lblNumeroMayorMultiplicado, lblNumeroMenorMultiplicado, lblTitulo, lblInstruccion, 
         lblResNumeroMayor, lblResNumeroMenor, lblResNumeroMayorMultiplicado, lblResNumeroMenorMultiplicado, lblResNumeroMayorPotencia, lblResNumeroMenorPotencia)
     # se realiza el retorno de cada label
