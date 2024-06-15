@@ -1,12 +1,13 @@
-#from tkinter import * = otra forma de llamar a la libreria Tkinter
+# from tkinter import * = otra forma de llamar a la libreria Tkinter
 import tkinter as tk
 from tkinter import messagebox
-#importacion de la clase Tkinter
-ventana = tk.Tk() 
+# importacion de la clase Tkinter
+ventana = tk.Tk()
 # objeto tipo ventana de la clase Tkinter
 ventana.title("Prueba")   # Titulo de la ventana
-ventana.geometry("700x500") # tamano de la ventana
-#------------------------------------ Funciones -----------------------------------------#
+ventana.geometry("700x500")  # tamano de la ventana
+# ------------------------------------ Funciones -----------------------------------------#
+
 def Operaciones():
     try:
         numero1 = int(txtNumero1.get())
@@ -14,43 +15,43 @@ def Operaciones():
         numero3 = int(txtNumero3.get())
 
         ListaNumeros = [numero1, numero2, numero3]
-        NumRepetidos = set([x for x in ListaNumeros if ListaNumeros.count(x) > 1 ])
-        """ lista de comprensión en Python*** se realiza el recorrido con el For,  posterior se realiza un filtrado para incluir 
+
+        NumRepetidos = set([x for x in ListaNumeros if ListaNumeros.count(x) > 1])
+        """ lista de comprensión en Python*** se realiza el recorrido con el For,  posterior se realiza un filtrado para incluir
         los numeros que se repiten mas de 1 vez, posterior devuelve la cantidad de veces que se repite. """
 
         if not (1 <= numero1 <= 10) or not (1 <= numero2 <= 10) or not (1 <= numero3 <= 10):
-            messagebox.showwarning("Tarea Programada # 1", "Los numeros Ingresados deben estar entre 1 y 10")
-            LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3) 
-            # Invoco a la funcion con los parametro para limpiar los TextBox
-            return
-        
-        if NumRepetidos:
-            mensaje = "Numero Repetido es: ", NumRepetidos.pop()
-            """El método pop()  borra y retorna el último elemento de una lista. Si no se especifica ningún índice """
-            messagebox.showwarning(f"Tarea Programada # 1", mensaje)
+            messagebox.showwarning("Tarea Programada # 1, Error ", "Los numeros Ingresados deben estar entre 1 y 10")
             LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3)
             # Invoco a la funcion con los parametro para limpiar los TextBox
             return
-                
-        #-- encontrar numero mayor --
-        Numero_Mayor = max(ListaNumeros)
-        #La función max devuelve el máximo valor de un iterable, o el máximo valor de dos o más argumentos
-        Numero_Menor = min(ListaNumeros)
-        #La función min devuelve el mínimo valor de un iterable, o el mínimo valor de dos o más argumentos.
 
-        #--  Muestro el resultado del numero mayor / Menor -- 
+        if NumRepetidos:
+            mensaje = "Numero Repetido es: ", NumRepetidos.pop()
+            """El método pop()  borra y retorna el último elemento de una lista. Si no se especifica ningún índice """
+            messagebox.showwarning(f"Tarea Programada # 1, Error ", mensaje)
+            LimpiarTextBox(txtNumero1, txtNumero2, txtNumero3)
+            # Invoco a la funcion con los parametro para limpiar los TextBox
+            return
+
+        # -- encontrar numero mayor --
+        Numero_Mayor = max(ListaNumeros)
+        # La función max devuelve el máximo valor de un iterable, o el máximo valor de dos o más argumentos
+        Numero_Menor = min(ListaNumeros)
+        # La función min devuelve el mínimo valor de un iterable, o el mínimo valor de dos o más argumentos.
+
+        # --  Muestro el resultado del numero mayor / Menor --
         lblResNumeroMayor.config(text=str(Numero_Mayor))
         # str = se utiliza para representar texto
         lblResNumeroMenor.config(text=str(Numero_Menor))
 
         Numero_Mayor_Multiplicado = Numero_Mayor
-            
+
         if Numero_Mayor_Multiplicado > 5:
             Numero_Mayor_Multiplicado *= 4
         elif Numero_Mayor_Multiplicado <= 5:
             Numero_Mayor_Multiplicado *= 3
-
-        # *= es equivalente a Numero_Mayor_Multiplicado = Numero_Mayor_Multiplicado 
+        # *= es equivalente a Numero_Mayor_Multiplicado = Numero_Mayor_Multiplicado
 
         lblResNumeroMayorMultiplicado.config(text=str(Numero_Mayor_Multiplicado))
         # impresion del resultado
@@ -91,7 +92,6 @@ def CrearTextBox():
     txtNumero3 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero3.place(x=550, y=120)
 #----------------------------------------------------------#
-
     return txtNumero1, txtNumero2, txtNumero3 
     # se realiza el retorno de cada label
 # fin fincion para crear textBox
