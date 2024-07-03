@@ -12,13 +12,14 @@
     * Todos los resultados deben ser mostrados en Pantalla
 
  
-  # ***_Tarea Programada # 2_***
+# ***_Tarea Programada # 2_***
   * Lenguaje Utilizado
     * Python
 * Objetivo de la Tarea 2:
      * Realizar una calculadora basica con la libreria tkinter
      * Utilizacion de la funcion Lambda
-
+     
+--------------------------------------------------------------------
 * Institucion: 
     * Colegio Universitario de Cartago
 * Profesor: 
