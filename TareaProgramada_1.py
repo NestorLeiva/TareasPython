@@ -85,10 +85,10 @@ def LimpiarTextBox(*TextoWidget):
 def CrearTextBox():
     txtNumero1 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero1.place(x=350, y=120)
-    #----------------------------------------------------------#
+ #----------------------------------------------------------#
     txtNumero2 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero2.place(x=450, y=120)
-    #----------------------------------------------------------#
+ #----------------------------------------------------------#
     txtNumero3 = tk.Entry(ventana, width=10, justify="center", bd=1, relief="solid")
     txtNumero3.place(x=550, y=120)
     #----------------------------------------------------------#
