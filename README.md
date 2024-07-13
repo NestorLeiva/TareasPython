@@ -2,7 +2,7 @@
 
 * Lenguaje Utilizado
     * Python
-* Objetivo de la Tarea : 
+* Objetivo de la Tarea: 
     * Investigar e implementar la libreria Tkinter
     * Programa que evalua 3 numeros enteros del 1 al 10, seleccionando el menor y mayor
     * Multiplicar el numero mayor y menor.
@@ -13,14 +13,14 @@
 # ***_Tarea Programada # 2_***
   * Lenguaje Utilizado
     * Python
-* Objetivo de la Tarea 2:
+* Objetivo de la Tarea:
      * Realizar una calculadora basica con la libreria tkinter
      * Utilizacion de la funcion Lambda
 
 # ***_Tarea Programada # 3_***
 * Lenguaje Utilizado
     * Python
-* Objetivo de la Tarea :
+* Objetivo de la Tarea:
     * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter.
     * El programa tiene que permitir consultar y mostrar información específica de distintas tablas predefinidas.
     * El programa deberá permitir al usuario ingresar un número de consulta o un nombre, y desplegar la información correspondiente sobre la persona seleccionada. 
