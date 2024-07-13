@@ -10,7 +10,7 @@
     * Numero menor o igual a 5 multiplicarlo por 2. Y el numero mayor debe ser elevedado a la potencia de 2
     * Todos los resultados deben ser mostrados en Pantalla
  
-# ***_Tarea Programada # _***
+# ***_Tarea Programada # 2_***
   * Lenguaje Utilizado
     * Python
 * Objetivo de la Tarea 2:
