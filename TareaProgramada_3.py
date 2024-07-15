@@ -2,17 +2,21 @@ import  tkinter as tk
 
 ventana = tk.Tk()
 
-ventana.geometry("300x220")
+ventana.geometry("330x220")
 ventana.title("Consulta de Informacion")
+
+def Limpiar(*TextoWidget):
+    for texto in TextoWidget: texto.delete(0,"end")
+
 #----------------------------------------------------------------------------------------------------------------------------------#
 lblentrada = tk.Label(ventana, text="Ingrese el dato a consultar",width=25, justify="center", bd=1, relief="solid", font=("",12))
-lblentrada.grid(row = 1, column = 1, columnspan=5, padx = 5, pady = 5,sticky="we")
+lblentrada.grid(row = 1, column = 1, columnspan=2, padx = 5, pady = 5,sticky="we")
 txtEntrada = tk.Entry(ventana,  justify="center", bd=2,  relief="solid", font=("", 14))
 txtEntrada.focus()
-txtEntrada.grid(row = 2, column = 1, columnspan=5, padx = 5, pady = 5,sticky="we")
+txtEntrada.grid(row = 2, column = 1, columnspan=2, padx = 5, pady = 5,sticky="we")
 #----------------------------------------------------------------------------------------------------------------------------------#
 btnConsultar = tk.Button(ventana, text="Consultar:",width=15, justify="right", bd=3, relief="solid", font=("",12))
-btnConsultar.grid(row = 3, column = 1, columnspan=4, padx = 5, pady = 5,sticky="we")
+btnConsultar.grid(row = 3, column = 1, columnspan=2, padx = 5, pady = 5,sticky="we")
 #----------------------------------------------------------------------------------------------------------------------------------#
 lblNombre = tk.Label(ventana, text="Nombre:",width=15, justify="right", bd=1, relief="solid", font=("",12))
 lblNombre.grid(row = 4, column = 1, columnspan=1, padx = 5, pady = 5,sticky="we")
