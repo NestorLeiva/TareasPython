@@ -1,15 +1,12 @@
 import  tkinter as tk
 from tkinter import messagebox 
 ventana = tk.Tk()
-
 ventana.geometry("400x460")
 ventana.title("Consulta de Informacion")
 input_text = tk.StringVar()
 
 def Limpiar(*TextoWidget):
     for texto in TextoWidget: texto.delete(0,"end")
-
-
 
 def Operacion():
     try:
