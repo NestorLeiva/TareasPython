@@ -24,6 +24,14 @@
     * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter.
     * El programa tiene que permitir consultar y mostrar información específica de distintas tablas predefinidas.
     * El programa deberá permitir al usuario ingresar un número de consulta o un nombre, y desplegar la información correspondiente sobre la persona seleccionada. 
+# ***_Tarea Programada # 4_***
+* Lenguaje Utilizado
+    * Python
+* Objetivo de la Tarea:
+    * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter.
+    * El programa deberá conectarse a una base de datos SQL.
+    * El programa deberá permitir al usuario iniciar sesión ingresando sus credenciales.
+    * Una vez logueado, el programa mostrará los datos específicos del usuario logueado en la interfaz.
 --------------------------------------------------------------------
 * Institucion: 
     * Colegio Universitario de Cartago
