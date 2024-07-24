@@ -1,5 +1,10 @@
 import tkinter as tk
-from tkinter import *
+from tkinter import messagebox
+import pyodbc
+
+
+print('version pyodbc',pyodbc.version)
+print('version Odbc',pyodbc.drivers())
 
 ventana = tk.Tk()
 ventana.title('Tarea Programada 4')
@@ -41,7 +46,40 @@ def NuevaVentana(ventana):
     #---------------------------------------------------------------#
     btnRegresar = tk.Button(nuevaVentana, text="Regresar",width=25, justify="center", bd=2, relief="solid", font=("",12))
     btnRegresar.grid(row= 6, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
+    SQLConexion()
 
+def SQLConexion():
+    usuario = txtUsuario.get()
+    contrasena = txtContrasena.get()
+    server = "NESTORPC\\NESTOR"
+    database = "progra3"
+    username = "Nestor"
+    password = "nestor123"
+    username1 = "Arlin"
+    password1 = "arlin123"
+    ConexionString = pyodbc.connect( f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password};TrustServerCertificate=yes;')
+    ConexionString1 = pyodbc.connect( f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={username1};PWD={password1};TrustServerCertificate=yes;')
+
+    if (usuario == username) and (contrasena == password):
+        try:
+            conexion = ConexionString
+            print("Conexion Exitosa: ", username)
+        except pyodbc.Error as e:
+            print('Error al realizar la conexion', e)
+        finally:
+            conexion.close()
+            ('se realizo el cierre de la conexion', conexion)
+    elif (usuario == username1) and (contrasena == password1):    
+        try:
+            conexion1 = ConexionString1
+            print("Conexion Exitosa: ", username1)
+        except pyodbc.Error as e:
+            print('Error al realizar la conexion', e)
+        finally:
+            conexion1.close()
+            print('se realizo el cierre de la conexion', conexion1)
+    else:
+        messagebox.showerror('Tarea Programada 4','Error al realizar la conexion a SQL')
 #---------------------------------------------------------------#
 lblTitulo = tk.Label(ventana, text="Ventana de Login",width=25, justify="center", bd=2, relief="solid", font=("",12))
 lblTitulo.grid(row = 1, column = 1, columnspan=3, padx = 10, pady = 10,sticky="we")
@@ -56,7 +94,7 @@ txtUsuario.focus()
 lblContrasena = tk.Label(ventana, text="Contrasena: ", width= 20,justify="center", bd=2, relief="solid", font=("",12))
 lblContrasena.grid(row=3, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
 
-txtContrasena = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12))
+txtContrasena = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12),show='*') # show muestra en el TXT el caracter deseado
 txtContrasena.grid(row=3, column=2, columnspan=1, padx = 10, pady = 10,sticky="we")
 #---------------------------------------------------------------#
 btnLogin = tk.Button(ventana, text="Login",width=10, justify="center", bd=2, relief="solid", font=("",12), command=lambda:NuevaVentana(ventana))
