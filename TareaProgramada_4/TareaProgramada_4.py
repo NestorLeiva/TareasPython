@@ -2,10 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import pyodbc
 
-
-print('version pyodbc',pyodbc.version)
-print('version Odbc',pyodbc.drivers())
-
 ventana = tk.Tk()
 ventana.title('Tarea Programada 4')
 ventana.geometry('550x200')
@@ -13,7 +9,7 @@ ventana.geometry('550x200')
 def Limpiar(*TextoWidget):
     for texto in TextoWidget: texto.delete(0,"end")
 def NuevaVentana(ventana):
-    nuevaVentana = tk.Tk()
+    nuevaVentana = tk.Toplevel(ventana) # se configura para que sea una ventana hija de la ventana principal
     nuevaVentana.geometry('500x300')
     nuevaVentana.title('Tarea Programada: Login')
     #---------------------------------------------------------------#
@@ -29,7 +25,7 @@ def NuevaVentana(ventana):
     lblContrasenaUsuario = tk.Label(nuevaVentana, text="Contrasena de Usuario",width=25, justify="center", bd=2, relief="solid", font=("",12))
     lblContrasenaUsuario.grid(row= 4, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
 
-    lblRolUsuario = tk.Label(nuevaVentana, text="",width=25, justify="center", bd=2, relief="solid", font=("",12))
+    lblRolUsuario = tk.Label(nuevaVentana, text="Rol de Usuario ",width=25, justify="center", bd=2, relief="solid", font=("",12))
     lblRolUsuario.grid(row= 5, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
     #---------------------------------------------------------------#
     lblCodigoRes = tk.Label(nuevaVentana, text="",width=25, justify="left", bd=2, relief="solid", font=("",12))
@@ -44,9 +40,8 @@ def NuevaVentana(ventana):
     lblRolUsuarioRes = tk.Label(nuevaVentana, text="",width=25, justify="left", bd=2, relief="solid", font=("",12))
     lblRolUsuarioRes.grid(row= 5, column=2, columnspan=1, padx = 10, pady = 10,sticky="we")
     #---------------------------------------------------------------#
-    btnRegresar = tk.Button(nuevaVentana, text="Regresar",width=25, justify="center", bd=2, relief="solid", font=("",12))
+    btnRegresar = tk.Button(nuevaVentana, text="Regresar",width=25, justify="center", bd=2, relief="solid", font=("",12), command= nuevaVentana.destroy) # cierra la vetana
     btnRegresar.grid(row= 6, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
-    SQLConexion()
 
 def SQLConexion():
     usuario = txtUsuario.get()
@@ -64,10 +59,16 @@ def SQLConexion():
         try:
             conexion = ConexionString
             print("Conexion Exitosa: ", username)
+            consulta = conexion.cursor()
+
+            consulta.execute('SELECT * FROM Usuarios WHERE Usuario = ?' , usuario) # ? evita la inyeccion de datos / es una consulta dinamica
+            for row in consulta:
+                print(row)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
         finally:
             conexion.close()
+            return True
             ('se realizo el cierre de la conexion', conexion)
     elif (usuario == username1) and (contrasena == password1):    
         try:
@@ -77,9 +78,16 @@ def SQLConexion():
             print('Error al realizar la conexion', e)
         finally:
             conexion1.close()
+            return True
             print('se realizo el cierre de la conexion', conexion1)
     else:
         messagebox.showerror('Tarea Programada 4','Error al realizar la conexion a SQL')
+        return False
+
+def NuevoLogin():
+    if SQLConexion():
+        NuevaVentana(ventana)
+    # funcion que valida la conexion SQL si es Valida muesta la Ventana
 #---------------------------------------------------------------#
 lblTitulo = tk.Label(ventana, text="Ventana de Login",width=25, justify="center", bd=2, relief="solid", font=("",12))
 lblTitulo.grid(row = 1, column = 1, columnspan=3, padx = 10, pady = 10,sticky="we")
@@ -97,7 +105,7 @@ lblContrasena.grid(row=3, column=1, columnspan=1, padx = 10, pady = 10,sticky="w
 txtContrasena = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12),show='*') # show muestra en el TXT el caracter deseado
 txtContrasena.grid(row=3, column=2, columnspan=1, padx = 10, pady = 10,sticky="we")
 #---------------------------------------------------------------#
-btnLogin = tk.Button(ventana, text="Login",width=10, justify="center", bd=2, relief="solid", font=("",12), command=lambda:NuevaVentana(ventana))
+btnLogin = tk.Button(ventana, text="Login",width=10, justify="center", bd=2, relief="solid", font=("",12), command=NuevoLogin) 
 btnLogin.grid(row=4, column= 1, columnspan=1, padx=10, pady= 10, sticky='we' )
 
 btnLimpiar = tk.Button(ventana, text="Limpiar",width=10, justify="center", bd=2, relief="solid", font=("",12), command=lambda:Limpiar(txtUsuario,txtContrasena))
