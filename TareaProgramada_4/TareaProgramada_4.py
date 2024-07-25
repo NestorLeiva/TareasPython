@@ -95,18 +95,12 @@ def RealizarConsulta(conexion, usuario):
                 INNER JOIN Estados ON Usuarios.Estado = Estados.Estado
                 WHERE Usuarios.Usuario = ? """
         print(f'Ejecutando Consulta: {usuario}')
-        print(f'Query:  {query}')
-        print('Tupla: ',(usuario,))
         consulta.execute(query, (usuario,))
-        #consulta.execute(query, 'Arlin')
         for row in consulta:
-            print(row)
+            print('Consulta: ',row)
     except pyodbc.Error as e:
-        #print('Error al realizar la consulta', e)
-        print('Error al realizar la consulta:')
-        print(f"SQLState: {e.args[0]}")
-        print(f"Driver: {e.args[1]}")
-        print(f"Message: {e.args[2]}")
+        print('Error al realizar la consulta', e)
+        messagebox.showerror('Tarea Programada 4','Error al realizar la consulta')
     finally:
         consulta.close()
 
