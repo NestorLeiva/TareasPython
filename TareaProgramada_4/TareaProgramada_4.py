@@ -59,9 +59,11 @@ def SQLConexion():
         try:
             conexion = ConexionString
             print("Conexion Exitosa: ", username)
+            messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username}')
             RealizarConsulta(conexion, usuario)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
+            messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
         finally:
             conexion.close()
             print('se realizo el cierre de la conexion',usuario,' ', conexion)
@@ -71,9 +73,11 @@ def SQLConexion():
         try:
             conexion1 = ConexionString1
             print("Conexion Exitosa: ", username1)
+            messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username1}')
             RealizarConsulta(conexion1, usuario)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
+            messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
         finally:
             conexion1.close()
             print('se realizo el cierre de la conexion',usuario,' ', conexion1)
