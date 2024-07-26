@@ -5,10 +5,12 @@ import pyodbc
 ventana = tk.Tk()
 ventana.title('Tarea Programada 4')
 ventana.geometry('550x200')
+
 #---------------------------------------------------------------#
 def Limpiar(*TextoWidget):
     for texto in TextoWidget: texto.delete(0,"end")
-def NuevaVentana(ventana):
+
+def NuevaVentana(ventana,codigoUsuario, nombreUsuario, contrasenaUsuario, rolUsuario):
     nuevaVentana = tk.Toplevel(ventana) # se configura para que sea una ventana hija de la ventana principal
     nuevaVentana.geometry('500x300')
     nuevaVentana.title('Tarea Programada: Login')
@@ -28,7 +30,7 @@ def NuevaVentana(ventana):
     lblRolUsuario = tk.Label(nuevaVentana, text="Rol de Usuario ",width=25, justify="center", bd=2, relief="solid", font=("",12))
     lblRolUsuario.grid(row= 5, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
     #---------------------------------------------------------------#
-    lblCodigoRes = tk.Label(nuevaVentana, width=25, justify="left", bd=2, relief="solid", font=("",12))
+    lblCodigoRes = tk.Label(nuevaVentana,text='', width=25, justify="left", bd=2, relief="solid", font=("",12))
     lblCodigoRes.grid(row= 2, column=2, columnspan=1, padx = 10, pady = 10,sticky="we")
     
     lblDatosUsuarioRes = tk.Label(nuevaVentana, width=25, justify="left", bd=2, relief="solid", font=("",12))
@@ -42,6 +44,12 @@ def NuevaVentana(ventana):
     #---------------------------------------------------------------#
     btnRegresar = tk.Button(nuevaVentana, text="Regresar",width=25, justify="center", bd=2, relief="solid", font=("",12), command= nuevaVentana.destroy) # cierra la vetana
     btnRegresar.grid(row= 6, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
+    #---------------------------------------------------------------#
+    lblCodigoRes.config(text=codigoUsuario)
+    lblDatosUsuarioRes.config(text=nombreUsuario)
+    lblContrasenaUsuarioRes.config(text=contrasenaUsuario)
+    lblRolUsuarioRes.config(text=rolUsuario)
+    # obtengo los valores de la consulta  y los imprimo en los label. los valores los obtengo de los parametros de la funcion
 
 def SQLConexion():
     usuario = txtUsuario.get()
@@ -60,7 +68,7 @@ def SQLConexion():
             conexion = ConexionString
             print("Conexion Exitosa: ", username)
             messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username}')
-            RealizarConsulta(conexion, usuario)
+            RealizarConsulta(conexion, usuario, ventana)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
             messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
@@ -74,7 +82,7 @@ def SQLConexion():
             conexion1 = ConexionString1
             print("Conexion Exitosa: ", username1)
             messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username1}')
-            RealizarConsulta(conexion1, usuario)
+            RealizarConsulta(conexion1, usuario, ventana)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
             messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
@@ -86,7 +94,7 @@ def SQLConexion():
         messagebox.showerror('Tarea Programada 4','Error al realizar la conexion a SQL')
         return False # Devuelve False si hubo un error en la conexión
 
-def RealizarConsulta(conexion, usuario):
+def RealizarConsulta(conexion, usuario, ventana):
     try:
         consulta = conexion.cursor()
         query = """ SELECT Usuarios.Codigo, Usuarios.Usuario, Usuarios.Contra, Roles.Descripcion_rol
@@ -98,6 +106,7 @@ def RealizarConsulta(conexion, usuario):
         consulta.execute(query, (usuario,))
         for row in consulta:
             print('Consulta: ',row)
+            NuevaVentana(ventana, row[0],row[1],row[2],row[3],) # pinto los datos obtenidos en el orden especificado
     except pyodbc.Error as e:
         print('Error al realizar la consulta', e)
         messagebox.showerror('Tarea Programada 4','Error al realizar la consulta')
@@ -105,9 +114,7 @@ def RealizarConsulta(conexion, usuario):
         consulta.close()
 
 def NuevoLogin():
-    if SQLConexion():
-        NuevaVentana(ventana)
-    # funcion que valida la conexion SQL si es Valida muesta la Ventana
+    SQLConexion() # funcion que valida la conexion SQL si es Valida muesta la Ventana
 #---------------------------------------------------------------#
 lblTitulo = tk.Label(ventana, text="Ventana de Login",width=25, justify="center", bd=2, relief="solid", font=("",12))
 lblTitulo.grid(row = 1, column = 1, columnspan=3, padx = 10, pady = 10,sticky="we")
