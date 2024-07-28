@@ -55,40 +55,20 @@ def SQLConexion():
     usuario = txtUsuario.get()
     contrasena = txtContrasena.get()
     server = "NESTORPC\\NESTOR"
-    database = "prograIII"
-    username = "Nestor"
-    password = "nestor123"
-    username1 = "Arlin"
-    password1 = "arlin123"
-    ConexionString = pyodbc.connect(f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password};TrustServerCertificate=yes;')
-    ConexionString1 = pyodbc.connect(f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={username1};PWD={password1};TrustServerCertificate=yes;')
-   
-    if (usuario.strip() == username) and (contrasena.strip() == password):
+    database = "prograIII"   
+    if usuario.strip() and contrasena.strip():
+        ConexionString = pyodbc.connect(f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE={database};UID={usuario};PWD={contrasena};TrustServerCertificate=yes;')
         try:
             conexion = ConexionString
-            print("Conexion Exitosa: ", username)
-            messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username}')
+            print("Conexion Exitosa: ", usuario)
+            messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {usuario}')
             RealizarConsulta(conexion, usuario, ventana)
         except pyodbc.Error as e:
             print('Error al realizar la conexion', e)
             messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
         finally:
             conexion.close()
-            print('se realizo el cierre de la conexion',usuario,' ', conexion)
-            return True # Devuelve True si la conexión y autenticación fueron exitosas
-            
-    elif (usuario == username1) and (contrasena == password1):    
-        try:
-            conexion1 = ConexionString1
-            print("Conexion Exitosa: ", username1)
-            messagebox.showinfo('Tarea Programada 4', f'Login Exitoso: {username1}')
-            RealizarConsulta(conexion1, usuario, ventana)
-        except pyodbc.Error as e:
-            print('Error al realizar la conexion', e)
-            messagebox.showerror('Tarea Programada 4', 'Error al realizar la conexion')
-        finally:
-            conexion1.close()
-            print('se realizo el cierre de la conexion',usuario,' ', conexion1)
+            print('se realizo el cierre de la conexion',usuario)
             return True # Devuelve True si la conexión y autenticación fueron exitosas
     else:
         messagebox.showerror('Tarea Programada 4','Error al realizar la conexion a SQL')
@@ -140,6 +120,5 @@ btnLimpiar.grid(row=4, column= 2, columnspan=1, padx=10, pady= 10, sticky='we' )
 
 btnTerminar = tk.Button(ventana, text="Terminar",width=10, justify="center", bd=2, relief="solid", font=("",12), command=ventana.quit)
 btnTerminar.grid(row=4, column= 3, columnspan=1, padx=10, pady= 10, sticky='we' )
-
 #---------------------------------------------------------------#
 ventana.mainloop()
