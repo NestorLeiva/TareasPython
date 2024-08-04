@@ -36,6 +36,7 @@
     * El programa deberá conectarse a una base de datos SQL.
     * El programa deberá permitir al usuario iniciar sesión ingresando sus credenciales.
     * Una vez logueado, el programa mostrará los datos específicos del usuario logueado en la interfaz.
+    * ![Tarea_4](img/Tarea_4.png)
 
 # ***_Tarea Programada # 5_***
 * Lenguaje Utilizado
