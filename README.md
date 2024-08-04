@@ -37,6 +37,7 @@
     * El programa deberá permitir al usuario iniciar sesión ingresando sus credenciales.
     * Una vez logueado, el programa mostrará los datos específicos del usuario logueado en la interfaz.
     * ![Tarea_4](img/Tarea_4.png)
+    * ![Tarea_4.1](img/Tarea_4.1.png)
 
 # ***_Tarea Programada # 5_***
 * Lenguaje Utilizado
