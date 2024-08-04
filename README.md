@@ -9,6 +9,7 @@
     * Numero mayor es a 5 multiplicarlo por 4, si es menor multiplicarlo por 3. Y el numero mayor debe ser elevedado a la potencia de 2
     * Numero menor o igual a 5 multiplicarlo por 2. Y el numero mayor debe ser elevedado a la potencia de 2
     * Todos los resultados deben ser mostrados en Pantalla
+    * ![Tarea_1](img/Tarea_1.png)
  
 # ***_Tarea Programada # 2_***
   * Lenguaje Utilizado
@@ -16,6 +17,7 @@
 * Objetivo de la Tarea:
      * Realizar una calculadora basica con la libreria tkinter
      * Utilizacion de la funcion Lambda
+     * ![Tarea_2](img/Tarea_2.png)
 
 # ***_Tarea Programada # 3_***
 * Lenguaje Utilizado
@@ -24,6 +26,7 @@
     * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter.
     * El programa tiene que permitir consultar y mostrar información específica de distintas tablas predefinidas.
     * El programa deberá permitir al usuario ingresar un número de consulta o un nombre, y desplegar la información correspondiente sobre la persona seleccionada.
+    * ![Tarea_3](img/Tarea_3.png)
       
 # ***_Tarea Programada # 4_***
 * Lenguaje Utilizado
