@@ -1,9 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import pyodbc
 import SQLConexion
-import MetodosSQL
 
 ventana = tk.Tk()
 #-------------------------------------------#
@@ -13,7 +11,12 @@ def Limpiar(*TextoWidget):
 def AceptarCambios():
     print(messagebox.askyesno(message="¿Desea Continuar?", title="Tarea Programada 5"))
 
-
+def login(usuario, contrasena):
+    if SQLConexion.LoginSQL(usuario, contrasena) == True:
+        VentanaSecundaria(ventana)
+    else:
+        messagebox.showerror("Tarea Programada 5", 'Usuario / Contrasena Incorrecto. \n Intente de nuevo')
+#---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
     ventana.geometry('500x200')
@@ -26,14 +29,14 @@ def VentanaLogin():
     txtUsuario = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12))
     txtUsuario.grid(row=2, column=2, columnspan=2, padx = 10, pady = 10,sticky="we")
     txtUsuario.focus()
-
+    
     lblContrasena = tk.Label(ventana, text="Contrasena: ", width= 20,justify="center", bd=2, relief="solid", font=("",12))
     lblContrasena.grid(row=3, column=1, columnspan=1, padx = 10, pady = 10,sticky="we")
 
-    txtContrasena = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12),show='*') # show muestra en el TXT el caracter deseado
+    txtContrasena = tk.Entry(ventana,  width= 20,justify="center", bd=2, relief="solid", font=("",12),show='*') 
     txtContrasena.grid(row=3, column=2, columnspan=2, padx = 10, pady = 10,sticky="we")
     #---------------------------------------------------------------#
-    btnLogin = tk.Button(ventana, text="Login",width=10, justify="center", bd=2, relief="solid", font=("",12)) 
+    btnLogin = tk.Button(ventana, text="Login",width=10, justify="center", bd=2, relief="solid", font=("",12), command=lambda: login(txtUsuario.get().strip(), txtContrasena.get().strip())) 
     btnLogin.grid(row=4, column= 1, columnspan=1, padx=10, pady= 10, sticky='we' )
 
     btnLimpiar = tk.Button(ventana, text="Limpiar",width=10, justify="center", bd=2, relief="solid", font=("",12), command=lambda:Limpiar(txtUsuario,txtContrasena))
@@ -234,7 +237,4 @@ def VentanaEliminar():
 
 #-------------------------------------------#
 VentanaLogin()
-VentanaSecundaria(ventana)
-
-
 ventana.mainloop()
