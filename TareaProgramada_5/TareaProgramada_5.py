@@ -70,7 +70,7 @@ def VentanaSecundaria(ventana):
 def VentanaCrear():
     Ventana_Crear = tk.Toplevel(ventana)
     Ventana_Crear.geometry('600x300')
-    Ventana_Crear.title('Tarea Programada 5')
+    Ventana_Crear.title('Ingreso de Usuario')
     
     # codigo aumentado automaticamente
     lblUsuario = tk.Label(Ventana_Crear, text="Nombre de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
@@ -123,7 +123,7 @@ def VentanaLeer():
 def VentanaModificar():
     Ventana_Modificar = tk.Toplevel(ventana)
     Ventana_Modificar.geometry('600x400')
-    Ventana_Modificar.title('Tarea Programada 5')
+    Ventana_Modificar.title('Modificacion de Usuarios')
     
     lblBuscarUsuario = tk.Label(Ventana_Modificar, text="Buscar Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
     lblBuscarUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
