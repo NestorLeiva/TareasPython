@@ -12,7 +12,7 @@ def AceptarCambios():
     print(messagebox.askyesno(message="¿Desea Continuar?", title="Tarea Programada 5"))
 
 def login(usuario, contrasena):
-    if SQLConexion.LoginSQL(usuario, contrasena) == True:
+    if SQLConexion.Conexion.LoginSQL(usuario, contrasena) == True:
         VentanaSecundaria(ventana)
     else:
         messagebox.showerror("Tarea Programada 5", 'Usuario / Contrasena Incorrecto. \n Intente de nuevo')
@@ -47,7 +47,7 @@ def VentanaLogin():
 
 def VentanaSecundaria(ventana):
     nuevaVentana = tk.Toplevel(ventana)
-    nuevaVentana.geometry('650x150')
+    nuevaVentana.geometry('650x200')
     nuevaVentana.title('Tarea Programada 5')
 
     lblNombreUsuario = tk.Label(nuevaVentana, text="Usuario:",width=15, justify="center", bd=2, relief="solid", font=("",12))
@@ -76,6 +76,9 @@ def VentanaSecundaria(ventana):
 
     btnEliminar = tk.Button(nuevaVentana,text='Eliminar',width=15, justify="center", font=("",12), command=VentanaEliminar)
     btnEliminar.grid(row=4, column=3,  columnspan=1, padx = 5, pady = 5, sticky="we")
+    
+    btnTerminar = tk.Button(nuevaVentana, text="Cerrar Sesion",width=10, justify="center", bd=2, font=("",12), command=SQLConexion.Conexion.CerrarSQL)
+    btnTerminar.grid(row=5, column= 1, columnspan=2, padx=10, pady= 10, sticky='we')
 
 def VentanaCrear():
     Ventana_Crear = tk.Toplevel(ventana)
