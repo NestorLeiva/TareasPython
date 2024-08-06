@@ -13,13 +13,25 @@ def AceptarCambios():
 
 def login(usuario, contrasena):
     if SQLConexion.Conexion.LoginSQL(usuario, contrasena) == True:
+        ventana.withdraw() # oculta la ventana
         VentanaSecundaria(ventana)
+        Limpiar(txtUsuario,txtContrasena) # los parametros son las variables globales que estan definidas en def VentanaLogin()
     else:
-        messagebox.showerror("Tarea Programada 5", 'Usuario / Contrasena Incorrecto. \n Intente de nuevo')
+        Limpiar(txtUsuario,txtContrasena)
+    """ valida que LoginSQL sea True, si lo es abre la ventana secundaria. """
+
+def CerrarSesion(ventana, nuevaVentana):
+        SQLConexion.Conexion.CerrarSQL() # llamo al metodo de la clase
+        nuevaVentana.destroy()
+        ventana.deiconify() # muestra la ventana
+    # Cierro la sesion de la Base Datos. y muestra la ventana Login
 #---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
     ventana.geometry('500x200')
+
+    global txtUsuario, txtContrasena # variables globales
+
     lblTitulo = tk.Label(ventana, text="Ventana de Login",width=25, justify="center", bd=2, relief="solid", font=("",12))
     lblTitulo.grid(row = 1, column = 1, columnspan=3, padx = 10, pady = 10,sticky="we")
 
@@ -77,8 +89,8 @@ def VentanaSecundaria(ventana):
     btnEliminar = tk.Button(nuevaVentana,text='Eliminar',width=15, justify="center", font=("",12), command=VentanaEliminar)
     btnEliminar.grid(row=4, column=3,  columnspan=1, padx = 5, pady = 5, sticky="we")
     
-    btnTerminar = tk.Button(nuevaVentana, text="Cerrar Sesion",width=10, justify="center", bd=2, font=("",12), command=SQLConexion.Conexion.CerrarSQL)
-    btnTerminar.grid(row=5, column= 1, columnspan=2, padx=10, pady= 10, sticky='we')
+    btnCerrarSesion = tk.Button(nuevaVentana, text="Cerrar Sesion",width=10, justify="center", bd=2, font=("",12), command=lambda: CerrarSesion(ventana, nuevaVentana))
+    btnCerrarSesion.grid(row=5, column= 1, columnspan=2, padx=10, pady= 10, sticky='we')
 
 def VentanaCrear():
     Ventana_Crear = tk.Toplevel(ventana)
