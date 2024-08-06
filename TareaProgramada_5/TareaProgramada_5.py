@@ -121,11 +121,58 @@ def VentanaLeer():
     lblNombreUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
 def VentanaModificar():
-    nuevaVentana = tk.Toplevel(ventana)
-    nuevaVentana.geometry('650x500')
-    nuevaVentana.title('Tarea Programada 5')
-    lblNombreUsuario = tk.Label(nuevaVentana, text="Ventana Modificar:",width=15, justify="center", bd=2, relief="solid", font=("",12))
-    lblNombreUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    Ventana_Modificar = tk.Toplevel(ventana)
+    Ventana_Modificar.geometry('600x400')
+    Ventana_Modificar.title('Tarea Programada 5')
+    
+    lblBuscarUsuario = tk.Label(Ventana_Modificar, text="Buscar Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblBuscarUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+
+    txtBuscarUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("",12))
+    txtBuscarUsuario.grid(row=0, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    txtBuscarUsuario.focus()
+
+    btnBuscarUsuario = tk.Button(Ventana_Modificar, text='Buscar', width=15, justify="center", font=("",12))
+    btnBuscarUsuario.grid(row=0, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
+    #-------------------------------------------#
+    lblUsuario = tk.Label(Ventana_Modificar, text="Nombre de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblUsuario.grid(row=1, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+
+    lblContrasenaUsuario = tk.Label(Ventana_Modificar, text="Contrasena de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblContrasenaUsuario.grid(row=2, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+
+    lblNombreUsuario = tk.Label(Ventana_Modificar, text="Nombre:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblNombreUsuario.grid(row=3, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+
+    lblRolUsuario = tk.Label(Ventana_Modificar, text="Rol del Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblRolUsuario.grid(row=4, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+
+    lblEstadoUsuario = tk.Label(Ventana_Modificar, text="Estado del Usuario:",width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblEstadoUsuario.grid(row=5, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    #-------------------------------------------#
+    txtUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("",12))
+    txtUsuario.grid(row=1, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
+  
+    txtContrasenaUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("",12),show='*')
+    txtContrasenaUsuario.grid(row=2, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
+
+    txtNombreUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("",12))
+    txtNombreUsuario.grid(row=3, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
+    #-------------------------------------------#
+    cboRolUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values= ('Administrador????', 'Usuario????', 'Invitado????'))
+    cboRolUsuario.grid(row=4, column=1, columnspan=2, padx=10, pady=10, sticky="we")
+
+    cboEstadoUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values= ('Activo', 'InActivo'))
+    cboEstadoUsuario.grid(row=5, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
+    #-------------------------------------------#
+    btnGuardar = tk.Button(Ventana_Modificar, text='Guardar', width=15, justify="center", font=("",12))
+    btnGuardar.grid(row=6, column=0,  columnspan=1, padx = 5, pady = 5, sticky="we")
+
+    btnLimpiar = tk.Button(Ventana_Modificar, text='Limpiar', width=15, justify="center", font=("",12), command=lambda: Limpiar(txtUsuario,txtContrasenaUsuario,txtNombreUsuario))
+    btnLimpiar.grid(row=6, column=1,  columnspan=1, padx = 5, pady = 5, sticky="we")
+
+    btnCancelar = tk.Button(Ventana_Modificar, text='Cancelar', width=15, justify="center", font=("",12), command= Ventana_Modificar.destroy)
+    btnCancelar.grid(row=6, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
 def VentanaEliminar():
     nuevaVentana = tk.Toplevel(ventana)
