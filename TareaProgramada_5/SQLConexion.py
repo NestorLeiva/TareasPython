@@ -30,3 +30,13 @@ class Conexion():
         except pyodbc.Error as e:
             messagebox.showerror("Tarea Programada 5", f'Error al cerrar la conexión: {e}')
 
+class MetodosSQL():
+    def leerSQL():
+        pass
+    def EscribirSQL():
+        pass
+    def ActualizarSQL():
+        pass
+    def EliminarSQL():
+        pass
+    
