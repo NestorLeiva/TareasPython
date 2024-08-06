@@ -13,9 +13,13 @@ class Conexion():
                 print("conexion SQL exitosa", usuario)
                 messagebox.showinfo("Tarea Programada 5", f'Login Exitoso {usuario}')
                 return True
+            else :
+                messagebox.showwarning("Tarea Programada 5", 'Usuario / Contrasena Incorrecto')
+                return False
         except pyodbc.Error as e:
-            messagebox.showerror("Tarea Programada 5", f'Error en el Login: {e}')
+            messagebox.showerror("Tarea Programada 5", 'Usuario / Contrasena Incorrecto. \n Intente de nuevo')
             return False
+        # se validan las credenciales y si son validas se ingresa al programa y a la Base Datos. 
 
     def CerrarSQL():
         try:
@@ -26,9 +30,9 @@ class Conexion():
                 Conexion.conn = None
             else:
                 messagebox.showinfo("Tarea Programada 5", "No hay conexión para cerrar")
-
         except pyodbc.Error as e:
             messagebox.showerror("Tarea Programada 5", f'Error al cerrar la conexión: {e}')
+        # metodo para cerrar la Sesion de la Base de Datos
 
 class MetodosSQL():
     def leerSQL():
@@ -39,4 +43,3 @@ class MetodosSQL():
         pass
     def EliminarSQL():
         pass
-    
