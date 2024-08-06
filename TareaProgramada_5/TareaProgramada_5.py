@@ -74,7 +74,7 @@ def VentanaSecundaria(ventana):
 
 def VentanaCrear():
     Ventana_Crear = tk.Toplevel(ventana)
-    Ventana_Crear.geometry('600x300')
+    Ventana_Crear.geometry('600x350')
     Ventana_Crear.title('Ingreso de Usuario')
     
     # codigo aumentado automaticamente
@@ -127,7 +127,7 @@ def VentanaLeer():
 
 def VentanaModificar():
     Ventana_Modificar = tk.Toplevel(ventana)
-    Ventana_Modificar.geometry('600x400')
+    Ventana_Modificar.geometry('600x350')
     Ventana_Modificar.title('Modificacion de Usuarios')
     
     lblBuscarUsuario = tk.Label(Ventana_Modificar, text="Buscar Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
