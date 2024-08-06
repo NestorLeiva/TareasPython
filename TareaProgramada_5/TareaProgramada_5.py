@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import pyodbc
+import SQLConexion
+import MetodosSQL
 
 ventana = tk.Tk()
 #-------------------------------------------#
@@ -119,10 +121,10 @@ def VentanaCrear():
     btnCancelar.grid(row=5, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
 def VentanaLeer():
-    nuevaVentana = tk.Toplevel(ventana)
-    nuevaVentana.geometry('650x500')
-    nuevaVentana.title('Tarea Programada 5')
-    lblNombreUsuario = tk.Label(nuevaVentana, text="Ventana Leer:",width=15, justify="center", bd=2, relief="solid", font=("",12))
+    Nueva_Leer = tk.Toplevel(ventana)
+    Nueva_Leer.geometry('650x500')
+    Nueva_Leer.title('Mostrar Datos Usuarios')
+    lblNombreUsuario = tk.Label(Nueva_Leer, text="Ventana Leer:",width=15, justify="center", bd=2, relief="solid", font=("",12))
     lblNombreUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
 def VentanaModificar():
