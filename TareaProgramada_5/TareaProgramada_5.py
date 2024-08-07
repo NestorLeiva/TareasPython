@@ -2,14 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import SQLConexion
+import Validaciones
 
 ventana = tk.Tk()
 #-------------------------------------------#
 def Limpiar(*TextoWidget):
     for texto in TextoWidget: texto.delete(0,"end")
-
-def AceptarCambios():
-    print(messagebox.askyesno(message="¿Desea Continuar?", title="Tarea Programada 5"))
 
 def login(usuario, contrasena):
     if SQLConexion.Conexion.LoginSQL(usuario, contrasena) == True:
@@ -25,6 +23,7 @@ def CerrarSesion(ventana, nuevaVentana):
         nuevaVentana.destroy()
         ventana.deiconify() # muestra la ventana
     # Cierro la sesion de la Base Datos. y muestra la ventana Login
+
 #---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
@@ -56,7 +55,7 @@ def VentanaLogin():
 
     btnTerminar = tk.Button(ventana, text="Terminar",width=10, justify="center", bd=2, relief="solid", font=("",12), command=ventana.quit)
     btnTerminar.grid(row=4, column= 3, columnspan=1, padx=10, pady= 10, sticky='we' )
-
+# ventana Principal
 def VentanaSecundaria(ventana):
     nuevaVentana = tk.Toplevel(ventana)
     nuevaVentana.geometry('650x200')
@@ -91,20 +90,25 @@ def VentanaSecundaria(ventana):
     
     btnCerrarSesion = tk.Button(nuevaVentana, text="Cerrar Sesion",width=10, justify="center", bd=2, font=("",12), command=lambda: CerrarSesion(ventana, nuevaVentana))
     btnCerrarSesion.grid(row=5, column= 1, columnspan=2, padx=10, pady= 10, sticky='we')
-
+# ventana Secundaria
 def VentanaCrear():
     Ventana_Crear = tk.Toplevel(ventana)
     Ventana_Crear.geometry('600x350')
     Ventana_Crear.title('Ingreso de Usuario')
     
-    # codigo aumentado automaticamente
+    """ UsuarioC = txtUsuarioC
+    ContrasenaC = txtContrasenaUsuarioC
+    NombreC = txtNombreUsuarioC
+    RolC = cboRolUsuario
+    EstadoC = cboEstadoUsuario"""
+
     lblUsuario = tk.Label(Ventana_Crear, text="Nombre de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
     lblUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
     lblContrasenaUsuario = tk.Label(Ventana_Crear, text="Contrasena de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
     lblContrasenaUsuario.grid(row=1, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
-    lblNombreUsuario = tk.Label(Ventana_Crear, text="Nombre:", width=20, justify="center", bd=2, relief="solid", font=("",12))
+    lblNombreUsuario = tk.Label(Ventana_Crear, text="Nombre y Apellido:", width=20, justify="center", bd=2, relief="solid", font=("",12))
     lblNombreUsuario.grid(row=2, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
     lblRolUsuario = tk.Label(Ventana_Crear, text="Rol del Usuario:", width=20, justify="center", bd=2, relief="solid", font=("",12))
@@ -113,38 +117,74 @@ def VentanaCrear():
     lblEstadoUsuario = tk.Label(Ventana_Crear, text="Estado del Usuario:",width=20, justify="center", bd=2, relief="solid", font=("",12))
     lblEstadoUsuario.grid(row=4, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
     #-------------------------------------------#
-    txtUsuario = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12))
-    txtUsuario.grid(row=0, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
-    txtUsuario.focus()
+    txtUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12))
+    txtUsuarioC.grid(row=0, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    txtUsuarioC.focus()
  
-    txtContrasenaUsuario = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12),show='*')
-    txtContrasenaUsuario.grid(row=1, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    txtContrasenaUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12),show='*')
+    txtContrasenaUsuarioC.grid(row=1, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
 
-    txtNombreUsuario = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12))
-    txtNombreUsuario.grid(row=2, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    txtNombreUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("",12))
+    txtNombreUsuarioC.grid(row=2, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
     #-------------------------------------------#
-    cboRolUsuario = ttk.Combobox(Ventana_Crear, state="readonly", font=("", 12), values= ('Administrador????', 'Usuario????', 'Invitado????'))
+    cboRolUsuario = ttk.Combobox(Ventana_Crear, state="readonly", font=("", 12), values= ('Admin5', 'Contador8', 'Invitado????'))
     cboRolUsuario.grid(row=3, column=1, columnspan=1, padx=10, pady=10, sticky="we")
 
     cboEstadoUsuario = ttk.Combobox(Ventana_Crear, state="readonly", font=("", 12), values= ('Activo', 'InActivo'))
     cboEstadoUsuario.grid(row=4, column=1,  columnspan=1, padx = 10, pady = 10, sticky="we")
     #-------------------------------------------#
-    btnGuardar = tk.Button(Ventana_Crear, text='Guardar', width=15, justify="center", font=("",12), command=AceptarCambios)
+    btnGuardar = tk.Button(Ventana_Crear, text='Guardar', width=15, justify="center", font=("",12))
     btnGuardar.grid(row=5, column=0,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
-    btnLimpiar = tk.Button(Ventana_Crear, text='Limpiar', width=15, justify="center", font=("",12), command=lambda: Limpiar(txtUsuario,txtContrasenaUsuario,txtNombreUsuario))
+    btnLimpiar = tk.Button(Ventana_Crear, text='Limpiar', width=15, justify="center", font=("",12), command=lambda: Limpiar(txtUsuarioC,txtContrasenaUsuarioC,txtNombreUsuarioC))
     btnLimpiar.grid(row=5, column=1,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
     btnCancelar = tk.Button(Ventana_Crear, text='Cancelar', width=15, justify="center", font=("",12), command= Ventana_Crear.destroy)
     btnCancelar.grid(row=5, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
-
+# ventana Ingresar Usuarios
 def VentanaLeer():
-    Nueva_Leer = tk.Toplevel(ventana)
-    Nueva_Leer.geometry('650x500')
-    Nueva_Leer.title('Mostrar Datos Usuarios')
-    lblNombreUsuario = tk.Label(Nueva_Leer, text="Ventana Leer:",width=15, justify="center", bd=2, relief="solid", font=("",12))
-    lblNombreUsuario.grid(row=0, column=0,  columnspan=1, padx = 10, pady = 10, sticky="we")
+    Ventana_Leer = tk.Toplevel(ventana)
+    Ventana_Leer.geometry('800x500')
+    Ventana_Leer.title('Mostrar Datos Usuarios')
 
+    Ventana_Leer.grid_rowconfigure(1, weight=1)
+    Ventana_Leer.grid_columnconfigure(0, weight=1)
+
+    lblConsulta = tk.Label(Ventana_Leer, text="Datos de los Usuarios", width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    lblConsulta.grid(row=0, column=0, columnspan=4, padx=5, pady=5, sticky="we")
+
+    TablaUsuarios = ttk.Treeview(Ventana_Leer,columns=('Codigo','Usuario','Nombre', 'Rol', 'Estado'), show="headings")
+    TablaUsuarios.heading("Codigo",text="Codigo")
+    TablaUsuarios.heading("Usuario",text="Usuario")
+    TablaUsuarios.heading("Nombre",text="Nombre")
+    TablaUsuarios.heading("Rol",text="Rol")
+    TablaUsuarios.heading("Estado",text="Estado")
+    TablaUsuarios.grid(row=1, column=0, columnspan=4,  padx=10, pady=10,sticky="nsew")
+
+    def ConsultaUsuarios():
+        for items in TablaUsuarios.get_children(): # obtengo todos los elementos de la tabla
+            TablaUsuarios.delete(items)
+            # se eliminan los datos de la tabla
+        ResConsulta = SQLConexion.MetodosSQL.LeerUsuariosSQL(SQLConexion.Conexion.conn)
+        for fila in ResConsulta:
+            TablaUsuarios.insert("","end",values=fila)
+            # se imprimen los datos en la Tabla
+    
+    def ajustar_columnas(event):
+        total_width = event.width
+        num_cols = len(TablaUsuarios['columns'])
+        col_width = total_width // num_cols
+        for col in TablaUsuarios['columns']:
+            TablaUsuarios.column(col, width=col_width)
+    #  calcula el ancho de cada columna de la Treeview y el número de columnas. ajusta el ancho de cada columna
+    Ventana_Leer.bind('<Configure>', ajustar_columnas)    
+    ConsultaUsuarios()
+    btnActualizar = tk.Button(Ventana_Leer, text='Actualizar', width=15, justify="center", font=("",12), command=lambda:ConsultaUsuarios() )
+    btnActualizar.grid(row=2, column=1,  columnspan=1, padx = 5, pady = 5, sticky="we")
+
+    btnCancelar = tk.Button(Ventana_Leer, text='Cancelar', width=15, justify="center", font=("",12), command= Ventana_Leer.destroy)
+    btnCancelar.grid(row=2, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
+# ventana Ver lista Usuarios
 def VentanaModificar():
     Ventana_Modificar = tk.Toplevel(ventana)
     Ventana_Modificar.geometry('600x350')
@@ -190,7 +230,7 @@ def VentanaModificar():
     cboEstadoUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values= ('Activo', 'InActivo'))
     cboEstadoUsuario.grid(row=5, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
     #-------------------------------------------#
-    btnGuardar = tk.Button(Ventana_Modificar, text='Guardar', width=15, justify="center", font=("",12), command= AceptarCambios)
+    btnGuardar = tk.Button(Ventana_Modificar, text='Guardar', width=15, justify="center", font=("",12))
     btnGuardar.grid(row=6, column=0,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
     btnLimpiar = tk.Button(Ventana_Modificar, text='Limpiar', width=15, justify="center", font=("",12), command=lambda: Limpiar(txtUsuario,txtContrasenaUsuario,txtNombreUsuario))
@@ -198,7 +238,7 @@ def VentanaModificar():
 
     btnCancelar = tk.Button(Ventana_Modificar, text='Cancelar', width=15, justify="center", font=("",12), command= Ventana_Modificar.destroy)
     btnCancelar.grid(row=6, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
-
+# ventana para modificar datos Usuarios
 def VentanaEliminar():
     Ventana_Eliminar = tk.Toplevel(ventana)
     Ventana_Eliminar.geometry('600x350')
@@ -244,12 +284,12 @@ def VentanaEliminar():
     lblEstadoUsuarioRes = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values= ('Activo', 'InActivo'))
     lblEstadoUsuarioRes.grid(row=5, column=1,  columnspan=2, padx = 10, pady = 10, sticky="we")
     #-------------------------------------------#
-    btnAceptar = tk.Button(Ventana_Eliminar, text='Aceptar', width=15, justify="center", font=("",12), command=AceptarCambios)
+    btnAceptar = tk.Button(Ventana_Eliminar, text='Aceptar', width=15, justify="center", font=("",12))
     btnAceptar.grid(row=6, column=1,  columnspan=1, padx = 5, pady = 5, sticky="we")
 
     btnCancelar = tk.Button(Ventana_Eliminar, text='Cancelar', width=15, justify="center", font=("",12), command= Ventana_Eliminar.destroy)
     btnCancelar.grid(row=6, column=2,  columnspan=1, padx = 5, pady = 5, sticky="we")
-
+# ventana para Elimianar 1 usuario
 #-------------------------------------------#
 VentanaLogin()
 ventana.mainloop()
