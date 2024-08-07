@@ -3,10 +3,9 @@ from tkinter import messagebox
 
 server = "NESTORPC\\NESTOR"
 database = "progra 3"
-#global conn 
+global conn 
 
-
-class Conexion():
+class Conexion:
     # validar usuario activo / inactivo
     conn = None # variable global para la conexion
     def LoginSQL(usuario, contrasena):
@@ -40,7 +39,7 @@ class Conexion():
 # fin class Conexion
 
 
-class MetodosSQL():
+class MetodosSQL:
 
     def AceptarCambios():
         print(messagebox.askyesno(message="¿Desea Continuar?", title="Tarea Programada 5"))
@@ -74,7 +73,6 @@ class MetodosSQL():
             print(nuevosDatos)
         return nuevosDatos
 
-      
     def EscribirSQL():
         pass
         
