@@ -71,7 +71,7 @@ class MetodosSQL():
             estado = consulta[4].strip()
             
             nuevosDatos.append((codigo, usuario, nombre,rol,estado))
-            print(consulta)
+            print(nuevosDatos)
         return nuevosDatos
 
       

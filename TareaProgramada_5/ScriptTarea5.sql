@@ -67,6 +67,8 @@ INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES(1, 'A
 INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES(2, 'Nestor', 'nestor','Nestor Leiva',2,1);
 INSERT INTO Roles(Rol, Descripcion_rol) VALUES(1, 'Admin');
 INSERT INTO Roles(Rol, Descripcion_rol) VALUES(2, 'Conta');
+INSERT INTO Roles (Rol, Descripcion_rol) VALUES(3,'Supervisor');
+INSERT INTO Roles (Rol, Descripcion_rol) VALUES(4, 'Operario');
 INSERT INTO Estados(Estado, Descripcion_estado) VALUES(1, 'Activo');
 INSERT INTO Estados (Estado, Descripcion_estado) VALUES(2, 'InActivo');
 INSERT INTO Desc_Mov_Auditoria (codigo_movimiento, descripcion_movimiento) VALUES(1, 'Inserto Nuevo Registro');
