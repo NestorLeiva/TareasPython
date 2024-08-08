@@ -32,7 +32,7 @@ ALTER ROLE [db_owner] ADD MEMBER [Arlin_1]
 GO
 /*----------------------------------------------------*/
 CREATE TABLE [dbo].[Usuarios](
-	[Codigo] [numeric](18, 0) NOT NULL PRIMARY KEY,
+	[Codigo] [numeric](18, 0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[Usuario] [nchar](35) NOT NULL,
 	[Contra] [nchar](10) NOT NULL,
 	[Nombre] [nchar](35) NOT NULL,
