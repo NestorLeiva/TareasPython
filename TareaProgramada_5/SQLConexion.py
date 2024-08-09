@@ -52,30 +52,32 @@ class MetodosSQL:
             print(f'Error al realizar la Auditoria {e}')
     # Metodo para realizar el Insert en la Tabla Auditoria  BD
 
-    def LeerUsuariosSQL(conn): # uso el parametro gobal para ingresar a la BD y realizar la consulta
-        # cursor = senala una accion en BD
-        cursor = Conexion.conn.cursor()
-        query = """ SELECT u.Codigo, u.Usuario, u.Contra, u.Nombre,r.Descripcion_rol, e.Descripcion_estado 
-        FROM Usuarios u INNER JOIN Roles r ON u.Rol = r.Rol INNER JOIN Estados e ON u.Estado = e.Estado""" 
+    def LeerUsuariosSQL(conn,): # uso el parametro gobal para ingresar a la BD y realizar la consulta
+        try:
+            cursor = Conexion.conn.cursor()
+            query = """ SELECT u.Codigo, u.Usuario, u.Contra, u.Nombre,r.Descripcion_rol, e.Descripcion_estado 
+            FROM Usuarios u INNER JOIN Roles r ON u.Rol = r.Rol INNER JOIN Estados e ON u.Estado = e.Estado""" 
 
-        """ INNER JOIN = combina las tablas
-        u/r/e = son alias de las tablas
-        INNER JOIN Roles r ON u.Rol = r.Rol = indica como se combinan las filas coincidiendo los campos"""
-        cursor.execute(query) # Se ejecuta el Query
+            """ INNER JOIN = combina las tablas
+            u/r/e = son alias de las tablas
+            INNER JOIN Roles r ON u.Rol = r.Rol = indica como se combinan las filas coincidiendo los campos"""
+            cursor.execute(query) # Se ejecuta el Query
 
-        ResConsulta = cursor.fetchall() # obtengo todas las filas de BD 
-        nuevosDatos = []
-        for consulta in ResConsulta:
-            codigo = int (consulta[0])
-            usuario = consulta[1].strip()
-            contra = consulta[2].strip()
-            nombre = consulta[3].strip()
-            rol = consulta[4].strip()
-            estado = consulta[5].strip()
-            
-            nuevosDatos.append((codigo,usuario,contra, nombre,rol,estado)) # agrego los datos 
-            print(nuevosDatos)
-        return nuevosDatos 
+            ResConsulta = cursor.fetchall() # obtengo todas las filas de BD 
+            nuevosDatos = []
+            for consulta in ResConsulta:
+                codigo = int (consulta[0])
+                usuario = consulta[1].strip()
+                contra = consulta[2].strip()
+                nombre = consulta[3].strip()
+                rol = consulta[4].strip()
+                estado = consulta[5].strip()
+                nuevosDatos.append((codigo,usuario,contra, nombre,rol,estado)) # agrego los datos 
+                print(nuevosDatos)
+            return nuevosDatos 
+        except pyodbc.Error as e:
+            messagebox.showerror('Tarea Programada 5' , 'Error al realizar la lectura de las tablas')
+            print(f'Error al realizar la lectura de las tablas {e}')
     # Metodo para realizar la lectura de las Tablas de BD
      
     def EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento):
