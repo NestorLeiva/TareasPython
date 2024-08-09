@@ -51,13 +51,19 @@ CREATE TABLE [dbo].[Estados](
 
 /*----------------------------------------------------*/
 CREATE TABLE [dbo].[Auditoria](
-	[codigo_usuario]      numeric (18,0)   not null PRIMARY KEY,
-	[codigo_movimiento]   numeric (5,0)   not null, 
-	[fecha_hora]          datetime        not null ) /*fecha del moviento*/
-	/*  codigo de usuario = usuario tabla usuario
-        codigo mov = tabla desc.mov codigo_mov
-        fecha_hora = del dia de la modificiacion
-     */
+	[codigo_usuario] [numeric](18, 0) NOT NULL,
+	[codigo_movimiento] [numeric](5, 0) NOT NULL,
+	[fecha_hora] [datetime] NOT NULL,
+ CONSTRAINT [PK__Auditori__37F064A0F6E9FBC7] PRIMARY KEY CLUSTERED 
+(
+	[codigo_usuario] ASC,
+	[codigo_movimiento] ASC,
+	[fecha_hora] 
+	/*Se establece una clave primaria PRIMARY KEY CLUSTERED que incluye las tres columnas 
+	(codigo_usuario, codigo_movimiento, fecha_hora) en orden ascendente (ASC).*/
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 /*----------------------------------------------------*/
 CREATE TABLE [dbo].[Desc_Mov_Auditoria](
 	[codigo_movimiento]   numeric (5,0)  not null PRIMARY KEY,
