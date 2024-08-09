@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import SQLConexion
-import Validaciones
 
 ventana = tk.Tk()
 # ---------------------------------------------------------------------------------------------------------------------------------#
@@ -205,13 +204,19 @@ def VentanaLeer(CodigoMovimiento=None):
     TablaUsuarios.grid(row=1, column=0, columnspan=4, padx=10, pady=10, sticky="nsew")
 
     def ConsultaUsuarios():
-        for items in TablaUsuarios.get_children():  # obtengo todos los elementos de la tabla
-            TablaUsuarios.delete(items)
+        try:
+            for items in TablaUsuarios.get_children():  # obtengo todos los elementos de la tabla
+                TablaUsuarios.delete(items)
             # se eliminan los datos de la tabla
-        ResConsulta = SQLConexion.MetodosSQL.LeerUsuariosSQL(SQLConexion.Conexion.conn )
-        for fila in ResConsulta:
-            TablaUsuarios.insert("", "end", values=fila)
-            # se imprimen los datos en la Tabla
+            ResConsulta = SQLConexion.MetodosSQL.LeerUsuariosSQL(SQLConexion.Conexion.conn )
+            for fila in ResConsulta:
+                TablaUsuarios.insert("", "end", values=fila)
+                # se imprimen los datos en la Tabla
+            if ResConsulta:
+                usuario = ResConsulta[0][0]
+                SQLConexion.MetodosSQL.Auditoria(usuario, CodigoMovimiento)
+        except:
+            print('Eror al imprimir la tabla y agregar los datos Auditoria')
 
     def ajustar_columnas(event):
         total_width = event.width
