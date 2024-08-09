@@ -40,14 +40,21 @@ class Conexion:
 
 class MetodosSQL:
 
-    def ValidarUsuario():
-        #Usuario max 35 char
-        pass
+    def Auditoria(codigoUsuario, CodigoMovimiento):
+        cursor = Conexion.conn.cursor()
+        queryAuditoria = """INSERT INTO Auditoria (codigo_usuario, codigo_movimiento, fecha_hora) VALUES (?, ?, GETDATE())"""
+        cursor.execute(queryAuditoria, codigoUsuario, CodigoMovimiento)
+        Conexion.conn.commit()
+        print(f"Auditoria = {codigoUsuario}, codigo_movimiento = {CodigoMovimiento}")
+        cursor.close()
+    # Metodo para realizar el Insert en la Tabla Auditoria  BD
+
+        
 
     def LeerUsuariosSQL(conn): # uso el parametro gobal para ingresar a la BD y realizar la consulta
         # cursor = senala una accion en BD
         cursor = Conexion.conn.cursor()
-        query = """ SELECT u.Codigo, u.Usuario, u.Nombre,r.Descripcion_rol, e.Descripcion_estado 
+        query = """ SELECT u.Codigo, u.Usuario, u.Contra, u.Nombre,r.Descripcion_rol, e.Descripcion_estado 
         FROM Usuarios u INNER JOIN Roles r ON u.Rol = r.Rol INNER JOIN Estados e ON u.Estado = e.Estado""" 
 
         """ INNER JOIN combina las tablas
@@ -61,38 +68,35 @@ class MetodosSQL:
         for consulta in ResConsulta:
             codigo = int (consulta[0])
             usuario = consulta[1].strip()
-            nombre = consulta[2].strip()
-            rol = consulta[3].strip()
-            estado = consulta[4].strip()
+            contra = consulta[2].strip()
+            nombre = consulta[3].strip()
+            rol = consulta[4].strip()
+            estado = consulta[5].strip()
             
-            nuevosDatos.append((codigo, usuario, nombre,rol,estado))
+            nuevosDatos.append((codigo,usuario,contra, nombre,rol,estado))
             print(nuevosDatos)
-        cursor.close() # se cierra la operacion
         return nuevosDatos
         
-    def EscribirSQL(usuario, contrasena, nombre, rol, estado, CodigoMovimiento):
+        
+    def EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento):
         try:
             cursor = Conexion.conn.cursor()
-            queryUsuario = """ INSERT INTO Usuarios (Usuario, Contra, Nombre, Rol, Estado) VALUES (?,?,?,?,?) """
-            cursor.execute(queryUsuario,usuario,contrasena,nombre,rol,estado)
+            queryUsuario = """ INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES (?,?,?,?,?,?) """
+            cursor.execute(queryUsuario,codigo,usuario,contrasena,nombre,rol,estado)
 
-            cursor.execute("SELECT @@IDENTITY AS id") # selecciono el codigo declarado como identity = unico y autosumable
-            codigoUsuario = cursor.fetchone()[0] # obtengo el Identity
-
-            queryAuditoria = """ INSERT INTO Auditoria (codigo_usuario, codigo_movimiento, fecha_hora) VALUES(?,?,GETDATE()) """
-            #agrego los datos a la tabla Auditoria el valor GETDATE() da la fechahora 
-            cursor.execute(queryAuditoria, codigoUsuario, CodigoMovimiento) 
+            MetodosSQL.Auditoria(codigo,CodigoMovimiento)
 
             Conexion.conn.commit() # se aceptan los cambios 
             messagebox.showinfo("Tarea Programada 5", " Usuario Ingresado Correctamente")
             print("Tarea Programada 5", " Usuario Ingresado Correctamente")
-            print(f"Usuario agregado: Codigo: {codigoUsuario}, Usuario: {usuario}, Contrasena: {contrasena}, Nombre: {nombre}, Rol: {rol}, Estado: {estado}")
-            cursor.close() # cierro la operacion
+            print(f"Usuario agregado: Codigo: {codigo}, Usuario: {usuario}, Contrasena: {contrasena}, Nombre: {nombre}, Rol: {rol}, Estado: {estado}")
+            Conexion.conn.close() # cierro la operacion
         except pyodbc.Error as e:
             Conexion.conn.rollback() # si existe un error se rechaza la operacion
             print(messagebox.showerror("Tarea Programada 5", f" Error al Ingresar el Usuario  {e}"))
+    # Metodo para realizar el Insert en la BD
             
-    def ActualizarSQL():
+    def ModificarSQL():
         pass
     def EliminarSQL():
         pass
@@ -100,9 +104,7 @@ class MetodosSQL:
 #-------------------------------------------------------------------------------------------------#
 def prueba():
     if Conexion.LoginSQL(usuario="Nestor1", contrasena="nestor"):
-        MetodosSQL.LeerUsuariosSQL(Conexion.conn)
-        MetodosSQL.EscribirSQL(Conexion.conn)
+        MetodosSQL.LeerUsuariosSQL(Conexion.conn, codigo=2 ,CodigoMovimiento=4)
+        #MetodosSQL.EscribirSQL(Conexion.conn)
         Conexion.CerrarSQL()
-
-
 #prueba()
