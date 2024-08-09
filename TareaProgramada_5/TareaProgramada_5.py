@@ -214,9 +214,13 @@ def VentanaLeer(CodigoMovimiento=None):
                 # se imprimen los datos en la Tabla
             if ResConsulta:
                 usuario = ResConsulta[0][0]
-                SQLConexion.MetodosSQL.Auditoria(usuario, CodigoMovimiento)
+                SQLConexion.MetodosSQL.Auditoria(usuario, CodigoMovimiento) # obtengo el CodigoUsuario  y lo paso a def Auditoria
+            else:
+                print('No hay Usuario para Registrar la Auditoria')
+            
         except:
-            print('Eror al imprimir la tabla y agregar los datos Auditoria')
+            messagebox.showerror('Tarea Programda 5', 'Error al Cargar la Lista de Usuarios')
+            print('Error al imprimir la tabla y agregar los datos Auditoria')
 
     def ajustar_columnas(event):
         total_width = event.width
