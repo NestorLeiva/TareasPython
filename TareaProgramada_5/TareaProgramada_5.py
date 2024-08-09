@@ -44,6 +44,15 @@ def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombre
     SQLConexion.MetodosSQL.EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
     Limpiar(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC)
 # Metodo para Insertar datos Usuario a BD
+def MetodoModificar(codigoM,txtUsuario,txtContrasenaUsuario,txtNombreUsuario,cboRolUsuario,cboEstadoUsuario, CodigoMovimiento):
+    codigo = codigoM.get()
+    usuario = txtUsuario.get().strip()
+    contrasena = txtContrasenaUsuario.get().strip()
+    nombre = txtNombreUsuario.get().strip()
+    rol = cboRolUsuario.current() + 1 
+    estado = cboEstadoUsuario.current() + 1
+    SQLConexion.MetodosSQL.ModificarSQL(codigo, usuario, contrasena, nombre, rol, estado, CodigoMovimiento)
+#Metodo para Modificar Usuario de BD
 def BuscarUsuario(codigo,txtUsuario, txtContrasenaUsuario, txtNombreUsuario, cboRolUsuario, cboEstadoUsuario):
     try:
         if codigo.isdigit():
@@ -267,7 +276,9 @@ def VentanaModificar(CodigoMovimiento=None):
     cboEstadoUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values=('Activo', 'InActivo'))
     cboEstadoUsuario.grid(row=5, column=1,  columnspan=2,padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    btnGuardar = tk.Button(Ventana_Modificar, text='Guardar',width=15, justify="center", font=("", 12))
+    btnGuardar = tk.Button(Ventana_Modificar, text='Guardar',width=15, justify="center", font=("", 12), 
+                           command=lambda: 
+                           MetodoModificar(txtBuscarUsuarioM, txtUsuario, txtContrasenaUsuario, txtNombreUsuario, cboRolUsuario, cboEstadoUsuario, CodigoMovimiento))
     btnGuardar.grid(row=6, column=0,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnLimpiar = tk.Button(Ventana_Modificar, text='Limpiar', width=15, justify="center", font=("", 12), command=lambda: Limpiar(txtUsuario, txtContrasenaUsuario, txtNombreUsuario))
