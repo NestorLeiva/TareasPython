@@ -32,19 +32,24 @@ class Conexion:
             else:
                 messagebox.showinfo("Tarea Programada 5", "No hay conexión para cerrar")
         except pyodbc.Error as e:
-            messagebox.showerror("Tarea Programada 5", f'Error al cerrar la conexión: {e}')
+            messagebox.showerror("Tarea Programada 5", f'Error al cerrar la conexión')
+            print(f'Error al cerrar la conexion: {e}')
     # metodo para cerrar la Sesion de la Base de Datos
 # fin class Conexion
 
 class MetodosSQL:
 
     def Auditoria(codigoUsuario, CodigoMovimiento):
-        cursor = Conexion.conn.cursor()
-        queryAuditoria = """INSERT INTO Auditoria (codigo_usuario, codigo_movimiento, fecha_hora) VALUES (?, ?, GETDATE())"""
-        cursor.execute(queryAuditoria, codigoUsuario, CodigoMovimiento)
-        Conexion.conn.commit()
-        print(f"Auditoria = {codigoUsuario}, codigo_movimiento = {CodigoMovimiento}")
-        cursor.close()
+        try:
+            cursor = Conexion.conn.cursor()
+            queryAuditoria = """INSERT INTO Auditoria (codigo_usuario, codigo_movimiento, fecha_hora) VALUES (?, ?, GETDATE())"""
+            cursor.execute(queryAuditoria, (codigoUsuario, CodigoMovimiento))
+            Conexion.conn.commit()
+            print('Auditoria Realizada con Exito')
+            print(f"Auditoria = codUsu {codigoUsuario}, codigo_movimiento = {CodigoMovimiento}")
+        except pyodbc.Error as e:
+            Conexion.conn.rollback() # si existe un error se rechaza la operacion
+            print(f'Error al realizar la Auditoria {e}')
     # Metodo para realizar el Insert en la Tabla Auditoria  BD
 
     def LeerUsuariosSQL(conn): # uso el parametro gobal para ingresar a la BD y realizar la consulta
@@ -114,9 +119,23 @@ class MetodosSQL:
             print(f"Error al realizar la Consutla Verifique los datos {e}")
     # Metodo para realizar la consulta de un usuario 
 
-    def ModificarSQL():
-        
-        pass
+    def ModificarSQL(codigo, usuario, contrasena, nombre, rol, estado, CodigoMovimiento):
+        try:
+            cursor = Conexion.conn.cursor()
+            queryUsuario = """ UPDATE Usuarios SET Usuario =?, Contra = ?, Nombre = ?, Rol = ?, Estado = ? WHERE Codigo = ? """
+            cursor.execute(queryUsuario,(usuario, contrasena, nombre, rol, estado, codigo))
+
+            MetodosSQL.Auditoria(codigo,CodigoMovimiento)
+
+            Conexion.conn.commit() # se aceptan los cambios 
+            messagebox.showinfo("Tarea Programada 5", " Usuario Modificado Correctamente")
+            print("Tarea Programada 5", " Usuario Modificado Correctamente")
+            print(f"Usuario Modificado:{codigo},{usuario},{contrasena},{nombre},{rol},{estado}")
+        except pyodbc.Error as e:
+            Conexion.conn.rollback() # si existe un error se rechaza la operacion
+            messagebox.showerror("Tarea Programada 5", f" Error al Modificar el Usuario")
+            print("Tarea Programada 5", f" Error al Modificar el Usuario  {e}")
+    
     def EliminarSQL():
         pass
 # fin class Metodos SQL
@@ -124,6 +143,8 @@ class MetodosSQL:
 def prueba():
     if Conexion.LoginSQL(usuario="Nestor1", contrasena="nestor"):
         #MetodosSQL.ModificarSQL(Conexion.conn, codigo=5)
-        MetodosSQL.ConsultaSQL(codigo=2)
+        MetodosSQL.ConsultaSQL(codigo=4)
+        #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
+        MetodosSQL.ModificarSQL(codigo=2, usuario= "Nestor" , contrasena='Joel', nombre='JoelLeiva', rol=3, estado=1, CodigoMovimiento=2)
         Conexion.CerrarSQL()
 #prueba()
