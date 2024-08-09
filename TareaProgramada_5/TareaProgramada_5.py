@@ -36,11 +36,10 @@ def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombre
     SQLConexion.MetodosSQL.EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
     Limpiar(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC.current(),cboEstadoUsuarioC.current())
 
-def BuscarUsuario(codigoM):
-    codigoM = txtBuscarUsuarioM.get().strip()
-    if codigoM.isdigit():
-        codigoM = int(codigoM)
-        SQLConexion.MetodosSQL.ConsultaSQL(codigoM)
+def BuscarUsuario(codigo):
+    if codigo.isdigit():
+        codigo = int(codigo)
+        SQLConexion.MetodosSQL.ConsultaSQL(codigo)
     else:
         messagebox.showwarning('Tarea Programada 5', 'El Codigo del usuario solo debe de ser Numerico')
         print(' Error El Codigo del usuario solo debe de ser Numerico')
@@ -219,7 +218,9 @@ def VentanaModificar(CodigoMovimiento=None):
     Ventana_Modificar = tk.Toplevel(ventana)
     Ventana_Modificar.geometry('600x350')
     Ventana_Modificar.title('Modificacion de Usuarios')
-    global txtBuscarUsuarioM 
+
+    global txtBuscarUsuarioM
+    txtBuscarUsuarioM.get().strip()
 
     lblBuscarUsuario = tk.Label(Ventana_Modificar, text="Buscar Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblBuscarUsuario.grid(row=0, column=0,  columnspan=1,padx=10, pady=10, sticky="we")
@@ -255,7 +256,7 @@ def VentanaModificar(CodigoMovimiento=None):
     txtNombreUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
     txtNombreUsuario.grid(row=3, column=1,  columnspan=2,padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    cboRolUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values=('Administrador????', 'Usuario????', 'Invitado????'))
+    cboRolUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values=(['Admin', 'Conta','Supervisor','Operario']))
     cboRolUsuario.grid(row=4, column=1, columnspan=2,padx=10, pady=10, sticky="we")
 
     cboEstadoUsuario = ttk.Combobox(Ventana_Modificar, state="readonly", font=("", 12), values=('Activo', 'InActivo'))
@@ -275,14 +276,17 @@ def VentanaEliminar(CodigoMovimiento=None):
     Ventana_Eliminar.geometry('600x350')
     Ventana_Eliminar.title('Eliminar Usuario')
 
+    global txtBuscarUsuarioE
+    txtBuscarUsuarioE.get().strip()
+
     lblBuscarUsuario = tk.Label(Ventana_Eliminar, text="Buscar Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblBuscarUsuario.grid(row=0, column=0,  columnspan=1,padx=10, pady=10, sticky="we")
 
-    txtBuscarUsuario = tk.Entry(Ventana_Eliminar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    txtBuscarUsuario.grid(row=0, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
-    txtBuscarUsuario.focus()
+    txtBuscarUsuarioE = tk.Entry(Ventana_Eliminar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    txtBuscarUsuarioE.grid(row=0, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
+    txtBuscarUsuarioE.focus()
 
-    btnBuscarUsuario = tk.Button(Ventana_Eliminar, text='Buscar', width=15, justify="center", font=("", 12))
+    btnBuscarUsuario = tk.Button(Ventana_Eliminar, text='Buscar', width=15, justify="center", font=("", 12), command=lambda: BuscarUsuario(txtBuscarUsuarioE))
     btnBuscarUsuario.grid(row=0, column=2,  columnspan=1,padx=5, pady=5, sticky="we")
     # -------------------------------------------#
     lblUsuario = tk.Label(Ventana_Eliminar, text="Nombre de Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
@@ -309,7 +313,7 @@ def VentanaEliminar(CodigoMovimiento=None):
     lblNombreUsuarioRes = tk.Label(Ventana_Eliminar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblNombreUsuarioRes.grid(row=3, column=1,  columnspan=2, padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    cboRolUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Administrador????', 'Usuario????', 'Invitado????'))
+    cboRolUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Administrador' 'Usuario' 'Invitado'))
     cboRolUsuario.grid(row=4, column=1, columnspan=2,padx=10, pady=10, sticky="we")
 
     lblEstadoUsuarioRes = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Activo', 'InActivo'))
