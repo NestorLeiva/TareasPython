@@ -26,13 +26,15 @@ def CerrarSesion(ventana, nuevaVentana):
     ventana.deiconify()  # muestra la ventana
     # Cierro la sesion de la Base Datos. y muestra la ventana Login
 
-def InsertUsuario(txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC,CodigoMovimiento):
+def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC,CodigoMovimiento):
+    codigo = txtCodigoUsuarioC.get().strip()
     usuario = txtUsuarioC.get().strip()
     contrasena = txtContrasenaUsuarioC.get().strip()
     nombre = txtNombreUsuarioC.get().strip()
     rol = cboRolUsuarioC.current() + 1 # índice del combo inicia en 0, por lo que sumamos 1
     estado = cboEstadoUsuarioC.current() + 1
-    SQLConexion.MetodosSQL.EscribirSQL(usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
+    SQLConexion.MetodosSQL.EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
+    Limpiar(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC.current(),cboEstadoUsuarioC.current())
 # ---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
@@ -114,48 +116,54 @@ def VentanaCrear(CodigoMovimiento=None):
     Ventana_Crear.geometry('600x350')
     Ventana_Crear.title('Ingreso de Usuario')
     
-    global txtUsuarioC, txtContrasenaUsuarioC, txtNombreUsuarioC, cboRolUsuarioC, cboEstadoUsuarioC
+    global txtCodigoUsuarioC ,txtUsuarioC, txtContrasenaUsuarioC, txtNombreUsuarioC, cboRolUsuarioC, cboEstadoUsuarioC
+    
+    lblCodigoUsuario = tk.Label(Ventana_Crear, text="Codigo de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    lblCodigoUsuario.grid(row=0, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
 
     lblUsuario = tk.Label(Ventana_Crear, text="Nombre de Usuario:", width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    lblUsuario.grid(row=0, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
+    lblUsuario.grid(row=1, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
 
     lblContrasenaUsuario = tk.Label(Ventana_Crear, text="Contrasena de Usuario:",  width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    lblContrasenaUsuario.grid(row=1, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
+    lblContrasenaUsuario.grid(row=2, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
 
     lblNombreUsuario = tk.Label(Ventana_Crear, text="Nombre y Apellido:",  width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    lblNombreUsuario.grid(row=2, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
+    lblNombreUsuario.grid(row=3, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
 
     lblRolUsuario = tk.Label(Ventana_Crear, text="Rol del Usuario:", width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    lblRolUsuario.grid(row=3, column=0,  columnspan=1,  padx=10, pady=10, sticky="we")
+    lblRolUsuario.grid(row=4, column=0,  columnspan=1,  padx=10, pady=10, sticky="we")
 
     lblEstadoUsuario = tk.Label(Ventana_Crear, text="Estado del Usuario:", width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    lblEstadoUsuario.grid(row=4, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
+    lblEstadoUsuario.grid(row=5, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    txtUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    txtUsuarioC.grid(row=0, column=1,  columnspan=1,  padx=10, pady=10, sticky="we")
-    txtUsuarioC.focus()
+    txtCodigoUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    txtCodigoUsuarioC.grid(row=0, column=1,  columnspan=1,  padx=10, pady=10, sticky="we")
+    txtCodigoUsuarioC.focus()
 
+    txtUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    txtUsuarioC.grid(row=1, column=1,  columnspan=1,  padx=10, pady=10, sticky="we")
+    
     txtContrasenaUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("", 12), show='*')
-    txtContrasenaUsuarioC.grid(row=1, column=1,  columnspan=1, padx=10, pady=10, sticky="we")
+    txtContrasenaUsuarioC.grid(row=2, column=1,  columnspan=1, padx=10, pady=10, sticky="we")
 
     txtNombreUsuarioC = tk.Entry(Ventana_Crear, width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    txtNombreUsuarioC.grid(row=2, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
+    txtNombreUsuarioC.grid(row=3, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
     # -------------------------------------------#
     cboRolUsuarioC = ttk.Combobox(Ventana_Crear, state="readonly", font=("", 12), values=(['Admin', 'Conta','Supervisor','Operario']))
-    cboRolUsuarioC.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+    cboRolUsuarioC.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
     cboEstadoUsuarioC = ttk.Combobox(Ventana_Crear, state="readonly", font=("", 12),values=(['Activo', 'InActivo']))
-    cboEstadoUsuarioC.grid(row=4, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
+    cboEstadoUsuarioC.grid(row=5, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
     # -------------------------------------------#
     btnGuardar = tk.Button(Ventana_Crear, text='Guardar',width=15, justify="center", font=("", 12), command=lambda: 
-                           InsertUsuario(txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC, CodigoMovimiento) )
-    btnGuardar.grid(row=5, column=0,  columnspan=1,padx=5, pady=5, sticky="we")
+                           InsertUsuario(txtCodigoUsuarioC, txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC, CodigoMovimiento) )
+    btnGuardar.grid(row=6, column=0,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnLimpiar = tk.Button(Ventana_Crear, text='Limpiar', width=15, justify="center", font=("", 12), command=lambda: Limpiar(txtUsuarioC, txtContrasenaUsuarioC, txtNombreUsuarioC))
-    btnLimpiar.grid(row=5, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
+    btnLimpiar.grid(row=6, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnCancelar = tk.Button(Ventana_Crear, text='Cancelar', width=15,justify="center", font=("", 12), command=Ventana_Crear.destroy)
-    btnCancelar.grid(row=6, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
+    btnCancelar.grid(row=7, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
 # ventana Ingresar Usuarios
 def VentanaLeer(CodigoMovimiento=None):
     Ventana_Leer = tk.Toplevel(ventana)
@@ -168,9 +176,10 @@ def VentanaLeer(CodigoMovimiento=None):
     lblConsulta = tk.Label(Ventana_Leer, text="Datos de los Usuarios", width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblConsulta.grid(row=0, column=0, columnspan=4,padx=5, pady=5, sticky="we")
 
-    TablaUsuarios = ttk.Treeview(Ventana_Leer, columns=('Codigo', 'Usuario', 'Nombre', 'Rol', 'Estado'), show="headings")
+    TablaUsuarios = ttk.Treeview(Ventana_Leer, columns=('Codigo', 'Usuario','Contra', 'Nombre', 'Rol', 'Estado'), show="headings")
     TablaUsuarios.heading("Codigo", text="Codigo")
     TablaUsuarios.heading("Usuario", text="Usuario")
+    TablaUsuarios.heading("Contra", text="Contrasena")
     TablaUsuarios.heading("Nombre", text="Nombre")
     TablaUsuarios.heading("Rol", text="Rol")
     TablaUsuarios.heading("Estado", text="Estado")
@@ -180,7 +189,7 @@ def VentanaLeer(CodigoMovimiento=None):
         for items in TablaUsuarios.get_children():  # obtengo todos los elementos de la tabla
             TablaUsuarios.delete(items)
             # se eliminan los datos de la tabla
-        ResConsulta = SQLConexion.MetodosSQL.LeerUsuariosSQL(SQLConexion.Conexion.conn)
+        ResConsulta = SQLConexion.MetodosSQL.LeerUsuariosSQL(SQLConexion.Conexion.conn )
         for fila in ResConsulta:
             TablaUsuarios.insert("", "end", values=fila)
             # se imprimen los datos en la Tabla
