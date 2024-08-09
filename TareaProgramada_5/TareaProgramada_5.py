@@ -35,6 +35,17 @@ def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombre
     estado = cboEstadoUsuarioC.current() + 1
     SQLConexion.MetodosSQL.EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
     Limpiar(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC.current(),cboEstadoUsuarioC.current())
+
+def BuscarUsuario(codigoM):
+    codigoM = txtBuscarUsuarioM.get().strip()
+    if codigoM.isdigit():
+        codigoM = int(codigoM)
+        SQLConexion.MetodosSQL.ConsultaSQL(codigoM)
+    else:
+        messagebox.showwarning('Tarea Programada 5', 'El Codigo del usuario solo debe de ser Numerico')
+        print(' Error El Codigo del usuario solo debe de ser Numerico')
+# metodo para realizar la Busqueda del usuario
+
 # ---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
@@ -76,13 +87,7 @@ def VentanaSecundaria(ventana):
     lblNombreUsuario.grid(row=0, column=0,  columnspan=1, padx=10, pady=10, sticky="we")
 
     lblNombreUsuarioRes = tk.Label(nuevaVentana, width=15, justify="center", bd=2, relief="solid", font=("", 12))
-    lblNombreUsuarioRes.grid(row=0, column=1,  columnspan=1, padx=5, pady=5, sticky="we")
-
-    lblCodigoUsuarioRes = tk.Label( nuevaVentana, width=15, justify="center", bd=2, relief="solid", font=("", 12))
-    lblCodigoUsuarioRes.grid( row=0, column=2,  columnspan=1, padx=5, pady=5, sticky="we")
-
-    lblRolUsuarioRes = tk.Label( nuevaVentana, width=15, justify="center", bd=2, relief="solid", font=("", 12))
-    lblRolUsuarioRes.grid(row=0, column=3,  columnspan=1, padx=5, pady=5, sticky="we")
+    lblNombreUsuarioRes.grid(row=0, column=1,  columnspan=3, padx=5, pady=5, sticky="we")
 
     lblConsulta = tk.Label(nuevaVentana, text="Que Accion desea Realizar", width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblConsulta.grid(row=3, column=0,  columnspan=4, padx=5, pady=5, sticky="we")
@@ -95,7 +100,7 @@ def VentanaSecundaria(ventana):
         VentanaEliminar(CodigoMovimiento = 3)
     def Leer():
         VentanaLeer(CodigoMovimiento = 4)
-
+    # -------------------------------------------#
     btnCrear = tk.Button(nuevaVentana, text='Ingresar', width=15, justify="center", font=("", 12), command=Insertar)
     btnCrear.grid(row=4, column=0,  columnspan=1, padx=5, pady=5, sticky="we")
 
@@ -214,15 +219,16 @@ def VentanaModificar(CodigoMovimiento=None):
     Ventana_Modificar = tk.Toplevel(ventana)
     Ventana_Modificar.geometry('600x350')
     Ventana_Modificar.title('Modificacion de Usuarios')
+    global txtBuscarUsuarioM 
 
     lblBuscarUsuario = tk.Label(Ventana_Modificar, text="Buscar Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblBuscarUsuario.grid(row=0, column=0,  columnspan=1,padx=10, pady=10, sticky="we")
 
-    txtBuscarUsuario = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
-    txtBuscarUsuario.grid(row=0, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
-    txtBuscarUsuario.focus()
+    txtBuscarUsuarioM = tk.Entry(Ventana_Modificar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+    txtBuscarUsuarioM.grid(row=0, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
+    txtBuscarUsuarioM.focus()
 
-    btnBuscarUsuario = tk.Button(Ventana_Modificar, text='Buscar', width=15, justify="center", font=("", 12))
+    btnBuscarUsuario = tk.Button(Ventana_Modificar, text='Buscar', width=15, justify="center", font=("", 12), command=lambda: BuscarUsuario(txtBuscarUsuarioM))
     btnBuscarUsuario.grid(row=0, column=2,  columnspan=1,padx=5, pady=5, sticky="we")
     # -------------------------------------------#
     lblUsuario = tk.Label(Ventana_Modificar, text="Nombre de Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
