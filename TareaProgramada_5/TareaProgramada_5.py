@@ -9,7 +9,6 @@ ventana = tk.Tk()
 def Limpiar(*TextoWidget):
     for texto in TextoWidget:
         texto.delete(0, "end")
-
 # -------------------------------------------#
 def Insertar():
     VentanaCrear(CodigoMovimiento = 1)
@@ -20,7 +19,6 @@ def Elimino():
 def Leer():
      VentanaLeer(CodigoMovimiento = 4)
 # -------------------------------------------#
-
 def login(usuario, contrasena):
     if SQLConexion.Conexion.LoginSQL(usuario, contrasena) == True:
         ventana.withdraw()  # oculta la ventana
@@ -30,13 +28,12 @@ def login(usuario, contrasena):
     else:
         Limpiar(txtUsuario, txtContrasena)
     """ valida que LoginSQL sea True, si lo es abre la ventana secundaria. """
-
+# Metodo para ingresar al programa y validar las credenciales
 def CerrarSesion(ventana, nuevaVentana):
     SQLConexion.Conexion.CerrarSQL()  # llamo al metodo de la clase
     nuevaVentana.destroy()
     ventana.deiconify()  # muestra la ventana
-    # Cierro la sesion de la Base Datos. y muestra la ventana Login
-
+# Cierro la sesion de la Base Datos. y muestra la ventana Login
 def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC,CodigoMovimiento):
     codigo = txtCodigoUsuarioC.get().strip()
     usuario = txtUsuarioC.get().strip()
@@ -46,7 +43,7 @@ def InsertUsuario(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombre
     estado = cboEstadoUsuarioC.current() + 1
     SQLConexion.MetodosSQL.EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento)
     Limpiar(txtCodigoUsuarioC,txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC)
-
+# Metodo para Insertar datos Usuario a BD
 def BuscarUsuario(codigo,txtUsuario, txtContrasenaUsuario, txtNombreUsuario, cboRolUsuario, cboEstadoUsuario):
     try:
         if codigo.isdigit():
@@ -54,27 +51,20 @@ def BuscarUsuario(codigo,txtUsuario, txtContrasenaUsuario, txtNombreUsuario, cbo
             datos = SQLConexion.MetodosSQL.ConsultaSQL(codigo)
             if datos:  # Valido si la consulta tiene datos almacenados
                 for dato in datos:
-                   
                     txtUsuario.delete(0, tk.END)
                     txtUsuario.insert(0, dato[1])
-
                     txtContrasenaUsuario.delete(0, tk.END)
                     txtContrasenaUsuario.insert(0, dato[2])
-
                     txtNombreUsuario.delete(0, tk.END)
                     txtNombreUsuario.insert(0, dato[3])
-
                     cboRolUsuario.set(dato[4])
                     cboEstadoUsuario.set(dato[5])
             else:
                 Limpiar( txtUsuario, txtContrasenaUsuario, txtNombreUsuario)
-                print(f'Codigo de Usuario no Existe {codigo}')
         else:
             messagebox.showwarning('Tarea Programada 5', 'El Codigo del usuario solo debe de ser Numerico')
-            print('Error El Codigo del usuario solo debe de ser Numerico')
     except: 
         messagebox.showerror('Tarea Programada 5', 'Codigo de Usuario no Existe')
-        print(f'Codigo de Usuario no Existe {codigo}')
 # metodo para realizar la Busqueda del usuario
 # ---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
