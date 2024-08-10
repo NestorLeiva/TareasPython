@@ -138,15 +138,32 @@ class MetodosSQL:
             messagebox.showerror("Tarea Programada 5", f" Error al Modificar el Usuario")
             print("Tarea Programada 5", f" Error al Modificar el Usuario  {e}")
     
-    def EliminarSQL():
-        pass
+    def EliminarSQL(codigo,CodigoMovimiento):
+        try:
+            cursor = Conexion.conn.cursor()
+            queryAuditoria = """DELETE FROM Auditoria WHERE codigo_usuario = ?"""
+            cursor.execute(queryAuditoria, codigo)
+            print('se elimino query auditoria')
+            queryEliminar = """DELETE FROM Usuarios WHERE Codigo = ?"""
+            cursor.execute( queryEliminar, codigo)
+            print('se elimino query Eliminar')
+            Conexion.conn.commit()
+            messagebox.showinfo("Tarea Programada 5", " Usuario Eliminado Correctamente")
+            print(f"Usuario Eliminado: {codigo}")
+        except pyodbc.Error as e:
+            Conexion.conn.rollback()
+            messagebox.showerror('Tarea Programada 5', 'Error al Eliminar el Usuario')
+            print(f'Error al Eliminar el Usuario: {e}')
+    #Metoo para Eliminar 1 usuario
+            
 # fin class Metodos SQL
 #-------------------------------------------------------------------------------------------------#
 def prueba():
     if Conexion.LoginSQL(usuario="Nestor1", contrasena="nestor"):
         #MetodosSQL.ModificarSQL(Conexion.conn, codigo=5)
-        MetodosSQL.ConsultaSQL(codigo=4)
+        #MetodosSQL.ConsultaSQL(codigo=4)
         #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
-        MetodosSQL.ModificarSQL(codigo=2, usuario= "Nestor" , contrasena='Joel', nombre='JoelLeiva', rol=3, estado=1, CodigoMovimiento=2)
+        #MetodosSQL.ModificarSQL(codigo=5, usuario= "Javier" , contrasena='Joel', nombre='Joel Leiva', rol=3, estado=1, CodigoMovimiento=2)
+        MetodosSQL.EliminarSQL( codigo=4, CodigoMovimiento=3)
         Conexion.CerrarSQL()
-#prueba()
+prueba()
