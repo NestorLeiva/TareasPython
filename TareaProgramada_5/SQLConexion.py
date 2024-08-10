@@ -61,6 +61,10 @@ class MetodosSQL:
                 queryPermisosLogin = (f"""USE [{database}];
                                     EXEC sp_addrolemember 'db_datareader', '{usuarioLogin}';
                                     EXEC sp_addrolemember 'db_datawriter', '{usuarioLogin}';""")
+                                    # sp_addrolemember se utiliza para agregar un usuario a un rol de base de datos
+                                    # db_datareader es un rol predefinido en SQL Server
+                                    # db_datawriter rol predefinido en SQL Server que permite realizar el CRUD
+                
                 cursor.execute(queryLogin)
                 cursor.execute(queryUsuario)
                 cursor.execute(queryPermisosUsuario)
@@ -72,8 +76,8 @@ class MetodosSQL:
             
         except pyodbc.Error as e :
             Conexion.conn.rollback()
-            messagebox.showerror('Tarea Programada 5', ' Ocurrio un error al crear el Login ')
-            print(f'Error al crear el Login: {e}')
+            messagebox.showerror('Tarea Programada 5', f' Ocurrio un error al crear el Login \n {usuarioLogin} no cuenta con los permisos nesesarios  ')
+            print(f'Error al crear el Login: {e}', 'Permisos insuficientes')
         finally:
             cursor.close()
     # Metodo para crear Login Base Datos
@@ -127,6 +131,7 @@ class MetodosSQL:
             queryUsuario = """ INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES (?,?,?,?,?,?) """
             cursor.execute(queryUsuario,codigo,usuario,contrasena,nombre,rol,estado)
 
+            MetodosSQL.CrearLoginSQL(usuario, contrasena)
             MetodosSQL.Auditoria(codigo,CodigoMovimiento)
 
             Conexion.conn.commit() # se aceptan los cambios 
@@ -216,9 +221,8 @@ def prueba():
     if Conexion.LoginSQL(usuario="Nestor1", contrasena="nestor"):
         #MetodosSQL.ModificarSQL(Conexion.conn, codigo=5)
         #MetodosSQL.ConsultaSQL(codigo=4)
-        #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
-        MetodosSQL.ModificarSQL(codigo=4, usuario= 'Juju' , contrasena='juju', nombre='JuJu JusJus', rol=2, estado=1, CodigoMovimiento=2)
+        #MetodosSQL.EscribirSQL(codigo=8, usuario= 'Lele' , contrasena='lele', nombre='LesLes LesLes', rol=4, estado=1, CodigoMovimiento=1)
+        #MetodosSQL.ModificarSQL(codigo=8, usuario= 'Lele' , contrasena='lele', nombre='LesLes LesLes', rol=4, estado=1, CodigoMovimiento=2)
         #MetodosSQL.EliminarSQL(codigo=4, CodigoMovimiento=3)
-        
         Conexion.CerrarSQL()
 #prueba()

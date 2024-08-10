@@ -15,7 +15,9 @@ GO
 
 
 CREATE DATABASE [Progra 3]
+GO
 USE [Progra 3]
+GO
 /*----------------------------------------------------*/
 -- Crear los logins si no existen
 IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = N'Nestor1')
@@ -23,17 +25,12 @@ BEGIN
     CREATE LOGIN [Nestor1] WITH PASSWORD = N'nestor';
 END
 GO
-IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = N'Arlyn1')
-BEGIN
-    CREATE LOGIN [Arlin1] WITH PASSWORD = N'arlyn';
-END
-GO
+
 /*----------------------------------------------------*/
 -- Crear usuarios
 CREATE USER [Nestor_1] FOR LOGIN [Nestor1] WITH DEFAULT_SCHEMA=[dbo]
 GO
-CREATE USER [Arlin_1] FOR LOGIN [Arlin1] WITH DEFAULT_SCHEMA=[dbo]
-GO
+
 /*----------------------------------------------------*/
 -- Asignar roles a los usuarios
 ALTER ROLE [db_owner] ADD MEMBER [Nestor_1]
