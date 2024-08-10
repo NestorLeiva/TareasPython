@@ -2,7 +2,7 @@ import pyodbc
 from tkinter import messagebox
 
 server = "NESTORPC\\NESTOR"
-database = "progra 3"
+database = "Progra 3"
 global conn  # variable global para la conexion
 
 class Conexion:
@@ -38,6 +38,35 @@ class Conexion:
 # fin class Conexion
 
 class MetodosSQL:
+
+    def CrearLoginSQL(usuario,contrasena):
+        try:
+            cursor = Conexion.conn.cursor()
+            usuarioLogin = usuario.strip()
+            contrasenaLogin = contrasena.strip()
+            if (len(usuarioLogin) >= 4 and len(usuarioLogin) <= 10) and (len(contrasenaLogin) >= 4 and len(contrasenaLogin) <=10):
+                queryLogin = f""" CREATE LOGIN [{usuarioLogin}] WITH PASSWORD = '{contrasenaLogin}' """
+                queryUsuario = f""" CREATE USER [{usuarioLogin}] FOR LOGIN [{usuarioLogin}] WITH DEFAULT_SCHEMA=[dbo] """
+                queryPermisosUsuario = f"""ALTER ROLE [db_owner] ADD MEMBER [{usuarioLogin}] """
+                queryPermisosLogin = (f"""USE [{database}];
+                                    EXEC sp_addrolemember 'db_datareader', '{usuarioLogin}';
+                                    EXEC sp_addrolemember 'db_datawriter', '{usuarioLogin}';""")
+                cursor.execute(queryLogin)
+                cursor.execute(queryUsuario)
+                cursor.execute(queryPermisosUsuario)
+                cursor.execute(queryPermisosLogin)
+                Conexion.conn.commit()
+                print(f'login: {usuarioLogin} {contrasenaLogin}')
+            else:
+                print('Error con las Credenciales')
+            
+        except pyodbc.Error as e :
+            Conexion.conn.rollback()
+            messagebox.showerror('Tarea Programada 5', ' Ocurrio un error al crear el Login ')
+            print(f'Error al crear el Login: {e}')
+        finally:
+            cursor.close()
+    # Metodo para crear Login Base Datos
 
     def Auditoria(codigoUsuario, CodigoMovimiento):
         try:
@@ -128,23 +157,27 @@ class MetodosSQL:
 
     def ModificarSQL(codigo, usuario, contrasena, nombre, rol, estado, CodigoMovimiento):
         try:
-            cursor = Conexion.conn.cursor()
-            queryUsuario = """ UPDATE Usuarios SET Usuario =?, Contra = ?, Nombre = ?, Rol = ?, Estado = ? WHERE Codigo = ? """
-            cursor.execute(queryUsuario,(usuario, contrasena, nombre, rol, estado, codigo))
+            cursor = Conexion.conn.cursor()            
 
-            MetodosSQL.Auditoria(codigo,CodigoMovimiento)
-
-            Conexion.conn.commit() # se aceptan los cambios 
-            messagebox.showinfo("Tarea Programada 5", " Usuario Modificado Correctamente")
-            print("Tarea Programada 5", " Usuario Modificado Correctamente")
-            print(f"Usuario Modificado:{codigo},{usuario},{contrasena},{nombre},{rol},{estado}")
+            if (len(usuario) >= 4 and len(usuario) <= 10) and (len(contrasena) >= 4 and len(contrasena) <=10):
+                queryUsuario = """ UPDATE Usuarios SET Usuario =?, Contra = ?, Nombre = ?, Rol = ?, Estado = ? WHERE Codigo = ? """
+                cursor.execute(queryUsuario,(usuario, contrasena, nombre, rol, estado, codigo))
+                MetodosSQL.Auditoria(codigo,CodigoMovimiento)
+                MetodosSQL.CrearLoginSQL(usuario,contrasena)
+                Conexion.conn.commit() # se aceptan los cambios 
+                messagebox.showinfo("Tarea Programada 5", " Usuario Modificado Correctamente")
+                print(f"Usuario Modificado:{codigo},{usuario},{contrasena},{nombre},{rol},{estado}")
+            else:
+                messagebox.showwarning('Tarea Programada 5', 'El Usuario & Contraseña deben de tener entre 4 y 10 caracteres')
+                print('Error con las Credenciales')
         except pyodbc.Error as e:
             Conexion.conn.rollback() # si existe un error se rechaza la operacion
             messagebox.showerror("Tarea Programada 5", f" Error al Modificar el Usuario")
-            print("Tarea Programada 5", f" Error al Modificar el Usuario  {e}")
+            print(f" Error al Modificar el Usuario  {e}")
         finally:
             cursor.close()
-    
+    # Metodo Para Modificar Usuario 
+
     def EliminarSQL(codigo,CodigoMovimiento):
         try:
             cursor = Conexion.conn.cursor()
@@ -174,7 +207,8 @@ def prueba():
         #MetodosSQL.ModificarSQL(Conexion.conn, codigo=5)
         #MetodosSQL.ConsultaSQL(codigo=4)
         #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
-        #MetodosSQL.ModificarSQL(codigo=5, usuario= "Javier" , contrasena='Joel', nombre='Joel Leiva', rol=3, estado=1, CodigoMovimiento=2)
+        MetodosSQL.ModificarSQL(codigo=3, usuario= "Jeje" , contrasena='jeje', nombre='JeJe JesJes', rol=3, estado=1, CodigoMovimiento=2)
         #MetodosSQL.EliminarSQL(codigo=4, CodigoMovimiento=3)
+        
         Conexion.CerrarSQL()
 #prueba()
