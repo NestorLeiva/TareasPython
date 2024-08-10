@@ -52,7 +52,7 @@ class MetodosSQL:
             print(f'Error al realizar la Auditoria {e}')
     # Metodo para realizar el Insert en la Tabla Auditoria  BD
 
-    def LeerUsuariosSQL(conn,): # uso el parametro gobal para ingresar a la BD y realizar la consulta
+    def LeerUsuariosSQL(conn): # uso el parametro gobal para ingresar a la BD y realizar la consulta
         try:
             cursor = Conexion.conn.cursor()
             query = """ SELECT u.Codigo, u.Usuario, u.Contra, u.Nombre,r.Descripcion_rol, e.Descripcion_estado 
@@ -73,7 +73,7 @@ class MetodosSQL:
                 rol = consulta[4].strip()
                 estado = consulta[5].strip()
                 nuevosDatos.append((codigo,usuario,contra, nombre,rol,estado)) # agrego los datos 
-                print(nuevosDatos)
+                print('Lista de Usuarios:',nuevosDatos)
             return nuevosDatos 
         except pyodbc.Error as e:
             messagebox.showerror('Tarea Programada 5' , 'Error al realizar la lectura de las tablas')
