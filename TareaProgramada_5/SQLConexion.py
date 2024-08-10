@@ -44,6 +44,16 @@ class MetodosSQL:
             cursor = Conexion.conn.cursor()
             usuarioLogin = usuario.strip()
             contrasenaLogin = contrasena.strip()
+
+            queryValidacionLogin = f""" SELECT COUNT(*) FROM sys.server_principals WHERE name = ? """
+            existeLogin = cursor.execute(queryValidacionLogin, usuarioLogin)
+            existeLogin = cursor.fetchone()[0] # Obtengo el primer valor de la fila 
+            if existeLogin > 0:
+                messagebox.showinfo('Tarea Programada 5', f'El login : {usuarioLogin} , Ya existe')
+                print(f'El login : {usuarioLogin} Ya existe')
+                return
+            # se valida que el usuario exista.
+
             if (len(usuarioLogin) >= 4 and len(usuarioLogin) <= 10) and (len(contrasenaLogin) >= 4 and len(contrasenaLogin) <=10):
                 queryLogin = f""" CREATE LOGIN [{usuarioLogin}] WITH PASSWORD = '{contrasenaLogin}' """
                 queryUsuario = f""" CREATE USER [{usuarioLogin}] FOR LOGIN [{usuarioLogin}] WITH DEFAULT_SCHEMA=[dbo] """
@@ -207,7 +217,7 @@ def prueba():
         #MetodosSQL.ModificarSQL(Conexion.conn, codigo=5)
         #MetodosSQL.ConsultaSQL(codigo=4)
         #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
-        MetodosSQL.ModificarSQL(codigo=3, usuario= "Jeje" , contrasena='jeje', nombre='JeJe JesJes', rol=3, estado=1, CodigoMovimiento=2)
+        MetodosSQL.ModificarSQL(codigo=4, usuario= 'Juju' , contrasena='juju', nombre='JuJu JusJus', rol=2, estado=1, CodigoMovimiento=2)
         #MetodosSQL.EliminarSQL(codigo=4, CodigoMovimiento=3)
         
         Conexion.CerrarSQL()
