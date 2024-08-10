@@ -47,7 +47,12 @@
    * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter, continuando con la funcionalidad de la Tarea #4.
    * Implementar las operaciones CRUD (Crear, Leer, Actualizar y Borrar) para la base de datos SQL.
    * El programa deberá permitir al usuario interactuar con la base de datos a través de la interfaz, aplicando las operaciones CRUD sobre los datos de los usuarios.
-  
+  * ![Tarea_5](img/Tarea_5.png)
+  * ![Tarea_5.1](img/Tarea_5.1.png)
+  * ![Tarea_5.2](img/Tarea_5.2.png)
+  * ![Tarea_5.3](img/Tarea_5.3.png)
+  * ![Tarea_5.4](img/Tarea_5.4.png)
+  * ![Tarea_5.5](img/Tarea_5.5.png)
 
 --------------------------------------------------------------------
 * Institucion: 
