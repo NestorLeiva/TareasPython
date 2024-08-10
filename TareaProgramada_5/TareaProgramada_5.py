@@ -74,6 +74,7 @@ def BuscarUsuario(codigo,txtUsuario, txtContrasenaUsuario, txtNombreUsuario, cbo
     except: 
         messagebox.showerror('Tarea Programada 5', 'Codigo de Usuario no Existe')
 # metodo para realizar la Busqueda del usuario
+
 # ---------------------------------------------------------------------------------------------------------------------------------#
 def VentanaLogin():
     ventana.title('Tarea Programada 5')
@@ -174,7 +175,8 @@ def VentanaCrear(CodigoMovimiento=None):
     cboEstadoUsuarioC.grid(row=5, column=1,  columnspan=1,padx=10, pady=10, sticky="we")
     # -------------------------------------------#
     btnGuardar = tk.Button(Ventana_Crear, text='Guardar',width=15, justify="center", font=("", 12), command=lambda: 
-                           InsertUsuario(txtCodigoUsuarioC, txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,cboRolUsuarioC,cboEstadoUsuarioC, CodigoMovimiento) )
+                           InsertUsuario(txtCodigoUsuarioC, txtUsuarioC, txtContrasenaUsuarioC,txtNombreUsuarioC,
+                                         cboRolUsuarioC,cboEstadoUsuarioC, CodigoMovimiento) )
     btnGuardar.grid(row=6, column=0,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnLimpiar = tk.Button(Ventana_Crear, text='Limpiar', width=15, justify="center", font=("", 12), command=lambda: Limpiar(txtUsuarioC, txtContrasenaUsuarioC, txtNombreUsuarioC))
@@ -300,7 +302,7 @@ def VentanaEliminar(CodigoMovimiento=None):
     Ventana_Eliminar = tk.Toplevel(ventana)
     Ventana_Eliminar.geometry('600x350')
     Ventana_Eliminar.title('Eliminar Usuario')
-
+    
     lblBuscarUsuario = tk.Label(Ventana_Eliminar, text="Buscar Usuario:",width=20, justify="center", bd=2, relief="solid", font=("", 12))
     lblBuscarUsuario.grid(row=0, column=0,  columnspan=1,padx=10, pady=10, sticky="we")
 
@@ -337,20 +339,20 @@ def VentanaEliminar(CodigoMovimiento=None):
     txtNombreUsuario = tk.Entry(Ventana_Eliminar, width=20, justify="center", bd=2, relief="solid", font=("", 12))
     txtNombreUsuario.grid(row=3, column=1,  columnspan=2, padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    cboRolUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Administrador' 'Usuario' 'Invitado'))
+    cboRolUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=(['Admin', 'Conta','Supervisor','Operario']))
     cboRolUsuario.grid(row=4, column=1, columnspan=2,padx=10, pady=10, sticky="we")
 
     cboEstadoUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Activo', 'InActivo'))
     cboEstadoUsuario.grid(row=5, column=1,  columnspan=2, padx=10, pady=10, sticky="we")
     # -------------------------------------------#
-    btnAceptar = tk.Button(Ventana_Eliminar, text='Aceptar',width=15, justify="center", font=("", 12))
-    btnAceptar.grid(row=6, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
+    btnEliminar = tk.Button(Ventana_Eliminar, text='Eliminar',width=15, justify="center", font=("", 12),
+                            command=lambda:SQLConexion.MetodosSQL.EliminarSQL(txtBuscarUsuarioE, CodigoMovimiento))
+    btnEliminar.grid(row=6, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnCancelar = tk.Button(Ventana_Eliminar, text='Cancelar', width=15,justify="center", font=("", 12), command=Ventana_Eliminar.destroy)
     btnCancelar.grid(row=6, column=2,  columnspan=1,padx=5, pady=5, sticky="we")
 
     # ventana para Elimianar 1 usuario
-    # -------------------------------------------#
 # ---------------------------------------------------------------------------------------------------------------------------------#
 VentanaLogin()
 ventana.mainloop()
