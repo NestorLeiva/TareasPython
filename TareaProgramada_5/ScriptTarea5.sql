@@ -4,6 +4,16 @@
 */
 USE [master]
 GO
+/*Agregar el usuario al rol `securityadmin` si el login ya existe. 
+Esto debería ser ejecutado con una cuenta que tenga permisos suficientes (como `sa`)*/
+-- Conceder permiso para crear logins
+GRANT ALTER ANY LOGIN TO Nestor1;
+GO
+-- Agregar al usuario al rol securityadmin
+ALTER SERVER ROLE securityadmin ADD MEMBER Nestor1;
+GO
+
+
 CREATE DATABASE [Progra 3]
 USE [Progra 3]
 /*----------------------------------------------------*/
@@ -30,6 +40,7 @@ ALTER ROLE [db_owner] ADD MEMBER [Nestor_1]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [Arlin_1]
 GO
+-- Crear tablas
 /*----------------------------------------------------*/
 CREATE TABLE [dbo].[Usuarios](
 	[Codigo] [numeric](18, 0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -39,17 +50,17 @@ CREATE TABLE [dbo].[Usuarios](
 	[Rol] [numeric](1, 0) NOT NULL,
 	[Estado] [numeric](1, 0) NOT NULL)
 
-/*----------------------------------------------------*/
+
 CREATE TABLE [dbo].[Roles](
 	[Rol] [numeric](1, 0) NOT NULL PRIMARY KEY,
 	[Descripcion_rol] [nchar](10) NOT NULL)
 
-/*----------------------------------------------------*/
+
 CREATE TABLE [dbo].[Estados](
 	[Estado] [numeric](1, 0) NOT NULL PRIMARY KEY,
 	[Descripcion_estado] [nchar](10) NOT NULL)
 
-/*----------------------------------------------------*/
+
 CREATE TABLE [dbo].[Auditoria](
 	[codigo_usuario] [numeric](18, 0) NOT NULL,
 	[codigo_movimiento] [numeric](5, 0) NOT NULL,
@@ -64,11 +75,12 @@ CREATE TABLE [dbo].[Auditoria](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/*----------------------------------------------------*/
+
 CREATE TABLE [dbo].[Desc_Mov_Auditoria](
 	[codigo_movimiento]   numeric (5,0)  not null PRIMARY KEY,
 	[descripcion_movimiento] nvarchar(50) not null)
-
+/*----------------------------------------------------*/
+-- Insertar datos
 INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES(1, 'Arlyn', 'arlyn', 'Arlyn Madriz',1,1);
 INSERT INTO Usuarios (Codigo, Usuario, Contra, Nombre, Rol, Estado) VALUES(2, 'Nestor', 'nestor','Nestor Leiva',2,1);
 INSERT INTO Roles(Rol, Descripcion_rol) VALUES(1, 'Admin');
@@ -93,7 +105,6 @@ GO
 ALTER TABLE [dbo].[Usuarios] CHECK CONSTRAINT [FK_Usuarios_Roles]
 GO
 /*-----------------------------------------------------------*/
-
 -- Crear relaciones
 ALTER TABLE [dbo].[Usuarios]  WITH CHECK ADD  CONSTRAINT [FK_Usuarios_Estados] FOREIGN KEY([Estado])
 REFERENCES [dbo].[Estados] ([Estado])
@@ -117,5 +128,6 @@ ALTER TABLE [dbo].[Auditoria] CHECK CONSTRAINT [FK_Auditoria_Usuarios]
 GO
 USE [master]
 GO
+-- Configurar base de datos para lectura y escritura
 ALTER DATABASE [Progra 3] SET  READ_WRITE 
 GO
