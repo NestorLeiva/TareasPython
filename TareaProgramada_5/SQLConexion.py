@@ -77,7 +77,9 @@ class MetodosSQL:
             return nuevosDatos 
         except pyodbc.Error as e:
             messagebox.showerror('Tarea Programada 5' , 'Error al realizar la lectura de las tablas')
-            print(f'Error al realizar la lectura de las tablas {e}')
+            print(f'Error al realizar la lectura de las tablas :{e}')
+        finally:
+            cursor.close()
     # Metodo para realizar la lectura de las Tablas de BD
      
     def EscribirSQL(codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento):
@@ -92,10 +94,11 @@ class MetodosSQL:
             messagebox.showinfo("Tarea Programada 5", " Usuario Ingresado Correctamente")
             print("Tarea Programada 5", " Usuario Ingresado Correctamente")
             print(f"Usuario agregado: Codigo: {codigo}, Usuario: {usuario}, Contrasena: {contrasena}, Nombre: {nombre}, Rol: {rol}, Estado: {estado}")
-            Conexion.conn.close() # cierro la operacion
         except pyodbc.Error as e:
             Conexion.conn.rollback() # si existe un error se rechaza la operacion
             print(messagebox.showerror("Tarea Programada 5", f" Error al Ingresar el Usuario  {e}"))
+        finally:
+            cursor.close()
     # Metodo para realizar el Insert en la BD
     
     def ConsultaSQL(codigo):
@@ -119,6 +122,8 @@ class MetodosSQL:
         except pyodbc.Error as e:
             messagebox.showerror("Tarea Programada 5", "Error al realizar la Consutla \n Verifique los datos")
             print(f"Error al realizar la Consutla Verifique los datos {e}")
+        finally:
+            cursor.close()
     # Metodo para realizar la consulta de un usuario 
 
     def ModificarSQL(codigo, usuario, contrasena, nombre, rol, estado, CodigoMovimiento):
@@ -137,6 +142,8 @@ class MetodosSQL:
             Conexion.conn.rollback() # si existe un error se rechaza la operacion
             messagebox.showerror("Tarea Programada 5", f" Error al Modificar el Usuario")
             print("Tarea Programada 5", f" Error al Modificar el Usuario  {e}")
+        finally:
+            cursor.close()
     
     def EliminarSQL(codigo,CodigoMovimiento):
         try:
@@ -144,9 +151,11 @@ class MetodosSQL:
             queryAuditoria = """DELETE FROM Auditoria WHERE codigo_usuario = ?"""
             cursor.execute(queryAuditoria, codigo)
             print('se elimino query auditoria')
+
             queryEliminar = """DELETE FROM Usuarios WHERE Codigo = ?"""
             cursor.execute( queryEliminar, codigo)
             print('se elimino query Eliminar')
+
             Conexion.conn.commit()
             messagebox.showinfo("Tarea Programada 5", " Usuario Eliminado Correctamente")
             print(f"Usuario Eliminado: {codigo}")
@@ -154,6 +163,8 @@ class MetodosSQL:
             Conexion.conn.rollback()
             messagebox.showerror('Tarea Programada 5', 'Error al Eliminar el Usuario')
             print(f'Error al Eliminar el Usuario: {e}')
+        finally:
+            cursor.close()
     #Metoo para Eliminar 1 usuario
             
 # fin class Metodos SQL
@@ -164,6 +175,6 @@ def prueba():
         #MetodosSQL.ConsultaSQL(codigo=4)
         #codigo,usuario,contrasena, nombre,rol,estado,CodigoMovimiento
         #MetodosSQL.ModificarSQL(codigo=5, usuario= "Javier" , contrasena='Joel', nombre='Joel Leiva', rol=3, estado=1, CodigoMovimiento=2)
-        MetodosSQL.EliminarSQL( codigo=4, CodigoMovimiento=3)
+        #MetodosSQL.EliminarSQL(codigo=4, CodigoMovimiento=3)
         Conexion.CerrarSQL()
-prueba()
+#prueba()
