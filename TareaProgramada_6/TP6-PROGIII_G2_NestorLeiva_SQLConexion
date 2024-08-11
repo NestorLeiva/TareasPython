@@ -2,7 +2,10 @@ import pyodbc
 from tkinter import messagebox
 
 class ConexionSQL:
+    __Server__ = ""
+    __DataBase__ =""
     pass
-
+# Fin class ConexionSQL
 class MetodosSQL:
     pass
+# Fin class MetodosSQL
