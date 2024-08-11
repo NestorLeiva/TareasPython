@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import os
+
 
 class MiApp:
 
@@ -9,6 +11,20 @@ class MiApp:
         self.ventana = root
         self.ventana.title('Tarea Programada 6, "Cajero Automatico"')
         self.ventana.geometry('500x500')
+        rutaRelativaPng = (r'..\img\cajero-automatico.png')
+        rutaRelativaIco = (r'..\img\cajero-automatico.ico') # .. indica subir un nivelen la ruta
+        self.ventana.iconbitmap(rutaRelativaIco) # agregar icono 
+
+        self.imagen = tk.PhotoImage(file= rutaRelativaPng) # se carga la imagen
+
+        btnImg1 = tk.Button(self.ventana, image=self.imagen)
+        btnImg1.grid(row=2,column=2,columnspan=1, padx=10, pady=10)
+        btnImg2 = tk.Button(self.ventana, image=self.imagen)
+        btnImg2.grid(row=2,column=3,columnspan=1, padx=10, pady=10)
+        btnImg3 = tk.Button(self.ventana, image=self.imagen)
+        btnImg3.grid(row=2,column=4,columnspan=1, padx=10, pady=10)
+
+
 
     # Metodo Constructor de la clase
     
