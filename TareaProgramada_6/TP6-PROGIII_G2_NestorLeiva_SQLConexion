@@ -1,0 +1,8 @@
+import pyodbc
+from tkinter import messagebox
+
+class ConexionSQL:
+    pass
+
+class MetodosSQL:
+    pass
