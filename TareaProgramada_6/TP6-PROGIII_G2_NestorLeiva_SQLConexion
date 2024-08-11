@@ -15,7 +15,7 @@ class ConexionSQL:
                     f'UID={usuario};PWD={contrasena};' +
                     'TrustServerCertificate=yes;')
                 print("ConexionSQL exitosa", usuario)
-                messagebox.showinfo("Tarea Programada 6", f'Login Exitoso :{usuario}')
+                messagebox.showinfo("Tarea Programada 6", f'Login Exitoso : {usuario}')
                 return True
             else:
                 messagebox.showwarning("Tarea Programada 6", 'Usuario / Contrasena Incorrecto')
@@ -47,9 +47,9 @@ class ConexionSQL:
 class MetodosSQL:
     pass
 # Fin class MetodosSQL
-
+#-----------------------------------------------------------------------------------------#
 def Prueba():
-    if ConexionSQL.LoginSQL(usuario="Nestor1", contrasena="nestor"):
-        pass
-
+    if ConexionSQL.LoginSQL(usuario="NestorC", contrasena="nestor10"):
+        print('hola mundo: estoy conectado')
+    ConexionSQL.CerrarSQL()
 Prueba()
