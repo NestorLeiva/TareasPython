@@ -345,8 +345,9 @@ def VentanaEliminar(CodigoMovimiento=None):
     cboEstadoUsuario = ttk.Combobox(Ventana_Eliminar, state="readonly", font=("", 12), values=('Activo', 'InActivo'))
     cboEstadoUsuario.grid(row=5, column=1,  columnspan=2, padx=10, pady=10, sticky="we")
     # -------------------------------------------#
+    cod_eliminar = txtBuscarUsuarioE
     btnEliminar = tk.Button(Ventana_Eliminar, text='Eliminar',width=15, justify="center", font=("", 12),
-                            command=lambda:SQLConexion.MetodosSQL.EliminarSQL(txtBuscarUsuarioE, CodigoMovimiento))
+                            command=lambda:SQLConexion.MetodosSQL.EliminarSQL(cod_eliminar.get().strip(), CodigoMovimiento))
     btnEliminar.grid(row=6, column=1,  columnspan=1,padx=5, pady=5, sticky="we")
 
     btnCancelar = tk.Button(Ventana_Eliminar, text='Cancelar', width=15,justify="center", font=("", 12), command=Ventana_Eliminar.destroy)
