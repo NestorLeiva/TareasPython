@@ -31,6 +31,7 @@
 # ***_Tarea Programada # 4_***
 * Lenguaje Utilizado
     * Python
+    * Base Datos SQL Server
 * Objetivo de la Tarea:
     * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter.
     * El programa deberá conectarse a una base de datos SQL.
