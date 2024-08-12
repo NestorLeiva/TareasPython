@@ -6,7 +6,6 @@ class ConexionSQL:
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
     def LoginSQL(usuario, contrasena):
-        
         try:
             if usuario and contrasena:
                 ConexionSQL.__conn__ = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};' +
@@ -38,11 +37,6 @@ class ConexionSQL:
             print(f'Error al cerrar la conexionSQL {e}')
             pass
     # Fin CerrarSQL
-        
-      
-
-
-    pass
 # Fin class ConexionSQL
 class MetodosSQL:
     pass
@@ -52,4 +46,4 @@ def Prueba():
     if ConexionSQL.LoginSQL(usuario="NestorC", contrasena="nestor10"):
         print('hola mundo: estoy conectado')
     ConexionSQL.CerrarSQL()
-Prueba()
+#Prueba()
