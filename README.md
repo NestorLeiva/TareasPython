@@ -61,6 +61,7 @@
 * Lenguaje Utilizado
     * Python
     * Base Datos SQL Server
+       * Nivel de Compatibilidad SQL Server 2016 (130)    
 
 * Objetivo de la Tarea:
 
