@@ -383,19 +383,49 @@ class MiApp:
         self.txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnDepositar = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnDepositar.grid(row=2, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnDepositarD.grid(row=2, column=0, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnCancelar = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnCancelar.grid(row=2, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnCancelarD = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnCancelarD.grid(row=2, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
         self.btnRegresarD = tk.Button(self.ventana_Deposito,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.btnRegresarD.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Metodo para Realizar Depositos
 
     def VentanaRetiro(self):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Retiro')
-        print('Opcion Retiro')
+        print('Ventana Retiros')
+        self.VentanaOpcionesCajeros.withdraw() # oculto la ventana
+        # ---------------------------------------------------------------#
+        self.ventana_Retiros = tk.Toplevel(self.ventana)
+        self.ventana_Retiros.title('Tarea Programada 6 - Cajero Automatico')
+        self.ventana_Retiros.geometry('600x400')
+        # ---------------------------------------------------------------#
+        lblTitulo = tk.Label(self.ventana_Retiros, text='Bienvenido al Banco Personal \n Retiiros', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+        lblTitulo.grid(row=0, column=0, columnspan=2, padx=10,pady=10, sticky='we')
+        # ---------------------------------------------------------------#
+        lblIngresoSaldo = tk.Label(self.ventana_Retiros, text='Saldo Anterior', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblIngresoSaldo.grid(row=2, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+
+        txtSaldoAnterior = tk.Entry(self.ventana_Retiros, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        txtSaldoAnterior.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
+        txtSaldoAnterior.config(state='disabled')
+        # ---------------------------------------------------------------#
+        lblIngresoSaldo = tk.Label(self.ventana_Retiros, text='Ingrese Monto de Retiro', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblIngresoSaldo.grid(row=3, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+
+        self.txtRetiroSaldo = tk.Entry(self.ventana_Retiros, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.txtRetiroSaldo.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        self.txtRetiroSaldo.focus()
+
+        self.btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRetiroR  .grid(row=4, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.btnCancelarR = tk.Button(self.ventana_Retiros,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnCancelarR.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarR.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaRetiro
 
     def VentanaConsulta(self):
