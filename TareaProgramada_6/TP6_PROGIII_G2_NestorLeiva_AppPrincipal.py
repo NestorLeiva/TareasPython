@@ -429,8 +429,25 @@ class MiApp:
     # Fin VentanaRetiro
 
     def VentanaConsulta(self):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Consulta Saldo')
-        print('Opcion ConsultaSaldo')
+        print('Ventana Consulta')
+        self.VentanaOpcionesCajeros.withdraw() # oculto la ventana
+        # ---------------------------------------------------------------#
+        self.ventana_Retiros = tk.Toplevel(self.ventana)
+        self.ventana_Retiros.title('Tarea Programada 6 - Cajero Automatico')
+        self.ventana_Retiros.geometry('600x400')
+        # ---------------------------------------------------------------#
+        lblTitulo = tk.Label(self.ventana_Retiros, text='Bienvenido al Banco Personal \n Consulta', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+        lblTitulo.grid(row=0, column=0, columnspan=2, padx=10,pady=10, sticky='we')
+        # ---------------------------------------------------------------#
+        lblSaldoC = tk.Label(self.ventana_Retiros, text='Saldo Actual', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblSaldoC.grid(row=2, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+
+        self.txtSaldoC = tk.Entry(self.ventana_Retiros, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
+        self.txtSaldoC.config(state='disabled')
+
+        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarR.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
     def EstadoOcupado(self, estado = None):
