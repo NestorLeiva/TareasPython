@@ -88,7 +88,6 @@ class MiApp:
                 texto.delete(0, "end")
     # Metodo para limpiar Texbox    
     #-----------------------------------------------------------------------------------------#
-
     def TipoEstadoCajero(self,estado):
         if estado == 2: 
             print('Cajero Ocupado')
@@ -163,7 +162,6 @@ class MiApp:
                 print('Error al Desactivar los bontones Cajero 3')
         else:
              print('Error con los Cajeros')
-
     # Metodo para realiza la validacion del estado del cajero 
     #-----------------------------------------------------------------------------------------#
     def __init__(self, root):
@@ -353,7 +351,6 @@ class MiApp:
         lblTitulo = tk.Label(self.Ventana_Cambio_Estado, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
         lblTitulo.grid(row=0, column=0, columnspan=3,padx=50, pady=10, sticky="we")
 
-
         btnEstadoLibre = tk.Button(self.Ventana_Cambio_Estado,text='Libre', width=20, justify='center',bd=2,font=("", 16))
         btnEstadoLibre.grid(row=2, column=0, columnspan=1, padx=10, pady=10)
 
@@ -366,12 +363,8 @@ class MiApp:
         btnEstadoFueraServicio = tk.Button(self.Ventana_Cambio_Estado,text='Fuera Servicio', width=20, justify='center',bd=2,font=("", 16) )
         btnEstadoFueraServicio.grid(row=3, column=1, columnspan=1, padx=10, pady=10)
 
-
         btnRegresar = tk.Button(self.Ventana_Cambio_Estado,text='Regresar', width=20, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
-        btnRegresar.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
-
-       
-        
+        btnRegresar.grid(row=4, column=0, columnspan=1, padx=10, pady=10)  
     # Fin VentanCambioEstado
     #-----------------------------------------------------------------------------------------#
     def VentanaDeposito(self):
@@ -389,11 +382,6 @@ class MiApp:
         print('Opcion ConsultaSaldo')
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
-    def EstadoLibre(self, estado = None):
-        print('Estado Libre')
-        return estado
-    #Fin EstadoLibre
-
     def EstadoOcupado(self, estado = None):
         messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero \n Ocupado')
         print('Estado Ocupado')
