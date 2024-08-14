@@ -74,6 +74,28 @@ class MiApp:
                 self.Ventana_Cambio_Estado = None
             else:
                 print('No se cerro la ventana Cambio Estado Cajero')
+
+            # cierra la VentanaDeposito
+            if self.ventana_Deposito is not None:
+                self.ventana_Deposito.destroy()
+                self.ventana_Deposito = None
+            else:
+                print('No se cerro la Ventana Deposito')
+
+            # cierra la VentanaRetiro
+            if self.ventana_Retiros is not None:
+                self.ventana_Retiros.destroy()
+                self.ventana_Retiros = None
+            else:
+                print('No se cerro la Ventana Retiro')
+
+            # cierra la VentanaConsulta
+            if self.ventana_Consulta is not None:
+                self.ventana_Consulta.destroy()
+                self.ventana_Consulta = None
+            else:
+                print('No se cerro la Ventana Consulta')
+
             # se muestra la ventana si existe
             if self.ventana_Cajeros is not None: 
                 self.ventana_Cajeros.deiconify()
@@ -432,21 +454,21 @@ class MiApp:
         print('Ventana Consulta')
         self.VentanaOpcionesCajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
-        self.ventana_Retiros = tk.Toplevel(self.ventana)
-        self.ventana_Retiros.title('Tarea Programada 6 - Cajero Automatico')
-        self.ventana_Retiros.geometry('600x400')
+        self.ventana_Consulta = tk.Toplevel(self.ventana)
+        self.ventana_Consulta.title('Tarea Programada 6 - Cajero Automatico')
+        self.ventana_Consulta.geometry('600x400')
         # ---------------------------------------------------------------#
-        lblTitulo = tk.Label(self.ventana_Retiros, text='Bienvenido al Banco Personal \n Consulta', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+        lblTitulo = tk.Label(self.ventana_Consulta, text='Bienvenido al Banco Personal \n Consulta', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
         lblTitulo.grid(row=0, column=0, columnspan=2, padx=10,pady=10, sticky='we')
         # ---------------------------------------------------------------#
-        lblSaldoC = tk.Label(self.ventana_Retiros, text='Saldo Actual', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblSaldoC = tk.Label(self.ventana_Consulta, text='Saldo Actual', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblSaldoC.grid(row=2, column=0, columnspan=1, padx=10,pady=10, sticky='we')
 
-        self.txtSaldoC = tk.Entry(self.ventana_Retiros, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        self.txtSaldoC = tk.Entry(self.ventana_Consulta, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
         self.txtSaldoC.config(state='disabled')
 
-        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.btnRegresarR.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
