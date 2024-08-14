@@ -6,7 +6,7 @@ import TP6_PROGIII_G2_NestorLeiva_SQLConexion as Conn
 class MiApp:
     rutaRelativaPng = (r'..\img\cajero-automatico.png')
     rutaRelativaIco = (r'..\img\cajero-automatico.ico') # .. indica subir un nivelen la ruta
-
+     
     def IngresoLoginSQL(self ):
         try:
             #usuario = self.txtUsuario.get().strip()
@@ -29,6 +29,7 @@ class MiApp:
         ventana.withdraw() # oculta la ventana
         self.ventana.deiconify()  # muestra la ventana
         print('Se Realizo el cierr de la Sesion')
+        print('ingreso al login')
     # Metodo para realizar el cierre de la sesion
         
     def RegresarVentana(self, ventana):
@@ -37,17 +38,59 @@ class MiApp:
         print('Se regreso a la ventana anterior')
     # Metodo para regresar a la ventana anterior
 
+    def RegresarVentanaCajeros(self):
+        # cierra la ventana Cajero1
+        if self.ventana_Cajero1 is not None:
+            self.ventana_Cajero1.destroy()
+            self.ventana_Cajero1 = None
+
+        # cierra la ventana Opciones de Cajero
+        if self.VentanaOpcionesCajeros is not None:
+            self.VentanaOpcionesCajeros.destroy()
+            self.VentanaOpcionesCajeros = None
+
+
+        # se muestra la ventana si existe
+        if self.ventana_Opciones is not None: 
+            self.ventana_Opciones.deiconify()
+        print('Regresando a la ventana anterior')
+
     def Limpiar(self, *TextoWidget):
         for texto in TextoWidget:
             if isinstance(texto, (tk.Entry, tk.Text)):  
                 texto.delete(0, "end")
     # Metodo para limpiar Texbox
 
+    def EstadoCajero(self, estado = None  ):
+
+        if (estado == 2 or estado == 3 or estado == 4): 
+                self.btnImg1.config(state='disabled')
+                self.btnCajero1.config(state='disabled')
+                self.btnIngresoCajero1.config(state='disabled')
+                print('Boton Desactivado Cajero ')
+                #-----------------------------------------------------------------------------------------#
+        elif estado == 1 :
+                self.btnImg1.config(state='active')
+                self.btnCajero1.config(state='active')
+                self.btnIngresoCajero1.config(state='active')
+                print('Bontones Activos Cajero')
+                #-----------------------------------------------------------------------------------------#
+        else:
+            print('Error al Desactivar los bontones')
+        
+        print(f'Estado cajero {estado}')
+    # Metodo para realiza la validacion del estado del cajero 
+    #-----------------------------------------------------------------------------------------#
     def __init__(self, root):
         self.ventana = root
         self.ventana.title('Tarea Programad6 - a Cajero Automatico')
         self.ventana.geometry('500x200')
         self.ventana.iconbitmap(MiApp.rutaRelativaIco) # agregar icono 
+        print('ventana Login')
+        #-----------------------------------------------------------------------------------------#
+        self.ventana_Cajero1 = None
+        self.ventana_Opciones = None
+        #-----------------------------------------------------------------------------------------#
 
         lblTitulo = tk.Label(self.ventana, text="Ventana de Login", width=25,justify="center", bd=2, relief="solid", font=("", 12))
         lblTitulo.grid(row=1, column=1, columnspan=3,padx=10, pady=10, sticky="we")
@@ -70,63 +113,89 @@ class MiApp:
 
         btnLimpiar = tk.Button(self.ventana, text="Limpiar", width=10, justify="center", bd=2, relief="solid", font=("", 12))
         btnLimpiar.grid(row=4, column=2, columnspan=2, padx=10, pady=10, sticky='we')
-
     # Fin Metodo Constructor de la clase / Ventana de Login 
     
     def VentanaCajeros(self):
         self.ventana_Opciones = tk.Toplevel(self.ventana)
         self.ventana_Opciones.title('Tarea Programada 6 - Cajero Automatico')
         self.ventana_Opciones.geometry('600x400')
+        print('Ventana Cajeros')
+        # ---------------------------------------------------------------#
         self.ventana.iconbitmap(MiApp.rutaRelativaIco) # agregar icono 
         self.imagen = tk.PhotoImage(file= MiApp.rutaRelativaPng) # se carga la imagen
+        # ---------------------------------------------------------------#
         lblTitulo = tk.Label(self.ventana_Opciones, text='Bienvenido al Banco Personal \n Cajero Digital', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
         lblTitulo.grid(row=1, column=1, columnspan=4, padx=10,pady=10, sticky='we')
         # ---------------------------------------------------------------#
-        btnImg1 = tk.Button(self.ventana_Opciones, image=self.imagen)
-        btnImg1.grid(row=2,column=2,columnspan=1, padx=10, pady=10)
-        btnImg2 = tk.Button(self.ventana_Opciones, image=self.imagen)
+        self.btnImg1 = tk.Button(self.ventana_Opciones, image=self.imagen, command= self.VentanaCajero1 )
+        self.btnImg1.grid(row=2,column=2,columnspan=1, padx=10, pady=10)
+        btnImg2 = tk.Button(self.ventana_Opciones, image=self.imagen )
         btnImg2.grid(row=2,column=3,columnspan=1, padx=10, pady=10)
         btnImg3 = tk.Button(self.ventana_Opciones, image=self.imagen)
         btnImg3.grid(row=2,column=4,columnspan=1, padx=10, pady=10)
         # ---------------------------------------------------------------#
-        btnCajero1 = tk.Button(self.ventana_Opciones,text='Cajero # 1', width=10, justify='center',bd=2,font=("", 16), command= self.OpcionesCajero )
-        btnCajero1.grid(row=3,column=2,columnspan=1, padx=10, pady=10)
+        self.btnCajero1 = tk.Button(self.ventana_Opciones,text='Cajero # 1', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero1 )
+        self.btnCajero1.grid(row=3,column=2,columnspan=1, padx=10, pady=10)
         btnCajero2 = tk.Button(self.ventana_Opciones,text='Cajero # 2', width=10, justify='center',bd=2,font=("", 16) )
         btnCajero2.grid(row=3,column=3,columnspan=1, padx=10, pady=10)
-        btnCajero3 = tk.Button(self.ventana_Opciones,text='Cajero # 3', width=10, justify='center',bd=2,font=("", 16) )
+        btnCajero3 = tk.Button(self.ventana_Opciones,text='Cajero # 3', width=10, justify='center',bd=2,font=("", 16))
         btnCajero3.grid(row=3,column=4,columnspan=1, padx=10, pady=10)
         # ---------------------------------------------------------------#
         btnTerminar = tk.Button(self.ventana_Opciones, text="Salir del Cajero", width=10, justify="center", bd=2, relief="solid", font=("", 12), command=lambda: self.CerrarSesion(self.ventana_Opciones))
         btnTerminar.grid(row=4, column=3, columnspan=1, padx=10, pady=10, sticky='we')
-        
     # Fin VentanaCajeros
 
-    def OpcionesCajero(self):
+    def VentanaCajero1(self, estado=1):
+        
+        print('Cajero # 1')
+        
         self.ventana_Opciones.withdraw() # oculto la ventana
-        VentanaOpcionesCajeros = tk.Toplevel(self.ventana)
-        VentanaOpcionesCajeros.title('Tarea Programada 6 - Cajero Automatico')
-        VentanaOpcionesCajeros.geometry('600x400')
+        
+        # ---------------------------------------------------------------#
+        self.ventana_Cajero1 = tk.Toplevel(self.ventana)
+        self.ventana_Cajero1.title('Tarea Programada 6 - Cajero Automatico')
+        self.ventana_Cajero1.geometry('600x400')
+        # ---------------------------------------------------------------#
+        lblTitulo = tk.Label(self.ventana_Cajero1, text='Bienvenido al Banco Personal \n Cajero Digital # 1', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+        lblTitulo.grid(row=0, column=0, columnspan=3, padx=10,pady=10, sticky='we')
 
-        lblTitulo = tk.Label(VentanaOpcionesCajeros, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
+        self.btnIngresoCajero1 = tk.Button(self.ventana_Cajero1,text='Ingreso', width=10, justify='center',bd=2,font=("", 16), command= self.OpcionesCajero)
+        self.btnIngresoCajero1.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
+
+        self.EstadoCajero(estado) 
+          
+          
+        btnRegresar = tk.Button(self.ventana_Cajero1,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
+        btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
+    # Fin Ventana Cajero 1
+
+    def OpcionesCajero(self):
+        self.VentanaOpcionesCajeros = tk.Toplevel(self.ventana)
+        self.VentanaOpcionesCajeros.title('Tarea Programada 6 - Cajero Automatico')
+        self.VentanaOpcionesCajeros.geometry('600x400')
+        print('Opciones Cajero')
+        self.ventana_Cajero1.withdraw()
+
+        lblTitulo = tk.Label(self.VentanaOpcionesCajeros, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
         lblTitulo.grid(row=0, column=0, columnspan=3,padx=50, pady=10, sticky="we")
 
-        btnRealizarDeposito = tk.Button(VentanaOpcionesCajeros, text="Deposito", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaDeposito )
+        btnRealizarDeposito = tk.Button(self.VentanaOpcionesCajeros, text="Deposito", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaDeposito )
         btnRealizarDeposito.grid(row=1, column=0,columnspan=1 ,padx=10, pady=10)
 
-        btnRealizarRetiro = tk.Button(VentanaOpcionesCajeros, text="Retiro", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaRetiro )
+        btnRealizarRetiro = tk.Button(self.VentanaOpcionesCajeros, text="Retiro", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaRetiro )
         btnRealizarRetiro.grid(row=1, column=1,columnspan=1 ,padx=10, pady=10)
 
-        btnRealizarConsulta = tk.Button(VentanaOpcionesCajeros, text="Consulta", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaConsulta )
+        btnRealizarConsulta = tk.Button(self.VentanaOpcionesCajeros, text="Consulta", width=20, justify='center',bd=2,font=("", 16), command= self.VentanaConsulta )
         btnRealizarConsulta.grid(row=2, column=0,columnspan=1 ,padx=10, pady=10)
 
-        btnRealizarCambioEstado = tk.Button(VentanaOpcionesCajeros, text="Cambio de Estado ATM", width=20, justify='center',bd=2,font=("", 16) )
+        btnRealizarCambioEstado = tk.Button(self.VentanaOpcionesCajeros, text="Cambio de Estado ATM", width=20, justify='center',bd=2,font=("", 16) )
         btnRealizarCambioEstado.grid(row=2, column=1,columnspan=1 ,padx=10, pady=10)
 
-        btnRegresar = tk.Button(VentanaOpcionesCajeros,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command=lambda: self.RegresarVentana(VentanaOpcionesCajeros) )
+        btnRegresar = tk.Button(self.VentanaOpcionesCajeros,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin OpcionesCajero
 
-    def VentanaCambioEstado(self):
+    def VentanaCambioEstado(self, estado = None):
         messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero')
         print('Opcion Cambio Estado Cajero')
         estado = None
@@ -140,12 +209,12 @@ class MiApp:
             self.EstadoFueraServicio(self)
         else: 
             print(' Error al cambiar estado Cajero')
+        return estado
     # Fin VentanCambioEstado
     #-----------------------------------------------------------------------------------------#
     def VentanaDeposito(self):
         messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Deposito')
         print('Opcion Deposito')
-        
     # Fin VentanaDepositos
 
     def VentanaRetiro(self):
@@ -164,7 +233,7 @@ class MiApp:
         return estado
     #Fin EstadoLibre
 
-    def EstadoOcupado(self, estado =2):
+    def EstadoOcupado(self, estado = 2):
         messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero \n Ocupado')
         print('Estado Ocupado')
         return estado
