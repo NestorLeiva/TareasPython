@@ -200,6 +200,9 @@ class MiApp:
         self.ventana_Cajero3 = None
         self.VentanaOpcionesCajeros = None
         self.Ventana_Cambio_Estado = None
+        self.ventana_Deposito = None
+        self.ventana_Retiros = None
+        self.ventana_Consulta = None
         
         self.btnImg1 = None
         self.btnImg2 = None
@@ -411,7 +414,7 @@ class MiApp:
         self.btnCancelarD = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.btnCancelarD.grid(row=2, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnRegresarD = tk.Button(self.ventana_Deposito,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarD = tk.Button(self.ventana_Deposito,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
         self.btnRegresarD.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Metodo para Realizar Depositos
 
@@ -446,7 +449,7 @@ class MiApp:
         self.btnCancelarR = tk.Button(self.ventana_Retiros,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.btnCancelarR.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
         self.btnRegresarR.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaRetiro
 
@@ -468,7 +471,7 @@ class MiApp:
         self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
         self.txtSaldoC.config(state='disabled')
 
-        self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
         self.btnRegresarR.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
