@@ -5,6 +5,7 @@ class ConexionSQL:
     __Server__ = "NESTORPC\\NESTOR"
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
+    
     def LoginSQL(usuario, contrasena):
         try:
             if usuario and contrasena:
@@ -39,11 +40,32 @@ class ConexionSQL:
     # Fin CerrarSQL
 # Fin class ConexionSQL
 class MetodosSQL:
-    pass
+    def ObtenerUsuario(usuario):
+        try:
+            cursor = ConexionSQL.__conn__.cursor()
+            queryObtenerUsuario = """ SELECT * FROM Usuario WHERE usuario = ?"""
+            cursor.execute(queryObtenerUsuario,(usuario,))
+            
+            DatosUsuario = cursor.fetchone()
+
+            if DatosUsuario:
+                print(f'Datos del Usuairo :',DatosUsuario)
+                return DatosUsuario
+            else: 
+                print(f'{usuario}, No encontrado')
+                return None
+            
+        except pyodbc.Error as e:
+            print(f'Error al Obtener el Usuario: {e}')
+        finally:
+            cursor.close()
+    # Metodo Obtener Datos
+        
+        
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
-    if ConexionSQL.LoginSQL(usuario="NestorC", contrasena="nestor10"):
-        print('hola mundo: estoy conectado')
-    ConexionSQL.CerrarSQL()
-#Prueba()
+    if ConexionSQL.LoginSQL(usuario= "NestorCA", contrasena="nestor10"):
+        MetodosSQL.ObtenerUsuario(usuario='NestorCA')
+        ConexionSQL.CerrarSQL()
+Prueba()
