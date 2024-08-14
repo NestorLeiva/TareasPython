@@ -260,7 +260,7 @@ class MiApp:
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin Ventana Cajero 1
 
-    def VentanaCajero2(self,cajero =2, estado=2):
+    def VentanaCajero2(self,cajero =2, estado=None):
         print('Cajero # 2')
         self.ventana_Cajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
@@ -280,7 +280,7 @@ class MiApp:
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin Ventana Cajero 2
 
-    def VentanaCajero3(self,cajero = 3, estado=3):
+    def VentanaCajero3(self,cajero = 3, estado=None):
         print('Cajero # 3')
         self.ventana_Cajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
@@ -298,7 +298,6 @@ class MiApp:
         
         btnRegresar = tk.Button(self.ventana_Cajero3,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
-        
     # Fin Ventana Cajero 3
 
     def OpcionesCajero(self):
@@ -312,7 +311,7 @@ class MiApp:
         self.VentanaOpcionesCajeros = tk.Toplevel(self.ventana)
         self.VentanaOpcionesCajeros.title('Tarea Programada 6 - Cajero Automatico')
         self.VentanaOpcionesCajeros.geometry('600x400')
-        print('Opciones Cajero')
+        print('Opciones Cajeros ')
 
         
         lblTitulo = tk.Label(self.VentanaOpcionesCajeros, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
@@ -368,9 +367,31 @@ class MiApp:
     # Fin VentanCambioEstado
     #-----------------------------------------------------------------------------------------#
     def VentanaDeposito(self):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Deposito')
-        print('Opcion Deposito')
-    # Fin VentanaDepositos
+        print('Ventana Deposito')
+        self.VentanaOpcionesCajeros.withdraw() # oculto la ventana
+        # ---------------------------------------------------------------#
+        self.ventana_Deposito = tk.Toplevel(self.ventana)
+        self.ventana_Deposito.title('Tarea Programada 6 - Cajero Automatico')
+        self.ventana_Deposito.geometry('600x400')
+        # ---------------------------------------------------------------#
+        lblTitulo = tk.Label(self.ventana_Deposito, text='Bienvenido al Banco Personal \n Depostitos', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+        lblTitulo.grid(row=0, column=0, columnspan=2, padx=10,pady=10, sticky='we')
+
+        lblIngresoSaldo = tk.Label(self.ventana_Deposito, text='Ingrese Monto de Deposito', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblIngresoSaldo.grid(row=1, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+
+        self.txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.btnDepositar = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnDepositar.grid(row=2, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.btnCancelar = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnCancelar.grid(row=2, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.btnRegresarD = tk.Button(self.ventana_Deposito,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        self.btnRegresarD.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+    # Metodo para Realizar Depositos
 
     def VentanaRetiro(self):
         messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Retiro')
