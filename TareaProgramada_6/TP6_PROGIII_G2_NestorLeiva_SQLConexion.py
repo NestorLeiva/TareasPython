@@ -79,7 +79,35 @@ class MetodosSQL:
         finally:
             cursor.close()
     #Metodo Consultar Saldo
-        
+
+    def RealizarDeposito(self, monto):
+        try:
+            cursor = ConexionSQL.__conn__.cursor()
+            queryDeposito = """UPDATE Cuenta SET saldo_c = ? WHERE cod_usuario_c = ?"""
+            if (monto >= 1): # valido que el monto sea mayor a 1
+                saldoActual = self.ConsultaSaldo() # obtengo el Saldo
+                if saldoActual is not None :
+                    nuevoSaldo = saldoActual + monto # realizo el aumento del saldo
+                    print(f'Saldo Anterior: _{saldoActual}_, Nuevo Saldo : _{nuevoSaldo}_')
+                    #-----------------------------------------------------------------------------#
+                    cursor.execute(queryDeposito, (nuevoSaldo, self.cod_usuario)) 
+                    ConexionSQL.__conn__.commit() # aplico los cambios
+                    print(f'Saldo Actualizado :_{nuevoSaldo}_')
+                    messagebox.showinfo('Tarea Programada 6', 'Deposito Realizado con Exito')
+                else:
+                    print('Error al realizar el Deposito')
+                    messagebox.showerror('Tarea Programada 6', 'Error al Realizar el Deposito')
+                    return nuevoSaldo
+            else:
+                print('Monto Invalido')
+                messagebox.showerror('Tarea Programada 6', 'Monto Invalido ')
+                return None
+        except pyodbc.Error as e:
+            ConexionSQL.__conn__.rollback()
+            print(f'Error al realizar el deposito__{e}__')
+        finally:
+            cursor.close()
+    # Metodo Realizar depostio
         
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
@@ -88,6 +116,7 @@ def Prueba():
     if ConexionSQL.LoginSQL(usuario= "NestorCA", contrasena="nestor10"):
         metodo_sql.ObtenerUsuario(usuario='NestorCA')
         metodo_sql.ConsultaSaldo()
+        metodo_sql.RealizarDeposito(1)
         ConexionSQL.CerrarSQL()
 Prueba()
 #phantonsita
