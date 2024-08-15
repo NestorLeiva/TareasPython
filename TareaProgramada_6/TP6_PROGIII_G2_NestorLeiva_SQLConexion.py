@@ -108,7 +108,7 @@ class MetodosSQL:
         finally:
             cursor.close()
     # Metodo Realizar depostio
-    
+
     def RealizarRetiro(self, monto):
         try:
             cursor = ConexionSQL.__conn__.cursor()
@@ -147,5 +147,5 @@ def Prueba():
         #metodo_sql.RealizarDeposito(5002)
         #metodo_sql.RealizarRetiro(10002)
         ConexionSQL.CerrarSQL()
-Prueba()
+#Prueba()
 #phantonsita
