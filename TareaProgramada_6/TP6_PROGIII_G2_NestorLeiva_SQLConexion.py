@@ -39,6 +39,7 @@ class ConexionSQL:
             pass
     # Fin CerrarSQL
 # Fin class ConexionSQL
+
 class MetodosSQL:
     def ObtenerUsuario(self, usuario):
         try:
@@ -55,7 +56,6 @@ class MetodosSQL:
             else: 
                 print(f'_{usuario}_, No encontrado')
                 return None
-            
         except pyodbc.Error as e:
             print(f'Error al Obtener el Usuario: __{e}__')
         finally:
@@ -79,7 +79,7 @@ class MetodosSQL:
         finally:
             cursor.close()
     #Metodo Consultar Saldo
-
+    # por que ella es tan hermosa xP
     def RealizarDeposito(self, monto):
         try:
             cursor = ConexionSQL.__conn__.cursor()
@@ -97,18 +97,17 @@ class MetodosSQL:
                 else:
                     print('Error al realizar el Deposito')
                     messagebox.showerror('Tarea Programada 6', 'Error al Realizar el Deposito')
-                    return nuevoSaldo
+                    return nuevoSaldo # se devuelve el saldo SI NO se realiza el deposito 
             else:
                 print('Monto Invalido')
                 messagebox.showerror('Tarea Programada 6', 'Monto Invalido ')
-                return None
+                return None # devuelve NONE si no se realiza el depostito
         except pyodbc.Error as e:
             ConexionSQL.__conn__.rollback()
             print(f'Error al realizar el deposito__{e}__')
         finally:
             cursor.close()
     # Metodo Realizar depostio
-        
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
