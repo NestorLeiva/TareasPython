@@ -44,6 +44,7 @@
 * Lenguaje Utilizado
     * Python
     * Base Datos SQL Server
+       *  Nivel de Compatibilidad SQL Server 2016 (130)    
 * Objetivo de la Tarea:
    * Utilizar la herencia y las clases para estructurar el código de manera eficiente y organizada.
    * Desarrollar un programa en Python con una interfaz gráfica de usuario utilizando la librería Tkinter, continuando con la funcionalidad de la Tarea #4.
