@@ -31,12 +31,6 @@ class MiApp:
         print('Se Realizo el cierr de la Sesion')
         print('ingreso al login')
     # Metodo para realizar el cierre de la sesion
-        
-    def RegresarVentana(self, ventana):
-        ventana.withdraw() # oculta la ventana
-        self.ventana.deiconify()  # muestra la ventana
-        print('Se regreso a la ventana anterior')
-    # Metodo para regresar a la ventana anterior
 
     def RegresarVentanaCajeros(self):
         try:
@@ -408,14 +402,28 @@ class MiApp:
         self.txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnDepositarD.grid(row=2, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14))
+        self.btnDepositarD.grid(row=2, column=0, columnspan=2,padx=10, pady=10, sticky="we")
+        # ---------------------------------------------------------------#
+        lblSaldoActual = tk.Label(self.ventana_Deposito, text='Saldo Anterior', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblSaldoActual.grid(row=3, column=0, columnspan=1, padx=10,pady=10, sticky='we')
 
+        txtSaldoActual = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        txtSaldoActual.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        txtSaldoActual.config(state='disabled')
+
+        lblMontoDeposito = tk.Label(self.ventana_Deposito, text='Saldo Actual', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        lblMontoDeposito.grid(row=4, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+
+        txtMontoDeposito = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        txtMontoDeposito.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        txtMontoDeposito.config(state='disabled')
+        # ---------------------------------------------------------------#
         self.btnCancelarD = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnCancelarD.grid(row=2, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnCancelarD.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
 
         self.btnRegresarD = tk.Button(self.ventana_Deposito,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
-        self.btnRegresarD.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnRegresarD.grid(row=5, column=1, columnspan=1,padx=10, pady=10, sticky="we")
     # Metodo para Realizar Depositos
 
     def VentanaRetiro(self):
