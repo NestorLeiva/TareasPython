@@ -88,7 +88,7 @@ class MetodosSQL:
                 saldoActual = self.ConsultaSaldo() # obtengo el Saldo
                 if saldoActual is not None :
                     nuevoSaldo = saldoActual + monto # realizo el aumento del saldo
-                    print(f'Saldo Anterior: _{saldoActual}_, Nuevo Saldo : _{nuevoSaldo}_')
+                    print(f'Saldo Anterior: _{saldoActual}_ Nuevo Saldo : _{nuevoSaldo}_')
                     #-----------------------------------------------------------------------------#
                     cursor.execute(queryDeposito, (nuevoSaldo, self.cod_usuario)) 
                     ConexionSQL.__conn__.commit() # aplico los cambios
@@ -108,6 +108,35 @@ class MetodosSQL:
         finally:
             cursor.close()
     # Metodo Realizar depostio
+    
+    def RealizarRetiro(self, monto):
+        try:
+            cursor = ConexionSQL.__conn__.cursor()
+            queryRetiro = """UPDATE Cuenta SET saldo_c = ? WHERE cod_usuario_c = ?"""
+            saldoActual = self.ConsultaSaldo() # obtengo el Saldo
+            if saldoActual is not None : # Valid que el monto a retirar sea >=  al saldo actual
+                if (monto  <= saldoActual ): # valido que el monto sea mayor a 1
+                    nuevoSaldo = saldoActual - monto # realizo el aumento del saldo
+                    print(f'Saldo Anterior: _{saldoActual}_, Nuevo Saldo : _{nuevoSaldo}_')
+                    #-----------------------------------------------------------------------------#
+                    cursor.execute(queryRetiro, (nuevoSaldo, self.cod_usuario)) 
+                    ConexionSQL.__conn__.commit() # aplico los cambios
+                    print(f'Saldo Actualizado :_{nuevoSaldo}_')
+                    messagebox.showinfo('Tarea Programada 6', 'Retiro Realizado con Exito')
+                    return nuevoSaldo # se devuelve el saldo SI NO se realiza el deposito 
+                else:
+                    print('Error al realizar el Retiro')
+                    messagebox.showerror('Tarea Programada 6', 'Error al Realizar el Retiro')
+            else:
+                print('Monto Invalido')
+                messagebox.showerror('Tarea Programada 6', 'Monto Invalido ')
+            return None  # Devolver None si no se realiza el retiro
+        except pyodbc.Error as e:
+            ConexionSQL.__conn__.rollback()
+            print(f'Error al realizar el deposito__{e}__')
+        finally:
+            cursor.close()
+    # Metodo Realizar depostio
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
@@ -115,7 +144,8 @@ def Prueba():
     if ConexionSQL.LoginSQL(usuario= "NestorCA", contrasena="nestor10"):
         metodo_sql.ObtenerUsuario(usuario='NestorCA')
         metodo_sql.ConsultaSaldo()
-        metodo_sql.RealizarDeposito(1)
+        #metodo_sql.RealizarDeposito(5002)
+        #metodo_sql.RealizarRetiro(10002)
         ConexionSQL.CerrarSQL()
 Prueba()
 #phantonsita
