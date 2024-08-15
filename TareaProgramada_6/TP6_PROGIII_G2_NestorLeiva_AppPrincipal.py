@@ -11,7 +11,7 @@ class MiApp:
         try:
             #usuario = self.txtUsuario.get().strip()
             #contrasena = self.txtContrasena.get().strip()
-            usuario = "NestorC" # borrar esta linea
+            usuario = "NestorCA" # borrar esta linea
             contrasena = 'nestor10' # borrar esta linea
             if Conn.ConexionSQL.LoginSQL(usuario, contrasena):
                 self.ventana.withdraw()
