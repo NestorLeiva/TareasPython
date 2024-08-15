@@ -110,3 +110,36 @@ REFERENCES [dbo].[Cuenta] ([cod_usuario_c])
 GO
 ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Cuenta]
 GO
+/*-----------------------------------------------------------------------------------------------------------*/
+
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (1, 'Arlyn','arlyn10', 'Arlyn Madriz', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (2, 'Nestor','nestor10', 'Nestor Leiva', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (3, 'Samuel','samuel10', 'Samuel Barahona', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (4, 'Marlon','Marlon10', 'Marlon Matamoros', 1);
+
+INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (1, 10,5000, 1);
+INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (2, 10,5000, 1);
+INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (3, 10,5000, 1);
+INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (4, 10,5000, 1);
+
+INSERT INTO Cajeros (cod_cajero, Ubicacion, Estado) VALUES (1,'Cartago','L')
+INSERT INTO Cajeros (cod_cajero, Ubicacion, Estado) VALUES (2,'Heredia','A')
+INSERT INTO Cajeros (cod_cajero, Ubicacion, Estado) VALUES (3,'San Jose','O')
+INSERT INTO Cajeros (cod_cajero, Ubicacion, Estado) VALUES (3,'San Jose','M')
+
+INSERT INTO Movimientos (Movimiento_m, Descripcion_m) VALUES (1,'Deposito')
+INSERT INTO Movimientos (Movimiento_m, Descripcion_m) VALUES (2,'Retiro')
+INSERT INTO Movimientos (Movimiento_m, Descripcion_m) VALUES (3,'Consulta')
+INSERT INTO Movimientos (Movimiento_m, Descripcion_m) VALUES (4,'CambioEsta')
+
+INSERT INTO Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (1, 1, GETDATE(), 1)
+INSERT INTO Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (2, 2, GETDATE(), 2)
+INSERT INTO Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (3, 3, GETDATE(), 3)
+INSERT INTO Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (4, 4, GETDATE(), 1)
+
+
+SELECT * FROM Usuario
+SELECT * FROM Cuenta;
+SELECT * FROM Cajero;
+SELECT * FROM Auditoria;
+SELECT * FROM Movimiento;
