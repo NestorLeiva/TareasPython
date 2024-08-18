@@ -3,8 +3,8 @@ import datetime as dt
 from tkinter import messagebox
 
 class ConexionSQL:
-    #__Server__ = "127.0.0.1"
-    __Server__ = "localhost"
+    #__Server__ = "NESTORPC\\NESTOR"    #instancia Windows
+    __Server__ = "localhost"            #instancia ubuntu
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
     
@@ -151,9 +151,8 @@ class MetodosSQL:
 
             ConexionSQL.__conn__.commit()
             print('Auditoria Realizada con Exito')
-            messagebox.showinfo('','Auditoria Realizada con Exito')
         except pyodbc.Error as e:
-            print(f' error con auditoria {e}')
+            print(f' Error al Realizar la Auditoria: __ {e}  __')
             ConexionSQL.__conn__.rollback()
             pass
         finally:
@@ -161,14 +160,19 @@ class MetodosSQL:
 
     # Metodo Realizar Auditoria
 
-
-
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
+
+    usuarioL = "nestorsa"
+    contrasenaL ="N$tr0436*"
+    usuarioBD = "Nestor"
+    usuarioW = "NestorCA" 
+    contrasenaW = 'nestor10' 
+
     metodo_sql = MetodosSQL()
-    if ConexionSQL.LoginSQL(usuario= "nestorsa", contrasena="N$tr0436*"):
-        metodo_sql.ObtenerUsuario(usuario='Nestor')
+    if ConexionSQL.LoginSQL(usuario= usuarioL, contrasena= contrasenaL):
+        metodo_sql.ObtenerUsuario(usuario=usuarioBD)
         metodo_sql.ConsultaSaldo()
         metodo_sql.RealizarDeposito(2000)
         #metodo_sql.RealizarRetiro(3000)
