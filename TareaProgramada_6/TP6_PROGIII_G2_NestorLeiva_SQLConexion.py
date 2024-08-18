@@ -1,8 +1,10 @@
 import pyodbc
+import datetime as dt
 from tkinter import messagebox
 
 class ConexionSQL:
-    __Server__ = "NESTORPC\\NESTOR"
+    #__Server__ = "127.0.0.1"
+    __Server__ = "localhost"
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
     
@@ -39,7 +41,7 @@ class ConexionSQL:
             pass
     # Fin CerrarSQL
 # Fin class ConexionSQL
-
+#-----------------------------------------------------------------------------------------#
 class MetodosSQL:
     def ObtenerUsuario(self, usuario):
         try:
@@ -137,15 +139,40 @@ class MetodosSQL:
         finally:
             cursor.close()
     # Metodo Realizar depostio
+    #cod_mov_a=1,cod_cajero=2 
+    def RealizarAuditoria(self, cod_mov_a,cod_cajero ):#parametros al otro lado
+
+        fecha = dt.datetime.now() # obtengo la fecha del dia
+        try:
+            cursor = ConexionSQL.__conn__.cursor()
+            queryAuditoria = """ INSERT Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (?,?, ?,?) """
+
+            cursor.execute(queryAuditoria, (self.cod_usuario,cod_mov_a,fecha,cod_cajero))
+
+            ConexionSQL.__conn__.commit()
+            print('Auditoria Realizada con Exito')
+            messagebox.showinfo('','Auditoria Realizada con Exito')
+        except pyodbc.Error as e:
+            print(f' error con auditoria {e}')
+            ConexionSQL.__conn__.rollback()
+            pass
+        finally:
+            cursor.close()
+
+    # Metodo Realizar Auditoria
+
+
+
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
     metodo_sql = MetodosSQL()
-    if ConexionSQL.LoginSQL(usuario= "NestorCA", contrasena="nestor10"):
-        metodo_sql.ObtenerUsuario(usuario='NestorCA')
+    if ConexionSQL.LoginSQL(usuario= "nestorsa", contrasena="N$tr0436*"):
+        metodo_sql.ObtenerUsuario(usuario='Nestor')
         metodo_sql.ConsultaSaldo()
-        #metodo_sql.RealizarDeposito(5002)
-        #metodo_sql.RealizarRetiro(10002)
+        metodo_sql.RealizarDeposito(2000)
+        #metodo_sql.RealizarRetiro(3000)
+        metodo_sql.RealizarAuditoria( cod_mov_a=3 ,cod_cajero=2 )
         ConexionSQL.CerrarSQL()
-#Prueba()
+Prueba()
 #phantonsita
