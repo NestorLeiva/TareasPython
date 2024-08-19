@@ -4,22 +4,23 @@ from tkinter import messagebox
 import TP6_PROGIII_G2_NestorLeiva_SQLConexion as Conn
 
 class MiApp:
-    rutaRelativaPng = (r'..\img\cajero-automatico.png')
-    rutaRelativaIco = (r'..\img\cajero-automatico.ico') # .. indica subir un nivelen la ruta
-     
+    
     def IngresoLoginSQL(self ):
         try:
             #usuario = self.txtUsuario.get().strip()
             #contrasena = self.txtContrasena.get().strip()
-            usuario = "NestorCA" # borrar esta linea
+            self.usuario = "NestorCA" # borrar esta linea
             contrasena = 'nestor10' # borrar esta linea
-            if Conn.ConexionSQL.LoginSQL(usuario, contrasena):
+            if Conn.ConexionSQL.LoginSQL(self.usuario, contrasena):
                 self.ventana.withdraw()
                 self.VentanaCajeros()
                 self.Limpiar(self.txtUsuario, self.txtContrasena)
             else:
                 self.Limpiar(self.txtUsuario, self.txtContrasena)
                 messagebox.showerror('Tarea Programada 6','Credenciales Incorrectas')
+
+            Conn.MetodosSQL.ObtenerUsuario(self, self.usuario) # obtengo el usuario 
+        
         except ValueError as e:
             print(f'Credenciales Incorrectas {e}')           
     # fin IngresoLoginSQL
@@ -184,7 +185,6 @@ class MiApp:
         self.ventana = root
         self.ventana.title('Tarea Programad6 - a Cajero Automatico')
         self.ventana.geometry('500x200')
-        self.ventana.iconbitmap(MiApp.rutaRelativaIco) # agregar icono 
         print('ventana Login')
         #-----------------------------------------------------------------------------------------#
         self.estado = None
@@ -235,8 +235,8 @@ class MiApp:
         self.ventana_Cajeros.geometry('600x400')
         print('Ventana Cajeros')
         # ---------------------------------------------------------------#
-        self.ventana.iconbitmap(MiApp.rutaRelativaIco) # agregar icono 
-        self.imagen = tk.PhotoImage(file= MiApp.rutaRelativaPng) # se carga la imagen
+        self.rutaRelativaPng = (r'..D:/CUC/TI-141_Programacion_III_Grupo_02_2c2024/TareasProgramadas/img/cajero-automatico.png')
+        self.imagen = tk.PhotoImage(self.rutaRelativaPng) # se carga la imagen
         # ---------------------------------------------------------------#
         lblTitulo = tk.Label(self.ventana_Cajeros, text='Bienvenido al Banco Personal \n Cajero Digital', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
         lblTitulo.grid(row=1, column=1, columnspan=4, padx=10,pady=10, sticky='we')
@@ -369,20 +369,27 @@ class MiApp:
         lblTitulo = tk.Label(self.Ventana_Cambio_Estado, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
         lblTitulo.grid(row=0, column=0, columnspan=3,padx=50, pady=10, sticky="we")
 
+        lblCambio = tk.Label(self.Ventana_Cambio_Estado, text="Seleccione el Cajero a Cambiar", width=25,justify="center", bd=2, relief="solid", font=("", 14))
+        lblCambio.grid(row=1, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+
+        self.txtCambioCajero = tk.Entry(self.Ventana_Cambio_Estado, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+        self.txtCambioCajero.grid(row=1, column=1, columnspan=2,padx=10, pady=10, sticky="we")
+        self.txtCambioCajero.focus()
+
         btnEstadoLibre = tk.Button(self.Ventana_Cambio_Estado,text='Libre', width=20, justify='center',bd=2,font=("", 16))
-        btnEstadoLibre.grid(row=2, column=0, columnspan=1, padx=10, pady=10)
+        btnEstadoLibre.grid(row=3, column=0, columnspan=1, padx=10, pady=10)
 
         btnEstadoOcupado = tk.Button(self.Ventana_Cambio_Estado,text='Ocupado', width=20, justify='center',bd=2,font=("", 16))
-        btnEstadoOcupado.grid(row=2, column=1, columnspan=1, padx=10, pady=10)
+        btnEstadoOcupado.grid(row=3, column=1, columnspan=1, padx=10, pady=10)
 
         btnEstadoMantenimiento = tk.Button(self.Ventana_Cambio_Estado,text='Mantinimiento', width=20, justify='center',bd=2,font=("", 16))
-        btnEstadoMantenimiento.grid(row=3, column=0, columnspan=1, padx=10, pady=10)
+        btnEstadoMantenimiento.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
 
         btnEstadoFueraServicio = tk.Button(self.Ventana_Cambio_Estado,text='Fuera Servicio', width=20, justify='center',bd=2,font=("", 16) )
-        btnEstadoFueraServicio.grid(row=3, column=1, columnspan=1, padx=10, pady=10)
+        btnEstadoFueraServicio.grid(row=4, column=1, columnspan=1, padx=10, pady=10)
 
         btnRegresar = tk.Button(self.Ventana_Cambio_Estado,text='Regresar', width=20, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
-        btnRegresar.grid(row=4, column=0, columnspan=1, padx=10, pady=10)  
+        btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)  
     # Fin VentanCambioEstado
     #-----------------------------------------------------------------------------------------#
     def VentanaDeposito(self):
@@ -477,10 +484,18 @@ class MiApp:
 
         self.txtSaldoC = tk.Entry(self.ventana_Consulta, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
+        
+        saldo = Conn.MetodosSQL.ConsultaSaldo(self) 
+        # realizo la consulta a base datos
+
+        self.txtSaldoC.delete(0,tk.END)
+        self.txtSaldoC.insert(0,saldo) # Inserto el saldo al txt
+
         self.txtSaldoC.config(state='disabled')
+        
 
         self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
-        self.btnRegresarR.grid(row=3, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        self.btnRegresarR.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
     def EstadoOcupado(self, estado = None):
