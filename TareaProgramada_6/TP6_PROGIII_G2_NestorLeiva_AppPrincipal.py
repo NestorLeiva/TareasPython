@@ -412,8 +412,6 @@ class MiApp:
 
         txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
-
-
         # ---------------------------------------------------------------#
         btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14),
                         command= lambda: self.metodos_sql.RealizarDeposito(int(txtIngresoSaldo.get()) ))
@@ -454,26 +452,34 @@ class MiApp:
         # ---------------------------------------------------------------#
         lblIngresoSaldo = tk.Label(self.ventana_Retiros, text='Saldo Anterior', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblIngresoSaldo.grid(row=2, column=0, columnspan=1, padx=10,pady=10, sticky='we')
-
-        txtSaldoAnterior = tk.Entry(self.ventana_Retiros, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
-        txtSaldoAnterior.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
-        txtSaldoAnterior.config(state='disabled')
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
+        self.txtSaldoAnterior = tk.Entry(self.ventana_Retiros, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
+        self.txtSaldoAnterior.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
+        saldoAnt = self.metodos_sql.ConsultaSaldo()
+        self.txtSaldoAnterior.delete(0,tk.END)
+        self.txtSaldoAnterior.insert(0,saldoAnt) 
+        self.txtSaldoAnterior.config(state='disabled')
+        # ---------------------------------------------------------------#
         # ---------------------------------------------------------------#
         lblIngresoSaldo = tk.Label(self.ventana_Retiros, text='Ingrese Monto de Retiro', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblIngresoSaldo.grid(row=3, column=0, columnspan=1, padx=10,pady=10, sticky='we')
 
-        self.txtRetiroSaldo = tk.Entry(self.ventana_Retiros, width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.txtRetiroSaldo.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
-        self.txtRetiroSaldo.focus()
+        txtRetiroSaldo = tk.Entry(self.ventana_Retiros, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        txtRetiroSaldo.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        txtRetiroSaldo.focus()
+        # ---------------------------------------------------------------#
+        btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14),
+                        command=lambda: self.metodos_sql.RealizarRetiro(
+                            int(txtRetiroSaldo.get())
+                        ))
+        btnRetiroR  .grid(row=4, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        # ---------------------------------------------------------------#
+        btnCancelarR = tk.Button(self.ventana_Retiros,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        btnCancelarR.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnRetiroR  .grid(row=4, column=0, columnspan=1,padx=10, pady=10, sticky="we")
-
-        self.btnCancelarR = tk.Button(self.ventana_Retiros,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.btnCancelarR.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
-
-        self.btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
-        self.btnRegresarR.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
+        btnRegresarR = tk.Button(self.ventana_Retiros,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
+        btnRegresarR.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaRetiro
 
     def VentanaConsulta(self):
@@ -492,14 +498,15 @@ class MiApp:
 
         self.txtSaldoC = tk.Entry(self.ventana_Consulta, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
-
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
         saldo = self.metodos_sql.ConsultaSaldo() 
         # realizo la consulta a base datos
-
         self.txtSaldoC.delete(0,tk.END) # elimino el dato almacenado anterios
         self.txtSaldoC.insert(0,saldo) # Inserto el saldo al txt
         self.txtSaldoC.config(state='disabled')
-        
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
         self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
         self.btnRegresarR.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
