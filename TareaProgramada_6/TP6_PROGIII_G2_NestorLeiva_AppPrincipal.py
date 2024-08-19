@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import TP6_PROGIII_G2_NestorLeiva_SQLConexion as Conn
 
+
 class MiApp:
     
     def IngresoLoginSQL(self ):
@@ -19,7 +20,7 @@ class MiApp:
                 self.Limpiar(self.txtUsuario, self.txtContrasena)
                 messagebox.showerror('Tarea Programada 6','Credenciales Incorrectas')
 
-            Conn.MetodosSQL.ObtenerUsuario(self, self.usuario) # obtengo el usuario 
+            self.metodos_sql.ObtenerUsuario(self.usuario) # obtengo el usuario 
         
         except ValueError as e:
             print(f'Credenciales Incorrectas {e}')           
@@ -104,6 +105,8 @@ class MiApp:
             if isinstance(texto, (tk.Entry, tk.Text)):  
                 texto.delete(0, "end")
     # Metodo para limpiar Texbox    
+
+     
     #-----------------------------------------------------------------------------------------#
     def TipoEstadoCajero(self,estado):
         if estado == 2: 
@@ -187,6 +190,7 @@ class MiApp:
         self.ventana.geometry('500x200')
         print('ventana Login')
         #-----------------------------------------------------------------------------------------#
+        self.metodos_sql = Conn.MetodosSQL()
         self.estado = None
         self.cajero = None
         self.ventana_Cajero1 = None
@@ -406,14 +410,18 @@ class MiApp:
         lblIngresoSaldo = tk.Label(self.ventana_Deposito, text='Ingrese Monto de Deposito', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblIngresoSaldo.grid(row=1, column=0, columnspan=1, padx=10,pady=10, sticky='we')
 
-        self.txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
-        self.txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
+        txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14))
-        self.btnDepositarD.grid(row=2, column=0, columnspan=2,padx=10, pady=10, sticky="we")
+
+        # ---------------------------------------------------------------#
+        btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14),
+                        command= lambda: self.metodos_sql.RealizarDeposito(int(txtIngresoSaldo.get()) ))
+        btnDepositarD.grid(row=2, column=0, columnspan=2,padx=10, pady=10, sticky="we")    
         # ---------------------------------------------------------------#
         lblSaldoActual = tk.Label(self.ventana_Deposito, text='Saldo Anterior', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblSaldoActual.grid(row=3, column=0, columnspan=1, padx=10,pady=10, sticky='we')
+        lblSaldoActual.config(state='disabled')
 
         txtSaldoActual = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         txtSaldoActual.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
@@ -484,16 +492,14 @@ class MiApp:
 
         self.txtSaldoC = tk.Entry(self.ventana_Consulta, width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         self.txtSaldoC.grid(row=2, column=1, columnspan=1, padx=10,pady=10, sticky='we')
-        
-        saldo = Conn.MetodosSQL.ConsultaSaldo(self) 
+
+        saldo = self.metodos_sql.ConsultaSaldo() 
         # realizo la consulta a base datos
 
-        self.txtSaldoC.delete(0,tk.END)
+        self.txtSaldoC.delete(0,tk.END) # elimino el dato almacenado anterios
         self.txtSaldoC.insert(0,saldo) # Inserto el saldo al txt
-
         self.txtSaldoC.config(state='disabled')
         
-
         self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
         self.btnRegresarR.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
