@@ -413,24 +413,38 @@ class MiApp:
         txtIngresoSaldo = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         txtIngresoSaldo.grid(row=1, column=1, columnspan=1,padx=10, pady=10, sticky="we")
         # ---------------------------------------------------------------#
+            # se lanza el evento realizarDeposito 
+        def OperacionDeposito():
+            self.metodos_sql.RealizarDeposito (int(txtIngresoSaldo.get() ))
+            self.Limpiar(txtIngresoSaldo)
         btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14),
-                        command= lambda: self.metodos_sql.RealizarDeposito(int(txtIngresoSaldo.get()) ))
+                        command= OperacionDeposito   )
         btnDepositarD.grid(row=2, column=0, columnspan=2,padx=10, pady=10, sticky="we")    
         # ---------------------------------------------------------------#
         lblSaldoActual = tk.Label(self.ventana_Deposito, text='Saldo Anterior', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblSaldoActual.grid(row=3, column=0, columnspan=1, padx=10,pady=10, sticky='we')
         lblSaldoActual.config(state='disabled')
-
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
+            # muestro el saldo anterior
         txtSaldoActual = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         txtSaldoActual.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+        saldoAnte = self.metodos_sql.ConsultaSaldo()
+        txtSaldoActual.delete(0,tk.END)
+        txtSaldoActual.insert(0, saldoAnte)
         txtSaldoActual.config(state='disabled')
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
 
         lblMontoDeposito = tk.Label(self.ventana_Deposito, text='Saldo Actual', width=15 , justify='center', bd=2,relief="solid",font=("", 14) )
         lblMontoDeposito.grid(row=4, column=0, columnspan=1, padx=10,pady=10, sticky='we')
-
+        # ---------------------------------------------------------------#
+        # ---------------------------------------------------------------#
         txtMontoDeposito = tk.Entry(self.ventana_Deposito, width=20, justify="center", bd=2, relief="solid", font=("", 14))
         txtMontoDeposito.grid(row=4, column=1, columnspan=1,padx=10, pady=10, sticky="we")
+
         txtMontoDeposito.config(state='disabled')
+        # ---------------------------------------------------------------#
         # ---------------------------------------------------------------#
         self.btnCancelarD = tk.Button(self.ventana_Deposito,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
         self.btnCancelarD.grid(row=5, column=0, columnspan=1,padx=10, pady=10, sticky="we")
@@ -469,10 +483,11 @@ class MiApp:
         txtRetiroSaldo.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
         txtRetiroSaldo.focus()
         # ---------------------------------------------------------------#
-        btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14),
-                        command=lambda: self.metodos_sql.RealizarRetiro(
-                            int(txtRetiroSaldo.get())
-                        ))
+        def OperacionRetiro():
+            self.metodos_sql.RealizarRetiro (int(txtRetiroSaldo.get()))
+            self.Limpiar(txtRetiroSaldo)
+
+        btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14),command= OperacionRetiro ) 
         btnRetiroR  .grid(row=4, column=0, columnspan=1,padx=10, pady=10, sticky="we")
         # ---------------------------------------------------------------#
         btnCancelarR = tk.Button(self.ventana_Retiros,text='Cancelar', width=20, justify="center", bd=2, relief="solid", font=("", 14))
