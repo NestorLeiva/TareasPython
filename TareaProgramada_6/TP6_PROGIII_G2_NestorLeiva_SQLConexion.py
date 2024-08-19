@@ -64,7 +64,7 @@ class MetodosSQL:
             cursor.close()
     # Metodo Obtener Datos
 
-    def ConsultaSaldo(self):
+    def ConsultaSaldo(self,):
         try:
             cursor = ConexionSQL.__conn__.cursor()
             queryConsultaSaldo = """ SELECT saldo_c FROM Cuenta WHERE cod_usuario_c = ?"""
@@ -145,7 +145,7 @@ class MetodosSQL:
         fecha = dt.datetime.now() # obtengo la fecha del dia
         try:
             cursor = ConexionSQL.__conn__.cursor()
-            queryAuditoria = """ INSERT Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (?,?, ?,?) """
+            queryAuditoria = """ INSERT INTO Auditoria (cod_usuario_a, movimiento_a, fecha_mov_a, cod_cajero_a) VALUES (?,?, ?,?) """
 
             cursor.execute(queryAuditoria, (self.cod_usuario,cod_mov_a,fecha,cod_cajero))
 
@@ -157,8 +157,32 @@ class MetodosSQL:
             pass
         finally:
             cursor.close()
-
     # Metodo Realizar Auditoria
+
+    def ConsutaCajero(self, cod_cajero):
+        try:
+            cursor = ConexionSQL.__conn__.cursor()
+            queryCajero = """SELECT estado FROM Cajero WHERE cod_cajero = ?"""
+            cursor.execute(queryCajero, (cod_cajero,))
+            row = cursor.fetchone()
+            if row:
+                self.estado = row[0]
+                print(f"El estado del cajero {cod_cajero} es {estado}.")
+                return self.estado
+            else:
+                print(f"No se encontró el cajero con el código {cod_cajero}.")
+                return None    
+        except pyodbc.Error as e:
+            print(f'Error al realizar la consulta del cajero {cod_cajero}: {e}')
+            return None
+        finally:
+            cursor.close()
+    # Metodo Realizar Consulta Cajero
+
+    def MovimientoCajero(self, cod_cajero, movimiento):
+        pass
+        
+
 
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
@@ -174,10 +198,12 @@ def Prueba():
     metodo_sql = MetodosSQL()
     if ConexionSQL.LoginSQL(usuario= usuario, contrasena= contrasena):
         metodo_sql.ObtenerUsuario(usuario=usuarioBD)
-        metodo_sql.ConsultaSaldo()
-        metodo_sql.RealizarDeposito(2000)
-        #metodo_sql.RealizarRetiro(3000)
-        metodo_sql.RealizarAuditoria( cod_mov_a=3 ,cod_cajero=2 )
+        #metodo_sql.ConsultaSaldo()
+        #metodo_sql.RealizarDeposito(2000)
+        #metodo_sql.RealizarRetiro(4000)
+        metodo_sql.ConsutaCajero(1)  # Consulta del cajero con código 2
+
+        #metodo_sql.RealizarAuditoria( cod_mov_a=1, cod_cajero=2  )
         ConexionSQL.CerrarSQL()
-#Prueba()
+Prueba()
 #phantonsita
