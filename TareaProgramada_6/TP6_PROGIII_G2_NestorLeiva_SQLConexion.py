@@ -3,8 +3,8 @@ import datetime as dt
 from tkinter import messagebox
 
 class ConexionSQL:
-    #__Server__ = "NESTORPC\\NESTOR"    #instancia Windows
-    __Server__ = "localhost"            #instancia ubuntu
+    __Server__ = "NESTORPC\\NESTOR"    #instancia Windows
+    #__Server__ = "localhost"            #instancia ubuntu
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
     
@@ -164,19 +164,20 @@ class MetodosSQL:
 #-----------------------------------------------------------------------------------------#
 def Prueba():
 
-    usuarioL = "nestorsa"
-    contrasenaL ="N$tr0436*"
-    usuarioBD = "Nestor"
-    usuarioW = "NestorCA" 
-    contrasenaW = 'nestor10' 
+    #usuario = "nestorsa"       # ubuntu
+    #contrasena ="N$tr0436*"    # ubuntu
+    #usuarioBD = "Nestor"       # ubuntu
+    usuarioBD = "NestorCA"
+    usuario = "NestorCA" 
+    contrasena = 'nestor10' 
 
     metodo_sql = MetodosSQL()
-    if ConexionSQL.LoginSQL(usuario= usuarioL, contrasena= contrasenaL):
+    if ConexionSQL.LoginSQL(usuario= usuario, contrasena= contrasena):
         metodo_sql.ObtenerUsuario(usuario=usuarioBD)
         metodo_sql.ConsultaSaldo()
         metodo_sql.RealizarDeposito(2000)
         #metodo_sql.RealizarRetiro(3000)
         metodo_sql.RealizarAuditoria( cod_mov_a=3 ,cod_cajero=2 )
         ConexionSQL.CerrarSQL()
-Prueba()
+#Prueba()
 #phantonsita
