@@ -263,7 +263,7 @@ class MiApp:
         btnTerminar.grid(row=4, column=3, columnspan=1, padx=10, pady=10, sticky='we')
     # Fin VentanaCajeros
 
-    def VentanaCajero1(self,cajero =1, estado=1):
+    def VentanaCajero1(self,cajero =1):
         print('Cajero # 1')
         self.ventana_Cajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
@@ -277,13 +277,13 @@ class MiApp:
         self.btnIngresoCajero1 = tk.Button(self.ventana_Cajero1,text='Ingreso', width=10, justify='center',bd=2,font=("", 16), command= self.OpcionesCajero)
         self.btnIngresoCajero1.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
 
-        self.EstadoCajero(cajero,estado) 
+        self.EstadoCajero(cajero,) 
 
         btnRegresar = tk.Button(self.ventana_Cajero1,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin Ventana Cajero 1
 
-    def VentanaCajero2(self,cajero =2, estado=None):
+    def VentanaCajero2(self,cajero =2):
         print('Cajero # 2')
         self.ventana_Cajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
@@ -297,13 +297,13 @@ class MiApp:
         self.btnIngresoCajero2 = tk.Button(self.ventana_Cajero2,text='Ingreso', width=10, justify='center',bd=2,font=("", 16), command= self.OpcionesCajero)
         self.btnIngresoCajero2.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
 
-        self.EstadoCajero(cajero,estado) 
+        self.EstadoCajero(cajero,) 
         
         btnRegresar = tk.Button(self.ventana_Cajero2,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin Ventana Cajero 2
 
-    def VentanaCajero3(self,cajero = 3, estado=None):
+    def VentanaCajero3(self,cajero = 3):
         print('Cajero # 3')
         self.ventana_Cajeros.withdraw() # oculto la ventana
         # ---------------------------------------------------------------#
@@ -317,7 +317,7 @@ class MiApp:
         self.btnIngresoCajero3 = tk.Button(self.ventana_Cajero3,text='Ingreso', width=10, justify='center',bd=2,font=("", 16), command= self.OpcionesCajero)
         self.btnIngresoCajero3.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
 
-        self.EstadoCajero(cajero,estado) 
+        self.EstadoCajero(cajero,) 
         
         btnRegresar = tk.Button(self.ventana_Cajero3,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
@@ -356,7 +356,7 @@ class MiApp:
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
     # Fin OpcionesCajero
 
-    def VentanaCambioEstado(self,cajero=None, estado = None):
+    def VentanaCambioEstado(self):
         self.VentanaOpcionesCajeros.withdraw()
         # ---------------------------------------------------------------#
         print('ventana Cambio Estado')
@@ -365,10 +365,6 @@ class MiApp:
         self.Ventana_Cambio_Estado.geometry('600x400')
         print('Cambio De Estado Cajeros')
 
-        libre = 1
-        ocupado = 2
-        mantenimiento =3 
-        fuera_servicio = 4
 
         lblTitulo = tk.Label(self.Ventana_Cambio_Estado, text="Banco Personal \n Que Accion desea Realizar", width=25,justify="center", bd=2, relief="solid", font=("", 24))
         lblTitulo.grid(row=0, column=0, columnspan=3,padx=50, pady=10, sticky="we")
@@ -376,20 +372,26 @@ class MiApp:
         lblCambio = tk.Label(self.Ventana_Cambio_Estado, text="Seleccione el Cajero a Cambiar", width=25,justify="center", bd=2, relief="solid", font=("", 14))
         lblCambio.grid(row=1, column=0, columnspan=1,padx=10, pady=10, sticky="we")
 
-        self.txtCambioCajero = tk.Entry(self.Ventana_Cambio_Estado, width=20, justify="center", bd=2, relief="solid", font=("", 12))
-        self.txtCambioCajero.grid(row=1, column=1, columnspan=2,padx=10, pady=10, sticky="we")
-        self.txtCambioCajero.focus()
+        txtCambioCajero = tk.Entry(self.Ventana_Cambio_Estado, width=20, justify="center", bd=2, relief="solid", font=("", 12))
+        txtCambioCajero.grid(row=1, column=1, columnspan=2,padx=10, pady=10, sticky="we")
+        txtCambioCajero.focus()
+        
+        def ObtenerNuevoEstado(nuevoEstado):
+            num_cajero = (txtCambioCajero.get())
+            self.metodos_sql.MovimientoCajero(num_cajero, nuevoEstado)
+            self.Limpiar(txtCambioCajero)
+        
 
-        btnEstadoLibre = tk.Button(self.Ventana_Cambio_Estado,text='Libre', width=20, justify='center',bd=2,font=("", 16))
+        btnEstadoLibre = tk.Button(self.Ventana_Cambio_Estado,text='Libre', width=20, justify='center',bd=2,font=("", 16), command=lambda:ObtenerNuevoEstado('L'))
         btnEstadoLibre.grid(row=3, column=0, columnspan=1, padx=10, pady=10)
 
-        btnEstadoOcupado = tk.Button(self.Ventana_Cambio_Estado,text='Ocupado', width=20, justify='center',bd=2,font=("", 16))
+        btnEstadoOcupado = tk.Button(self.Ventana_Cambio_Estado,text='Ocupado', width=20, justify='center',bd=2,font=("", 16), command=lambda:ObtenerNuevoEstado('O'))
         btnEstadoOcupado.grid(row=3, column=1, columnspan=1, padx=10, pady=10)
 
-        btnEstadoMantenimiento = tk.Button(self.Ventana_Cambio_Estado,text='Mantinimiento', width=20, justify='center',bd=2,font=("", 16))
+        btnEstadoMantenimiento = tk.Button(self.Ventana_Cambio_Estado,text='Mantinimiento', width=20, justify='center',bd=2,font=("", 16), command=lambda:ObtenerNuevoEstado('M'))
         btnEstadoMantenimiento.grid(row=4, column=0, columnspan=1, padx=10, pady=10)
 
-        btnEstadoFueraServicio = tk.Button(self.Ventana_Cambio_Estado,text='Fuera Servicio', width=20, justify='center',bd=2,font=("", 16) )
+        btnEstadoFueraServicio = tk.Button(self.Ventana_Cambio_Estado,text='Fuera Servicio', width=20, justify='center',bd=2,font=("", 16), command=lambda:ObtenerNuevoEstado('F'))
         btnEstadoFueraServicio.grid(row=4, column=1, columnspan=1, padx=10, pady=10)
 
         btnRegresar = tk.Button(self.Ventana_Cambio_Estado,text='Regresar', width=20, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
@@ -526,21 +528,27 @@ class MiApp:
         self.btnRegresarR.grid(row=3, column=1, columnspan=1,padx=10, pady=10, sticky="we")
     # Fin VentanaConsulta
     #-----------------------------------------------------------------------------------------#
-    def EstadoOcupado(self, estado = None):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero \n Ocupado')
-        print('Estado Ocupado')
+    def EstadoLibre(self, estado = 1):
+        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado \n Cajero Libre')
+        print('Cajero ahora esta Libre')
         return estado
     #Fin Estado Ocupado
 
-    def EstadoMantenimiento(self, estado = None):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero \n En Mantenimiento')
-        print('Estado Mantenimiento')
+    def EstadoOcupado(self, estado = 2):
+        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado \n Cajero Ocupado')
+        print('Cajero ahora esta Ocupado')
+        return estado
+    #Fin Estado Ocupado
+
+    def EstadoMantenimiento(self, estado = 3):
+        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado \n Cajero En Mantenimiento')
+        print('Cajero ahora esta Mantenimiento')
         return  estado
     # Fin Estado Mantenimiento
 
-    def EstadoFueraServicio(self, estado = None):
-        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado Cajero \n Fuera de Servicio')
-        print('Estado Fuera Servicio')
+    def EstadoFueraServicio(self, estado = 4):
+        messagebox.showinfo('Tarea Programad6 - a Cajero Automatico ', 'Opcion Cambio Estado \n Cajero Fuera de Servicio')
+        print('Cajero ahora esta Fuera Servicio')
         return estado
     # Fin Estado FueraServicio
 
