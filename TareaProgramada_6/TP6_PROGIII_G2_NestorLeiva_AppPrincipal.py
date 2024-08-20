@@ -10,8 +10,8 @@ class MiApp:
         try:
             #usuario = self.txtUsuario.get().strip()
             #contrasena = self.txtContrasena.get().strip()
-            self.usuario = "NestorCA" # borrar esta linea
-            contrasena = 'nestor10' # borrar esta linea
+            self.usuario = "nestorsa" # borrar esta linea
+            contrasena = 'N$tr0436*' # borrar esta linea
             if Conn.ConexionSQL.LoginSQL(self.usuario, contrasena):
                 self.ventana.withdraw()
                 self.VentanaCajeros()
@@ -99,6 +99,7 @@ class MiApp:
             print('Regresando a la ventana anterior')
         except ValueError as e:
             print(f'Error{e}')
+    # Metodo para Regresar a la ventana Anterior
 
     def Limpiar(self, *TextoWidget):
         for texto in TextoWidget:
@@ -106,99 +107,99 @@ class MiApp:
                 texto.delete(0, "end")
     # Metodo para limpiar Texbox    
     #-----------------------------------------------------------------------------------------#
-
     def EstadoCajero(self,num_cajero):
-        cajero = self.metodos_sql.ConsutaCajero(num_cajero)
-
-        if num_cajero == 1:
-            if cajero == 'L':
-                self.btnImg1.config(state='active')
-                self.btnCajero1.config(state='active')
-                self.btnIngresoCajero1.config(state='active')
-                print('Bontones Activos Cajero 1')
-                print('Cajero Libre')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Libre')
-            elif cajero == 'O':
-                self.btnImg1.config(state='disabled')
-                self.btnCajero1.config(state='disabled')
-                self.btnIngresoCajero1.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 1')
-                print('Cajero Ocupado')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
-            elif cajero == 'M':
-                self.btnImg1.config(state='disabled')
-                self.btnCajero1.config(state='disabled')
-                self.btnIngresoCajero1.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 1')
-                print('Cajero en Mantenimiento')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
-            elif cajero == 'F':
-                self.btnImg1.config(state='disabled')
-                self.btnCajero1.config(state='disabled')
-                self.btnIngresoCajero1.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 1')
-                print('Cajero Fuera de Servicio')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
-        elif num_cajero == 2:
-            if cajero == 'L':
-                self.btnImg2.config(state='active')
-                self.btnCajero2.config(state='active')
-                self.btnIngresoCajero2.config(state='active')
-                print('Bontones Activos Cajero 2')
-                print('Cajero Libre')
-            elif cajero == 'O':
-                self.btnImg2.config(state='disabled')
-                self.btnCajero2.config(state='disabled')
-                self.btnIngresoCajero2.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 2')
-                print('Cajero Ocupado')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
-            elif cajero == 'M':
-                self.btnImg2.config(state='disabled')
-                self.btnCajero2.config(state='disabled')
-                self.btnIngresoCajero2.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 2')
-                print('Cajero en Mantenimiento')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
-            elif cajero == 'F':
-                self.btnImg2.config(state='disabled')
-                self.btnCajero2.config(state='disabled')
-                self.btnIngresoCajero2.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 2')
-                print('Cajero Fuera de Servicio')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
-        elif num_cajero == 3:
-            if cajero == 'L':
-                self.btnImg3.config(state='active')
-                self.btnCajero3.config(state='active')
-                self.btnIngresoCajero3.config(state='active')
-                print('Bontones Activos Cajero 3')
-                print('Cajero Libre')
-            elif cajero == 'O':
-                self.btnImg3.config(state='disabled')
-                self.btnCajero3.config(state='disabled')
-                self.btnIngresoCajero3.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 3')
-                print('Cajero Ocupado')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
-            elif cajero == 'M':
-                self.btnImg3.config(state='disabled')
-                self.btnCajero3.config(state='disabled')
-                self.btnIngresoCajero3.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 3')
-                print('Cajero en Mantenimiento')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
-            elif cajero == 'F':
-                self.btnImg3.config(state='disabled')
-                self.btnCajero3.config(state='disabled')
-                self.btnIngresoCajero3.config(state='disabled')
-                print('Boton Ingresar Desactivado Cajero 3')
-                print('Cajero Fuera de Servicio')
-                messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
-        else:
-            print(f'Error al seleccionar el numero de Cajero: _{num_cajero}_')
+        try:
+            cajero = self.metodos_sql.ConsutaCajero(num_cajero)
+            if num_cajero == 1:
+                if cajero == 'L':
+                    self.btnImg1.config(state='active')
+                    self.btnCajero1.config(state='active')
+                    self.btnIngresoCajero1.config(state='active')
+                    print('Bontones Activos Cajero 1')
+                    print('Cajero Libre')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Libre')
+                elif cajero == 'O':
+                    self.btnImg1.config(state='disabled')
+                    self.btnCajero1.config(state='disabled')
+                    self.btnIngresoCajero1.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 1')
+                    print('Cajero Ocupado')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
+                elif cajero == 'M':
+                    self.btnImg1.config(state='disabled')
+                    self.btnCajero1.config(state='disabled')
+                    self.btnIngresoCajero1.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 1')
+                    print('Cajero en Mantenimiento')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
+                elif cajero == 'F':
+                    self.btnImg1.config(state='disabled')
+                    self.btnCajero1.config(state='disabled')
+                    self.btnIngresoCajero1.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 1')
+                    print('Cajero Fuera de Servicio')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
+            elif num_cajero == 2:
+                if cajero == 'L':
+                    self.btnImg2.config(state='active')
+                    self.btnCajero2.config(state='active')
+                    self.btnIngresoCajero2.config(state='active')
+                    print('Bontones Activos Cajero 2')
+                    print('Cajero Libre')
+                elif cajero == 'O':
+                    self.btnImg2.config(state='disabled')
+                    self.btnCajero2.config(state='disabled')
+                    self.btnIngresoCajero2.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 2')
+                    print('Cajero Ocupado')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
+                elif cajero == 'M':
+                    self.btnImg2.config(state='disabled')
+                    self.btnCajero2.config(state='disabled')
+                    self.btnIngresoCajero2.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 2')
+                    print('Cajero en Mantenimiento')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
+                elif cajero == 'F':
+                    self.btnImg2.config(state='disabled')
+                    self.btnCajero2.config(state='disabled')
+                    self.btnIngresoCajero2.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 2')
+                    print('Cajero Fuera de Servicio')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
+            elif num_cajero == 3:
+                if cajero == 'L':
+                    self.btnImg3.config(state='active')
+                    self.btnCajero3.config(state='active')
+                    self.btnIngresoCajero3.config(state='active')
+                    print('Bontones Activos Cajero 3')
+                    print('Cajero Libre')
+                elif cajero == 'O':
+                    self.btnImg3.config(state='disabled')
+                    self.btnCajero3.config(state='disabled')
+                    self.btnIngresoCajero3.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 3')
+                    print('Cajero Ocupado')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Ocupado')
+                elif cajero == 'M':
+                    self.btnImg3.config(state='disabled')
+                    self.btnCajero3.config(state='disabled')
+                    self.btnIngresoCajero3.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 3')
+                    print('Cajero en Mantenimiento')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero En Mantenimiento')
+                elif cajero == 'F':
+                    self.btnImg3.config(state='disabled')
+                    self.btnCajero3.config(state='disabled')
+                    self.btnIngresoCajero3.config(state='disabled')
+                    print('Boton Ingresar Desactivado Cajero 3')
+                    print('Cajero Fuera de Servicio')
+                    messagebox.showwarning('Tarea Programada 6', 'Cajero Fuera de Servicio')
+            else:
+                print(f'Error al seleccionar el numero de Cajero: _{num_cajero}_')
+        except ValueError as e:
+            print('Error al cambiar el Estado de las Ventanas : {e}')
     # Metodo para cambiar el estado de las ventanas
-
     #-----------------------------------------------------------------------------------------#
     def __init__(self, root):
         self.ventana = root
@@ -250,34 +251,36 @@ class MiApp:
     # Fin Metodo Constructor de la clase / Ventana de Login 
     
     def VentanaCajeros(self):
-        self.ventana_Cajeros = tk.Toplevel(self.ventana)
-        self.ventana_Cajeros.title('Tarea Programada 6 - Cajero Automatico')
-        self.ventana_Cajeros.geometry('600x400')
-        print('Ventana Cajeros')
-        # ---------------------------------------------------------------#
-        self.rutaRelativaPng = (r'..D:/CUC/TI-141_Programacion_III_Grupo_02_2c2024/TareasProgramadas/img/cajero-automatico.png')
-        self.imagen = tk.PhotoImage(self.rutaRelativaPng) # se carga la imagen
-        # ---------------------------------------------------------------#
-        lblTitulo = tk.Label(self.ventana_Cajeros, text='Bienvenido al Banco Personal \n Cajero Digital', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
-        lblTitulo.grid(row=1, column=1, columnspan=4, padx=10,pady=10, sticky='we')
-        # ---------------------------------------------------------------#
-        self.btnImg1 = tk.Button(self.ventana_Cajeros, image=self.imagen, command= self.VentanaCajero1)
-        self.btnImg1.grid(row=2,column=2,columnspan=1, padx=10, pady=10)
-        self.btnImg2 = tk.Button(self.ventana_Cajeros, image=self.imagen, command= self.VentanaCajero2)
-        self.btnImg2.grid(row=2,column=3,columnspan=1, padx=10, pady=10)
-        self.btnImg3 = tk.Button(self.ventana_Cajeros, image=self.imagen, command= self.VentanaCajero3)
-        self.btnImg3.grid(row=2,column=4,columnspan=1, padx=10, pady=10)
-        # ---------------------------------------------------------------#
-        self.btnCajero1 = tk.Button(self.ventana_Cajeros,text='Cajero # 1', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero1)
-        self.btnCajero1.grid(row=3,column=2,columnspan=1, padx=10, pady=10)
-        self.btnCajero2 = tk.Button(self.ventana_Cajeros,text='Cajero # 2', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero2)
-        self.btnCajero2.grid(row=3,column=3,columnspan=1, padx=10, pady=10)
-        self.btnCajero3 = tk.Button(self.ventana_Cajeros,text='Cajero # 3', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero3)
-        self.btnCajero3.grid(row=3,column=4,columnspan=1, padx=10, pady=10)
-        # ---------------------------------------------------------------#
-        btnTerminar = tk.Button(self.ventana_Cajeros, text="Salir del Cajero", width=10, justify="center", bd=2, relief="solid", font=("", 12), command=lambda: self.CerrarSesion(self.ventana_Cajeros))
-        btnTerminar.grid(row=4, column=3, columnspan=1, padx=10, pady=10, sticky='we')
-    # Fin VentanaCajeros
+        try:
+            self.ventana_Cajeros = tk.Toplevel(self.ventana)
+            self.ventana_Cajeros.title('Tarea Programada 6 - Cajero Automatico')
+            self.ventana_Cajeros.geometry('600x400')
+            print('Ventana Cajeros')
+            # ---------------------------------------------------------------#
+
+            # ---------------------------------------------------------------#
+            lblTitulo = tk.Label(self.ventana_Cajeros, text='Bienvenido al Banco Personal \n Cajero Digital', width=30 , justify='center', bd=4,relief="solid",font=("", 24) )
+            lblTitulo.grid(row=1, column=1, columnspan=4, padx=10,pady=10, sticky='we')
+            # ---------------------------------------------------------------#
+            self.btnImg1 = tk.Button(self.ventana_Cajeros, text='img 1', command= self.VentanaCajero1)
+            self.btnImg1.grid(row=2,column=2,columnspan=1, padx=10, pady=10)
+            self.btnImg2 = tk.Button(self.ventana_Cajeros, text='img 2', command= self.VentanaCajero2)
+            self.btnImg2.grid(row=2,column=3,columnspan=1, padx=10, pady=10)
+            self.btnImg3 = tk.Button(self.ventana_Cajeros, text='img 3', command= self.VentanaCajero3)
+            self.btnImg3.grid(row=2,column=4,columnspan=1, padx=10, pady=10)
+            # ---------------------------------------------------------------#
+            self.btnCajero1 = tk.Button(self.ventana_Cajeros,text='Cajero # 1', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero1)
+            self.btnCajero1.grid(row=3,column=2,columnspan=1, padx=10, pady=10)
+            self.btnCajero2 = tk.Button(self.ventana_Cajeros,text='Cajero # 2', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero2)
+            self.btnCajero2.grid(row=3,column=3,columnspan=1, padx=10, pady=10)
+            self.btnCajero3 = tk.Button(self.ventana_Cajeros,text='Cajero # 3', width=10, justify='center',bd=2,font=("", 16), command= self.VentanaCajero3)
+            self.btnCajero3.grid(row=3,column=4,columnspan=1, padx=10, pady=10)
+            # ---------------------------------------------------------------#
+            btnTerminar = tk.Button(self.ventana_Cajeros, text="Salir del Cajero", width=10, justify="center", bd=2, relief="solid", font=("", 12), command=lambda: self.CerrarSesion(self.ventana_Cajeros))
+            btnTerminar.grid(row=4, column=3, columnspan=1, padx=10, pady=10, sticky='we')
+        except ValueError as e:
+            print(f'Error al Cargar la Ventana de los Cajeros {e}')
+  # Fin VentanaCajeros
 
     def VentanaCajero1(self,cajero =1):
         print('Cajero # 1')
@@ -296,8 +299,7 @@ class MiApp:
         self.EstadoCajero(cajero,) 
 
         btnRegresar = tk.Button(self.ventana_Cajero1,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
-        btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
-        
+        btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10) 
     # Fin Ventana Cajero 1
 
     def VentanaCajero2(self,cajero =2):
@@ -548,6 +550,5 @@ class MiApp:
 # Fin de class MiApp
 #-----------------------------------------------------------------------------------------#
 root = tk.Tk() # se crea la ventana#
-
 app = MiApp(root) # se inicializa la aplicacion
 root.mainloop() # se inicializa el bucle principal
