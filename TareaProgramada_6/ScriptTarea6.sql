@@ -1,24 +1,37 @@
 USE [Progra3Cajero]
+
+
+SELECT * FROM sys.server_principals WHERE name = '*usuario*';    -- valido que exista el usuario
 GO
+
 /****** Object:  User [NestorCA]    Script Date: 14/8/2024 22:23:29 ******/
+CREATE LOGIN [NestorCA] WITH PASSWORD = 'nestor_10';            -- se crea el login con la contrasena
+GO
 CREATE USER [NestorCA] FOR LOGIN [NestorCA] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [NestorCA] 
 GO
 /*Password = nestor10*/
 /****** Object:  User [ArlynCA]    Script Date: 20/8/2024 10:38:58 ******/
+CREATE LOGIN [ArlynCA] WITH PASSWORD = 'arlyn_10';            -- se crea el login con la contrasena
+GO
 CREATE USER [ArlynCA] FOR LOGIN [ArlynCA] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [ArlynCA];
 GO
 /*Password = arlyn10*/
 /****** Object:  User [MarlonCA]    Script Date: 20/8/2024 10:38:58 ******/
+CREATE LOGIN [MarlonCA] WITH PASSWORD = 'marlon_10';            -- se crea el login con la contrasena
+GO
 CREATE USER [MarlonCA] FOR LOGIN [MarlonCA] WITH DEFAULT_SCHEMA=[dbo]
 GO
-ALTER ROLE [db_owner] ADD MEMBER [SamuelCA];
+ALTER ROLE [db_owner] ADD MEMBER [MarlonCA];
 GO
 /*Password = marlon10*/
 /****** Object:  User [SamuelCA]    Script Date: 20/8/2024 10:38:58 ******/
+
+CREATE LOGIN [SamuelCA] WITH PASSWORD = 'samuel_10';            -- se crea el login con la contrasena
+Go
 CREATE USER [SamuelCA] FOR LOGIN [SamuelCA] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [SamuelCA];
