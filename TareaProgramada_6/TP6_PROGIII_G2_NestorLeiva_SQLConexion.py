@@ -3,8 +3,8 @@ import datetime as dt
 from tkinter import messagebox
 
 class ConexionSQL:
-    __Server__ = "NESTORPC\\NESTOR"    #instancia Windows
-    #__Server__ = "localhost"            #instancia ubuntu
+    #__Server__ = "NESTORPC\\NESTOR"    #instancia Windows
+    __Server__ = "localhost"            #instancia ubuntu
     __DataBase__ ="Progra3Cajero"
     __conn__ = None
     
@@ -209,24 +209,24 @@ class MetodosSQL:
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
-    #usuario = "nestorsa"
-    #contrasena ="N$tr0436*"
-    #usuarioBD = "nestorsa"
-    usuarioBD = "NestorCA"
-    usuario = "NestorCA" 
-    contrasena = 'nestor10' 
+    usuario = "nestorsa"
+    contrasena ="N$tr0436*"
+    usuarioBD = "nestorsa"
+    #usuarioBD = "NestorCA"
+    #usuario = "NestorCA" 
+    #contrasena = 'nestor10' 
     metodo_sql = MetodosSQL()
     if ConexionSQL.LoginSQL(usuario= usuario, contrasena= contrasena):
         metodo_sql.ObtenerUsuario(usuario=usuarioBD)
         metodo_sql.ConsultaSaldo()
-        #metodo_sql.RealizarDeposito(5000)
+        metodo_sql.RealizarDeposito(5000)
         #metodo_sql.RealizarRetiro(2000)
         #metodo_sql.ConsutaCajero(cod_cajero=1) 
         #metodo_sql.MovimientoCajero(cod_cajero=1, nuevo_estado='L') 
         #metodo_sql.MovimientoCajero(cod_cajero=2, nuevo_estado='O') 
         #metodo_sql.MovimientoCajero(cod_cajero=3, nuevo_estado='F')  
         #metodo_sql.MovimientoCajero(cod_cajero=4, nuevo_estado='M') 
-        metodo_sql.RealizarAuditoria( cod_mov_a=2, cod_cajero=3  )
+        metodo_sql.RealizarAuditoria( cod_mov_a=1, cod_cajero=3  )
         ConexionSQL.CerrarSQL()
-Prueba()
+#Prueba()
 #phantonsita
