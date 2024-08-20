@@ -8,10 +8,10 @@ class MiApp:
     
     def IngresoLoginSQL(self ):
         try:
-            #usuario = self.txtUsuario.get().strip()
-            #contrasena = self.txtContrasena.get().strip()
-            self.usuario = "nestorsa" # borrar esta linea
-            contrasena = 'N$tr0436*' # borrar esta linea
+            self.usuario = self.txtUsuario.get().strip()
+            contrasena = self.txtContrasena.get().strip()
+            #self.usuario = "nestorsa" # borrar esta linea
+            #contrasena = 'N$tr0436*' # borrar esta linea
             if Conn.ConexionSQL.LoginSQL(self.usuario, contrasena):
                 self.ventana.withdraw()
                 self.VentanaCajeros()
