@@ -82,6 +82,9 @@
    * Simular credenciales de usuarios para acceso al sistema.
    * Cargar datos iniciales en las tablas antes de la ejecución del programa.
    * Diseñar un diagrama entidad-relación para visualizar la estructura de la base de datos.
+   * ![Tarea_6](img/Tarea_6_1.png)
+   * ![Tarea_6](img/Tarea_6_3.png)
+   * ![Tarea_6](img/Tarea_6_7.png)
 
 --------------------------------------------------------------------
 * Institucion: 
