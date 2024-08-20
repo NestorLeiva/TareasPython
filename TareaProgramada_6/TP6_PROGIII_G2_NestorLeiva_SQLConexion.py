@@ -209,9 +209,9 @@ class MetodosSQL:
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
-    usuario = "nestorsa"
-    contrasena ="N$tr0436*"
-    usuarioBD = "nestorsa"
+    usuario = "SamuelCA"
+    contrasena ="samuel_10"
+    usuarioBD = "SamuelCA"
     #usuarioBD = "NestorCA"
     #usuario = "NestorCA" 
     #contrasena = 'nestor10' 
@@ -219,7 +219,7 @@ def Prueba():
     if ConexionSQL.LoginSQL(usuario= usuario, contrasena= contrasena):
         metodo_sql.ObtenerUsuario(usuario=usuarioBD)
         metodo_sql.ConsultaSaldo()
-        metodo_sql.RealizarDeposito(5000)
+        metodo_sql.RealizarDeposito(2350)
         #metodo_sql.RealizarRetiro(2000)
         #metodo_sql.ConsutaCajero(cod_cajero=1) 
         #metodo_sql.MovimientoCajero(cod_cajero=1, nuevo_estado='L') 
@@ -228,5 +228,5 @@ def Prueba():
         #metodo_sql.MovimientoCajero(cod_cajero=4, nuevo_estado='M') 
         metodo_sql.RealizarAuditoria( cod_mov_a=1, cod_cajero=3  )
         ConexionSQL.CerrarSQL()
-#Prueba()
+Prueba()
 #phantonsita
