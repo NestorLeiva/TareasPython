@@ -72,7 +72,7 @@ class MetodosSQL:
             DatosSaldo = cursor.fetchone()
 
             if DatosSaldo:
-                print(f'Saldo es : _{DatosSaldo[0]}_')
+                print(f'Consulta Saldo es : _{DatosSaldo[0]}_')
                 return DatosSaldo[0]
             else:
                 print('Saldo No Encontrado')
@@ -94,7 +94,7 @@ class MetodosSQL:
                     #-----------------------------------------------------------------------------#
                     cursor.execute(queryDeposito, (nuevoSaldo, self.cod_usuario)) 
                     ConexionSQL.__conn__.commit() # aplico los cambios
-                    print(f'Saldo Actualizado :_{nuevoSaldo}_')
+                    print(f'Saldo Deposito Actualizado :_{nuevoSaldo}_')
                     messagebox.showinfo('Tarea Programada 6', 'Deposito Realizado con Exito')
                 else:
                     print('Error al realizar el Deposito')
@@ -123,7 +123,7 @@ class MetodosSQL:
                     #-----------------------------------------------------------------------------#
                     cursor.execute(queryRetiro, (nuevoSaldo, self.cod_usuario)) 
                     ConexionSQL.__conn__.commit() # aplico los cambios
-                    print(f'Saldo Actualizado :_{nuevoSaldo}_')
+                    print(f'Saldo Retiro Actualizado :_{nuevoSaldo}_')
                     messagebox.showinfo('Tarea Programada 6', 'Retiro Realizado con Exito')
                     return nuevoSaldo # se devuelve el saldo SI NO se realiza el deposito 
                 else:
@@ -209,21 +209,24 @@ class MetodosSQL:
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
+    #usuario = "nestorsa"
+    #contrasena ="N$tr0436*"
+    #usuarioBD = "nestorsa"
     usuarioBD = "NestorCA"
     usuario = "NestorCA" 
     contrasena = 'nestor10' 
     metodo_sql = MetodosSQL()
     if ConexionSQL.LoginSQL(usuario= usuario, contrasena= contrasena):
         metodo_sql.ObtenerUsuario(usuario=usuarioBD)
-        #metodo_sql.ConsultaSaldo()
-        #metodo_sql.RealizarDeposito(2000)
-        #metodo_sql.RealizarRetiro(4000)
-        metodo_sql.ConsutaCajero(cod_cajero=1) 
-        metodo_sql.MovimientoCajero(cod_cajero=1, nuevo_estado='L') 
-        metodo_sql.MovimientoCajero(cod_cajero=2, nuevo_estado='O') 
-        metodo_sql.MovimientoCajero(cod_cajero=3, nuevo_estado='F')  
-        metodo_sql.MovimientoCajero(cod_cajero=4, nuevo_estado='M') 
-        #metodo_sql.RealizarAuditoria( cod_mov_a=1, cod_cajero=2  )
+        metodo_sql.ConsultaSaldo()
+        #metodo_sql.RealizarDeposito(5000)
+        #metodo_sql.RealizarRetiro(2000)
+        #metodo_sql.ConsutaCajero(cod_cajero=1) 
+        #metodo_sql.MovimientoCajero(cod_cajero=1, nuevo_estado='L') 
+        #metodo_sql.MovimientoCajero(cod_cajero=2, nuevo_estado='O') 
+        #metodo_sql.MovimientoCajero(cod_cajero=3, nuevo_estado='F')  
+        #metodo_sql.MovimientoCajero(cod_cajero=4, nuevo_estado='M') 
+        metodo_sql.RealizarAuditoria( cod_mov_a=2, cod_cajero=3  )
         ConexionSQL.CerrarSQL()
-#Prueba()
+Prueba()
 #phantonsita
