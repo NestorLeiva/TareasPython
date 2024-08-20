@@ -1,14 +1,29 @@
-/*
-UserName = NestorCA
-Password = nestor10
-*/
 USE [Progra3Cajero]
 GO
 /****** Object:  User [NestorCA]    Script Date: 14/8/2024 22:23:29 ******/
 CREATE USER [NestorCA] FOR LOGIN [NestorCA] WITH DEFAULT_SCHEMA=[dbo]
 GO
-ALTER ROLE [db_owner] ADD MEMBER [NestorCA]
+ALTER ROLE [db_owner] ADD MEMBER [NestorCA] 
 GO
+/*Password = nestor10*/
+/****** Object:  User [ArlynCA]    Script Date: 20/8/2024 10:38:58 ******/
+CREATE USER [ArlynCA] FOR LOGIN [ArlynCA] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [ArlynCA];
+GO
+/*Password = arlyn10*/
+/****** Object:  User [MarlonCA]    Script Date: 20/8/2024 10:38:58 ******/
+CREATE USER [MarlonCA] FOR LOGIN [MarlonCA] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [SamuelCA];
+GO
+/*Password = marlon10*/
+/****** Object:  User [SamuelCA]    Script Date: 20/8/2024 10:38:58 ******/
+CREATE USER [SamuelCA] FOR LOGIN [SamuelCA] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [SamuelCA];
+GO
+/*Password = samuel10*/
 /****** Object:  Table [dbo].[Auditoria]    Script Date: 14/8/2024 22:23:29 ******/
 SET ANSI_NULLS ON
 GO
@@ -112,10 +127,10 @@ ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Cuenta]
 GO
 /*-----------------------------------------------------------------------------------------------------------*/
 
-INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (1, 'Arlyn','arlyn10', 'Arlyn Madriz', 1);
-INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (2, 'Nestor','nestor10', 'Nestor Leiva', 1);
-INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (3, 'Samuel','samuel10', 'Samuel Barahona', 1);
-INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (4, 'Marlon','Marlon10', 'Marlon Matamoros', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (1, 'ArlynCA','arlyn10', 'Arlyn Madriz', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (2, 'NestorCA','nestor10', 'Nestor Leiva', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (3, 'SamuelCA','samuel10', 'Samuel Barahona', 1);
+INSERT INTO Usuarios (Cod_Usuario, Usuario , Contra, Nombre, Estado) VALUES (4, 'MarlonCA','Marlon10', 'Marlon Matamoros', 1);
 
 INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (1, 10,5000, 1);
 INSERT INTO Cuentas (cod_usuario_c, numero_cuenta_c , Saldo_c, Movimiento_c) VALUES (2, 10,5000, 1);
