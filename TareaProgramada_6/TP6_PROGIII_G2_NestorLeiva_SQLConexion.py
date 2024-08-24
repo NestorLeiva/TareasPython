@@ -150,7 +150,7 @@ class MetodosSQL:
             cursor.execute(queryAuditoria, (self.cod_usuario,cod_mov_a,fecha,cod_cajero))
 
             ConexionSQL.__conn__.commit()
-            print('Auditoria Realizada con Exito')
+            print('*** Auditoria Realizada con Exito ***')
         except pyodbc.Error as e:
             print(f' Error al Realizar la Auditoria: __ {e}  __')
             ConexionSQL.__conn__.rollback()
@@ -228,5 +228,5 @@ def Prueba():
         #metodo_sql.MovimientoCajero(cod_cajero=4, nuevo_estado='M') 
         metodo_sql.RealizarAuditoria( cod_mov_a=1, cod_cajero=3  )
         ConexionSQL.CerrarSQL()
-Prueba()
+#Prueba()
 #phantonsita
