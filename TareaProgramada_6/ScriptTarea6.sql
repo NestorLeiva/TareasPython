@@ -5,7 +5,7 @@ SELECT * FROM sys.server_principals WHERE name = '*usuario*';    -- valido que e
 GO
 
 /****** Object:  User [NestorCA]    Script Date: 14/8/2024 22:23:29 ******/
-CREATE LOGIN [NestorCA] WITH PASSWORD = 'nestor_10';            -- se crea el login con la contrasena
+CREATE LOGIN [NestorCA] WITH PASSWORD = 'Nestor_10*';            -- se crea el login con la contrasena
 GO
 CREATE USER [NestorCA] FOR LOGIN [NestorCA] WITH DEFAULT_SCHEMA=[dbo]
 GO

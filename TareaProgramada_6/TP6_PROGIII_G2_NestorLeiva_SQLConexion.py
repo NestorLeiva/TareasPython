@@ -209,9 +209,9 @@ class MetodosSQL:
 # Fin class MetodosSQL
 #-----------------------------------------------------------------------------------------#
 def Prueba():
-    usuario = "SamuelCA"
-    contrasena ="samuel_10"
-    usuarioBD = "SamuelCA"
+    usuario = "NestorCA "
+    contrasena ="Nestor_10*"
+    usuarioBD = "NestorCa"
     #usuarioBD = "NestorCA"
     #usuario = "NestorCA" 
     #contrasena = 'nestor10' 
