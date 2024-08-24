@@ -8,10 +8,10 @@ class MiApp:
     
     def IngresoLoginSQL(self ):
         try:
-            self.usuario = self.txtUsuario.get().strip()
-            contrasena = self.txtContrasena.get().strip()
-            #self.usuario = "nestorsa" # borrar esta linea
-            #contrasena = 'N$tr0436*' # borrar esta linea
+            #self.usuario = self.txtUsuario.get().strip()
+            #contrasena = self.txtContrasena.get().strip()
+            self.usuario = "NestorCA" # borrar esta linea
+            contrasena = 'Nestor_10*' # borrar esta linea
             if Conn.ConexionSQL.LoginSQL(self.usuario, contrasena):
                 self.ventana.withdraw()
                 self.VentanaCajeros()
@@ -173,7 +173,7 @@ class MiApp:
                     self.btnCajero3.config(state='active')
                     self.btnIngresoCajero3.config(state='active')
                     print('Bontones Activos Cajero 3')
-                    print('Cajero Libre')
+                    print('Cajero Libre')  
                 elif cajero == 'O':
                     self.btnImg3.config(state='disabled')
                     self.btnCajero3.config(state='disabled')
@@ -300,6 +300,7 @@ class MiApp:
 
         btnRegresar = tk.Button(self.ventana_Cajero1,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10) 
+        return cajero
     # Fin Ventana Cajero 1
 
     def VentanaCajero2(self,cajero =2):
@@ -320,6 +321,7 @@ class MiApp:
         
         btnRegresar = tk.Button(self.ventana_Cajero2,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
+        return cajero
     # Fin Ventana Cajero 2
 
     def VentanaCajero3(self,cajero = 3):
@@ -340,6 +342,7 @@ class MiApp:
         
         btnRegresar = tk.Button(self.ventana_Cajero3,text='Regresar', width=10, justify='center',bd=2,font=("", 16), command= self.RegresarVentanaCajeros )
         btnRegresar.grid(row=5, column=0, columnspan=1, padx=10, pady=10)
+        return cajero
     # Fin Ventana Cajero 3
 
     def OpcionesCajero(self):
@@ -398,6 +401,15 @@ class MiApp:
         def ObtenerNuevoEstado(nuevoEstado):
             num_cajero = (txtCambioCajero.get())
             self.metodos_sql.MovimientoCajero(num_cajero, nuevoEstado)
+
+            if self.VentanaCajero1:
+                self.metodos_sql.RealizarAuditoria(4,1)
+            elif self.VentanaCajero2:
+                self.metodos_sql.RealizarAuditoria(4,2)
+            elif self.VentanaCajero3:
+                self.metodos_sql.RealizarAuditoria(4,3)
+            #cod_mov_a / num_cajero
+
             self.Limpiar(txtCambioCajero)
         
 
@@ -437,7 +449,16 @@ class MiApp:
             # se lanza el evento realizarDeposito 
         def OperacionDeposito():
             self.metodos_sql.RealizarDeposito (int(txtIngresoSaldo.get() ))
+            
+            if self.VentanaCajero1:
+                self.metodos_sql.RealizarAuditoria(1,1)
+            elif self.VentanaCajero2:
+                self.metodos_sql.RealizarAuditoria(1,2)
+            elif self.VentanaCajero3:
+                self.metodos_sql.RealizarAuditoria(1,3)
+            #cod_mov_a / num_cajero
             self.Limpiar(txtIngresoSaldo)
+
         btnDepositarD = tk.Button(self.ventana_Deposito,text='Depositar', width=20, justify="center", bd=2,relief="solid", font=("", 14),
                         command= OperacionDeposito   )
         btnDepositarD.grid(row=2, column=0, columnspan=2,padx=10, pady=10, sticky="we")    
@@ -508,6 +529,15 @@ class MiApp:
             self.metodos_sql.RealizarRetiro (int(txtRetiroSaldo.get()))
             self.Limpiar(txtRetiroSaldo)
 
+            if self.VentanaCajero1:
+                self.metodos_sql.RealizarAuditoria(2,1)
+            elif self.VentanaCajero2:
+                self.metodos_sql.RealizarAuditoria(2,2)
+            elif self.VentanaCajero3:
+                self.metodos_sql.RealizarAuditoria(2,3)
+            #cod_mov_a / num_cajero
+            self.Limpiar(txtRetiroSaldo)
+
         btnRetiroR = tk.Button(self.ventana_Retiros,text='Retiro', width=20, justify="center", bd=2, relief="solid", font=("", 14),command= OperacionRetiro ) 
         btnRetiroR  .grid(row=4, column=0, columnspan=1,padx=10, pady=10, sticky="we")
         # ---------------------------------------------------------------#
@@ -541,6 +571,14 @@ class MiApp:
         self.txtSaldoC.delete(0,tk.END) # elimino el dato almacenado anterios
         self.txtSaldoC.insert(0,saldo) # Inserto el saldo al txt
         self.txtSaldoC.config(state='disabled')
+
+        if self.VentanaCajero1:
+                self.metodos_sql.RealizarAuditoria(3,1)
+        elif self.VentanaCajero2:
+                self.metodos_sql.RealizarAuditoria(3,2)
+        elif self.VentanaCajero3:
+                self.metodos_sql.RealizarAuditoria(3,3)
+            #cod_mov_a / num_cajero
         # ---------------------------------------------------------------#
         # ---------------------------------------------------------------#
         self.btnRegresarR = tk.Button(self.ventana_Consulta,text='Regresar', width=20, justify="center", bd=2, relief="solid", font=("", 14), command= self.RegresarVentanaCajeros )
